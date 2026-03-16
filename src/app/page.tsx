@@ -3,9 +3,9 @@ import Link from "next/link";
 
 const stats = [
   { value: "+5.000", label: "clientes" },
-  { value: "180€/año", label: "de ahorro" },
-  { value: "10+", label: "años" },
-  { value: "40+", label: "compañías" },
+  { value: "180€/año", label: "de ahorro medio" },
+  { value: "10+", label: "años de experiencia" },
+  { value: "40+", label: "compañías comparadas" },
 ];
 
 const socialProof = [
@@ -131,13 +131,16 @@ export default function Home() {
   return (
     <>
       {/* ─── 1. HERO ─── */}
-      <section className="bg-[#fff5f0] px-6 py-32">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-block rounded-full border border-[#f97316]/30 bg-[#f97316]/10 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-[#f97316]">
+      <section className="relative overflow-hidden bg-[#fff5f0] px-6 pb-20 pt-24 md:pb-32 md:pt-32">
+        {/* Subtle radial glow */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(249,115,22,0.08)_0%,_transparent_70%)]" />
+
+        <div className="relative mx-auto max-w-3xl text-center">
+          <span className="inline-block rounded-full border border-[#f97316]/20 bg-white/60 px-5 py-2 text-xs font-medium tracking-wide text-[#f97316] backdrop-blur-sm">
             Asesor energético independiente · Molins de Rei
           </span>
 
-          <h1 className="mx-auto mt-8 max-w-3xl text-5xl font-semibold leading-none tracking-[-0.04em] text-[#1f2942] sm:text-6xl md:text-7xl">
+          <h1 className="mx-auto mt-10 max-w-3xl text-5xl font-semibold leading-[0.95] tracking-[-0.04em] text-[#1f2942] sm:text-6xl md:text-7xl">
             Deja de pagar
             <br />
             de <span className="text-[#f97316]">más</span> por
@@ -145,60 +148,52 @@ export default function Home() {
             la luz y el gas
           </h1>
 
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-[#383d4c]">
+          <p className="mx-auto mt-7 max-w-lg text-lg leading-relaxed text-[#383d4c]">
             Analizamos tu factura gratis y te conseguimos el mejor precio entre
             +40 compañías. Sin permanencia. Sin sorpresas.
           </p>
 
-          <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
               href="/contacto"
-              className="inline-flex items-center justify-center rounded-sm bg-[#f97316] px-8 py-4 text-base font-medium text-white transition hover:bg-orange-600"
+              className="inline-flex items-center justify-center rounded-full bg-[#f97316] px-8 py-4 text-base font-medium text-white shadow-lg shadow-orange-200/50 transition hover:bg-orange-600 hover:shadow-orange-300/50"
             >
               Analizar mi factura gratis
             </Link>
             <Link
               href="#como-funciona"
-              className="inline-flex items-center gap-1 text-base font-medium text-[#f97316] hover:underline"
+              className="inline-flex items-center gap-1 text-base font-medium text-[#f97316] transition hover:opacity-70"
             >
               ¿Cómo funciona? →
             </Link>
           </div>
-
-          <div className="mt-14 flex flex-wrap items-center justify-center gap-6 sm:gap-0 sm:divide-x sm:divide-gray-300">
-            {stats.map((s) => (
-              <div key={s.label} className="sm:px-8 first:sm:pl-0 last:sm:pr-0">
-                <p className="text-2xl font-semibold tracking-[-0.04em] text-[#1f2942] sm:text-3xl">
-                  {s.value}
-                </p>
-                <p className="text-sm text-[#383d4c]">{s.label}</p>
-              </div>
-            ))}
-          </div>
         </div>
 
-        <div className="hidden md:block">
+        {/* Hero image */}
+        <div className="relative mx-auto mt-16 max-w-5xl">
           <Image
-            src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=900&q=80"
+            src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80"
             alt="Dashboard de análisis de factura eléctrica"
-            width={900}
-            height={288}
-            className="mx-auto mt-12 h-72 w-full max-w-4xl rounded-2xl object-cover shadow-sm"
+            width={1200}
+            height={500}
+            className="w-full rounded-3xl object-cover shadow-2xl shadow-black/10 md:h-[420px]"
           />
+          {/* Gradient fade at bottom */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 rounded-b-3xl bg-gradient-to-t from-[#fff5f0] to-transparent" />
         </div>
       </section>
 
       {/* ─── 2. SOCIAL PROOF ─── */}
-      <section className="bg-[#fefefe] px-6 py-12">
+      <section className="border-b border-gray-100 bg-[#fefefe] px-6 py-14">
         <div className="mx-auto max-w-5xl text-center">
-          <p className="text-sm text-[#8892a4]">
-            Vecinos y negocios de Molins de Rei que ya ahorran
+          <p className="text-xs font-medium uppercase tracking-widest text-[#8892a4]">
+            Vecinos y negocios que ya ahorran
           </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
             {socialProof.map((name) => (
               <span
                 key={name}
-                className="text-base font-medium text-gray-300"
+                className="text-lg font-semibold tracking-tight text-gray-300"
               >
                 {name}
               </span>
@@ -213,19 +208,22 @@ export default function Home() {
           <p className="text-center text-xs font-medium uppercase tracking-widest text-[#f97316]">
             El problema
           </p>
-          <h2 className="mx-auto mt-4 max-w-3xl text-center text-4xl font-semibold leading-none tracking-[-0.04em] text-white sm:text-5xl">
+          <h2 className="mx-auto mt-4 max-w-3xl text-center text-4xl font-semibold leading-[0.95] tracking-[-0.04em] text-white sm:text-5xl">
             Las eléctricas ganan más
             <br className="hidden sm:block" />
             cuanto menos entiendes
             <br className="hidden sm:block" />
             tu factura
           </h2>
+          <p className="mx-auto mt-6 max-w-xl text-center text-lg leading-relaxed text-[#8892a4]">
+            El mercado eléctrico está diseñado para confundirte. Nosotros lo simplificamos.
+          </p>
 
-          <div className="mt-14 grid gap-5 sm:grid-cols-2">
+          <div className="mt-16 grid gap-5 sm:grid-cols-2">
             {problemas.map((p) => (
               <div
                 key={p.title}
-                className="rounded-2xl border border-white/[0.06] bg-[#16181d] p-8"
+                className="rounded-2xl border border-white/[0.06] bg-[#16181d] p-8 transition hover:border-white/[0.12]"
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#f97316]/10 text-[#f97316]">
                   {p.icon}
@@ -246,20 +244,20 @@ export default function Home() {
           <p className="text-center text-xs font-medium uppercase tracking-widest text-[#f97316]">
             La solución
           </p>
-          <h2 className="mx-auto mt-4 max-w-3xl text-center text-4xl font-semibold leading-none tracking-[-0.04em] text-[#1f2942] sm:text-5xl">
+          <h2 className="mx-auto mt-4 max-w-3xl text-center text-4xl font-semibold leading-[0.95] tracking-[-0.04em] text-[#1f2942] sm:text-5xl">
             Un asesor de tu lado,
             <br className="hidden sm:block" />
             no del lado de las eléctricas
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-center text-lg leading-relaxed text-[#383d4c]">
+          <p className="mx-auto mt-6 max-w-xl text-center text-lg leading-relaxed text-[#383d4c]">
             Independiente, transparente, y centrado en tu ahorro real.
           </p>
 
-          <div className="mt-14 grid gap-6 sm:grid-cols-3">
+          <div className="mt-16 grid gap-6 sm:grid-cols-3">
             {soluciones.map((s) => (
               <div
                 key={s.title}
-                className="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm"
+                className="rounded-2xl border border-gray-100 bg-white p-8 transition hover:shadow-md"
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#f97316]/10 text-[#f97316]">
                   {s.icon}
@@ -279,31 +277,32 @@ export default function Home() {
       {/* ─── 5. CÓMO FUNCIONA ─── */}
       <section
         id="como-funciona"
-        className="bg-[#fefefe] px-6 py-32"
+        className="border-t border-gray-100 bg-[#fefefe] px-6 py-32"
       >
         <div className="mx-auto max-w-5xl text-center">
           <p className="text-xs font-medium uppercase tracking-widest text-[#f97316]">
             Proceso
           </p>
-          <h2 className="mx-auto mt-4 max-w-3xl text-4xl font-semibold leading-none tracking-[-0.04em] text-[#1f2942] sm:text-5xl">
+          <h2 className="mx-auto mt-4 max-w-3xl text-4xl font-semibold leading-[0.95] tracking-[-0.04em] text-[#1f2942] sm:text-5xl">
             En menos de 10 minutos
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-[#383d4c]">
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-[#383d4c]">
             Así de fácil es empezar a ahorrar con Vitergy
           </p>
 
-          <div className="relative mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="absolute top-10 left-[12.5%] hidden h-px w-[75%] bg-gradient-to-r from-[#f97316]/20 via-[#f97316] to-[#f97316]/20 lg:block" />
+          <div className="relative mt-20 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            {/* Connector line */}
+            <div className="absolute top-8 left-[12.5%] hidden h-px w-[75%] bg-gradient-to-r from-[#f97316]/10 via-[#f97316]/40 to-[#f97316]/10 lg:block" />
 
             {pasos.map((p) => (
               <div key={p.num} className="relative text-center">
-                <div className="relative z-10 mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-[#f97316] text-2xl font-semibold text-white">
+                <div className="relative z-10 mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#f97316] text-lg font-semibold text-white shadow-lg shadow-orange-200/40">
                   {p.num}
                 </div>
-                <h3 className="mt-5 text-base font-semibold text-[#1f2942]">
+                <h3 className="mt-6 text-base font-semibold text-[#1f2942]">
                   {p.title}
                 </h3>
-                <p className="mt-2 text-sm text-[#383d4c]">{p.desc}</p>
+                <p className="mt-2 text-sm leading-relaxed text-[#383d4c]">{p.desc}</p>
               </div>
             ))}
           </div>
@@ -312,12 +311,12 @@ export default function Home() {
 
       {/* ─── 6. VÍCTOR ─── */}
       <section className="bg-[#0e0f12] px-6 py-32">
-        <div className="mx-auto grid max-w-5xl items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="mx-auto grid max-w-5xl items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
             <p className="text-xs font-medium uppercase tracking-widest text-[#f97316]">
               Tu asesor
             </p>
-            <h2 className="mt-4 text-4xl font-semibold leading-none tracking-[-0.04em] text-white sm:text-5xl">
+            <h2 className="mt-4 text-4xl font-semibold leading-[0.95] tracking-[-0.04em] text-white sm:text-5xl">
               Hola, soy
               <br />
               Víctor Marrón
@@ -336,15 +335,15 @@ export default function Home() {
               justo.
             </p>
 
-            <blockquote className="mt-8 border-l-4 border-[#f97316] pl-5">
-              <p className="text-xl font-semibold italic text-white">
+            <blockquote className="mt-8 border-l-2 border-[#f97316] pl-5">
+              <p className="text-xl font-semibold italic leading-snug text-white">
                 &ldquo;Si no te ahorro dinero, no cobro nada.&rdquo;
               </p>
             </blockquote>
 
             <Link
               href="/sobre-mi"
-              className="mt-8 inline-block rounded-sm bg-white px-8 py-4 text-base font-medium text-[#f97316] transition hover:bg-gray-100"
+              className="mt-8 inline-flex items-center rounded-full bg-white px-8 py-3.5 text-sm font-medium text-[#1f2942] transition hover:bg-gray-100"
             >
               Conoce mi historia →
             </Link>
@@ -356,27 +355,30 @@ export default function Home() {
               alt="Víctor Marrón — asesor energético"
               width={500}
               height={600}
-              className="min-h-[400px] w-full rounded-2xl object-cover"
+              className="min-h-[400px] w-full rounded-3xl object-cover"
             />
           </div>
         </div>
       </section>
 
       {/* ─── 7. TESTIMONIOS ─── */}
-      <section className="bg-[#fefefe] px-6 py-32">
+      <section className="bg-[#0e0f12] px-6 py-32">
         <div className="mx-auto max-w-5xl text-center">
           <p className="text-xs font-medium uppercase tracking-widest text-[#f97316]">
             Testimonios
           </p>
-          <h2 className="mx-auto mt-4 max-w-3xl text-4xl font-semibold leading-none tracking-[-0.04em] text-[#1f2942] sm:text-5xl">
+          <h2 className="mx-auto mt-4 max-w-3xl text-4xl font-semibold leading-[0.95] tracking-[-0.04em] text-white sm:text-5xl">
             Lo que dicen nuestros clientes
           </h2>
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-[#8892a4]">
+            No lo decimos nosotros — lo dicen ellos.
+          </p>
 
-          <div className="mt-14 grid gap-6 text-left sm:grid-cols-3">
+          <div className="mt-16 grid gap-6 text-left sm:grid-cols-3">
             {reviews.map((r) => (
               <div
                 key={r.name}
-                className="flex flex-col rounded-2xl border border-gray-100 bg-white p-8 shadow-sm"
+                className="flex flex-col rounded-2xl border border-white/[0.06] bg-[#16181d] p-8 transition hover:border-white/[0.12]"
               >
                 <div className="flex gap-0.5 text-[#f97316]">
                   {Array.from({ length: 5 }).map((_, i) => (
@@ -390,13 +392,15 @@ export default function Home() {
                     </svg>
                   ))}
                 </div>
-                <p className="mt-4 text-sm leading-6 text-[#383d4c]">
+                <p className="mt-5 flex-1 text-sm leading-relaxed text-[#8892a4]">
                   &ldquo;{r.text}&rdquo;
                 </p>
-                <div className="mt-5">
-                  <p className="text-sm font-semibold text-[#1f2942]">{r.name}</p>
-                  <p className="text-xs text-[#8892a4]">{r.detail}</p>
-                  <span className="mt-2 inline-block rounded-full bg-[#f97316]/10 px-3 py-1 text-[10px] font-medium text-[#f97316]">
+                <div className="mt-6 flex items-center justify-between border-t border-white/[0.06] pt-5">
+                  <div>
+                    <p className="text-sm font-semibold text-white">{r.name}</p>
+                    <p className="text-xs text-[#8892a4]">{r.detail}</p>
+                  </div>
+                  <span className="rounded-full bg-[#f97316]/10 px-3 py-1 text-[10px] font-medium text-[#f97316]">
                     Google Reviews
                   </span>
                 </div>
@@ -407,22 +411,23 @@ export default function Home() {
       </section>
 
       {/* ─── 8. CTA FINAL ─── */}
-      <section className="bg-[#f97316] px-6 py-32">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-4xl font-semibold leading-none tracking-[-0.04em] text-white sm:text-5xl">
+      <section className="relative overflow-hidden bg-[#f97316] px-6 py-32">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.15)_0%,_transparent_60%)]" />
+        <div className="relative mx-auto max-w-3xl text-center">
+          <h2 className="text-4xl font-semibold leading-[0.95] tracking-[-0.04em] text-white sm:text-5xl">
             ¿Listo para pagar lo justo?
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/80">
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/80">
             Envíanos tu factura y te decimos en 24 horas exactamente cuánto
             puedes ahorrar. Sin compromiso, sin permanencia, sin letra pequeña.
           </p>
           <Link
             href="/contacto"
-            className="mt-8 inline-block rounded-sm bg-white px-10 py-4 text-base font-medium text-[#f97316] transition hover:bg-gray-100"
+            className="mt-10 inline-flex items-center rounded-full bg-white px-10 py-4 text-base font-medium text-[#f97316] transition hover:bg-gray-50"
           >
             Analizar mi factura gratis
           </Link>
-          <p className="mt-6 text-sm text-white/60">
+          <p className="mt-8 text-sm text-white/50">
             Oficina en Molins de Rei · 633 15 10 83 · WhatsApp disponible
           </p>
         </div>

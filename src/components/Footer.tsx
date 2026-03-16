@@ -28,27 +28,27 @@ const empresaLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#fafaf9] text-gray-600">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="bg-[#0e0f12] text-[#8892a4]">
+      <div className="mx-auto max-w-5xl px-6 py-16">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Columna 1: Logo + info */}
           <div>
-            <Link href="/" className="text-2xl font-extrabold tracking-tight text-[#f97316]">
+            <Link href="/" className="text-xl font-semibold tracking-tight text-white">
               VITERGY
             </Link>
-            <p className="mt-4 text-sm leading-6 text-gray-500">
+            <p className="mt-4 text-sm leading-6">
               Asesor energético independiente en Molins de Rei.
             </p>
-            <div className="mt-3 space-y-1 text-sm text-gray-500">
+            <div className="mt-4 space-y-1 text-sm">
               <p>Carrer de Ferran Agulló 6, LOCAL</p>
               <p>08750 Molins de Rei</p>
               <p>
-                <a href="tel:+34633151083" className="hover:text-[#f97316]">
+                <a href="tel:+34633151083" className="transition hover:text-white">
                   633 15 10 83
                 </a>
               </p>
               <p>
-                <a href="mailto:info@vitergy.es" className="hover:text-[#f97316]">
+                <a href="mailto:info@vitergy.es" className="transition hover:text-white">
                   info@vitergy.es
                 </a>
               </p>
@@ -57,15 +57,15 @@ export default function Footer() {
 
           {/* Columna 2: Servicios */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-900">
+            <h3 className="text-xs font-medium uppercase tracking-widest text-white">
               Servicios
             </h3>
-            <ul className="mt-4 space-y-2">
+            <ul className="mt-4 space-y-2.5">
               {serviciosLinks.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-gray-500 hover:text-[#f97316]"
+                    className="text-sm transition hover:text-white"
                   >
                     {item.label}
                   </Link>
@@ -76,15 +76,15 @@ export default function Footer() {
 
           {/* Columna 3: Herramientas */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-900">
+            <h3 className="text-xs font-medium uppercase tracking-widest text-white">
               Herramientas
             </h3>
-            <ul className="mt-4 space-y-2">
+            <ul className="mt-4 space-y-2.5">
               {herramientasLinks.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-gray-500 hover:text-[#f97316]"
+                    className="text-sm transition hover:text-white"
                   >
                     {item.label}
                   </Link>
@@ -95,15 +95,15 @@ export default function Footer() {
 
           {/* Columna 4: Empresa */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-900">
+            <h3 className="text-xs font-medium uppercase tracking-widest text-white">
               Empresa
             </h3>
-            <ul className="mt-4 space-y-2">
+            <ul className="mt-4 space-y-2.5">
               {empresaLinks.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-gray-500 hover:text-[#f97316]"
+                    className="text-sm transition hover:text-white"
                   >
                     {item.label}
                   </Link>
@@ -114,8 +114,8 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-12 border-t border-gray-200 pt-8 text-center text-sm text-gray-400">
-          © 2026 Vitergy - Por encima del techo del cielo SL
+        <div className="mt-14 border-t border-white/[0.06] pt-8 text-center text-xs text-[#8892a4]">
+          © 2026 Vitergy — Por encima del techo del cielo SL. Todos los derechos reservados.
         </div>
       </div>
     </footer>

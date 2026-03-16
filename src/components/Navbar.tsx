@@ -114,7 +114,7 @@ export default function Navbar() {
             </Link>
             <Link
               href="/contacto"
-              className="ml-2 rounded-sm bg-[#f97316] px-4 py-2 text-sm font-medium text-white hover:bg-orange-600"
+              className="ml-2 rounded-full bg-[#f97316] px-5 py-2 text-sm font-medium text-white transition hover:bg-orange-600"
             >
               Contacto
             </Link>
@@ -229,7 +229,7 @@ export default function Navbar() {
               <div className="pt-4">
                 <Link
                   href="/contacto"
-                  className="block rounded-sm bg-[#f97316] px-3 py-3 text-center text-base font-medium text-white hover:bg-orange-600"
+                  className="block rounded-full bg-[#f97316] px-3 py-3 text-center text-base font-medium text-white hover:bg-orange-600"
                   onClick={closeMobile}
                 >
                   Contacto
