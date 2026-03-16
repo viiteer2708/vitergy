@@ -110,19 +110,19 @@ const pasos = [
 
 const reviews = [
   {
-    text: "Víctor me ahorró 240€ al año solo con un cambio de tarifa. No me lo podía creer. Y encima se encargó él de todo el papeleo.",
-    name: "María García",
-    detail: "Vecina de Molins de Rei",
+    text: "Victor lleva ayudándonos desde 2015. Siempre disponible, siempre con soluciones. Sabe MUY bien lo que hace.",
+    name: "GRUPO NEW ENERGY",
+    detail: "Cliente desde 2015",
   },
   {
-    text: "Llevaba años pagando de más por una potencia que no necesitaba. En 10 minutos lo detectó y me lo solucionó. Muy profesional.",
-    name: "Joan Martínez",
-    detail: "Autónomo · Sant Feliu",
+    text: "Antes pagaba 85€ al mes, ahora pago 62€. Son 23€ menos cada mes sin cambiar nada en casa. Solo con el cambio que me recomendó Víctor.",
+    name: "Carmen",
+    detail: "Clienta desde 2022",
   },
   {
-    text: "Como administradora de fincas, necesitaba alguien que gestionara las facturas de mis comunidades. Víctor me quitó un problema de encima enorme.",
-    name: "Laura Sánchez",
-    detail: "Administradora de fincas",
+    text: "La mejor asesoría energética. Conozco al dueño y ya estoy ahorrando antes de la apertura. Totalmente recomendable.",
+    name: "Rubén Camacho",
+    detail: "Cliente verificado",
   },
 ];
 
@@ -238,28 +238,28 @@ export default function Home() {
       {/* ─── 4. LA SOLUCIÓN ─── */}
       <section className="bg-[#fff5f0] px-4 py-24 sm:px-6 md:py-32 lg:px-8">
         <div className="mx-auto max-w-6xl">
-          <p className="text-sm font-semibold uppercase tracking-widest text-[#f97316]">
+          <p className="text-center text-sm font-semibold uppercase tracking-widest text-[#f97316]">
             La solución
           </p>
-          <h2 className="mt-4 text-4xl font-black leading-tight text-[#1a1a1a] sm:text-5xl">
+          <h2 className="mt-4 text-center text-4xl font-black leading-tight text-[#1a1a1a] sm:text-5xl">
             Un asesor de tu lado,
             <br className="hidden sm:block" />
             no del lado de las eléctricas
           </h2>
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-3">
+          <div className="mt-14 grid gap-8 sm:grid-cols-3">
             {soluciones.map((s) => (
               <div
                 key={s.title}
-                className="rounded-3xl bg-white p-7 shadow-sm shadow-orange-100 sm:p-8"
+                className="rounded-3xl border border-gray-100 bg-[#fff5f0] p-8 shadow-md shadow-orange-100 sm:p-10"
               >
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f97316]/10 text-[#f97316]">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#f97316]/15 text-[#f97316]">
                   {s.icon}
                 </div>
-                <h3 className="mt-5 text-lg font-bold text-[#1a1a1a]">
+                <h3 className="mt-6 text-xl font-bold text-[#1a1a1a]">
                   {s.title}
                 </h3>
-                <p className="mt-2 text-sm leading-6 text-gray-500">
+                <p className="mt-3 text-base leading-7 text-gray-600">
                   {s.desc}
                 </p>
               </div>
@@ -352,17 +352,17 @@ export default function Home() {
       </section>
 
       {/* ─── 7. TESTIMONIOS ─── */}
-      <section className="bg-[#fff5f0] px-4 py-24 sm:px-6 md:py-32 lg:px-8">
+      <section className="bg-[#fff5f0] px-4 py-16 sm:px-6 md:py-24 lg:px-8">
         <div className="mx-auto max-w-6xl text-center">
           <h2 className="text-4xl font-black text-[#1a1a1a] sm:text-5xl">
             Lo que dicen nuestros clientes
           </h2>
 
-          <div className="mt-14 grid gap-6 text-left sm:grid-cols-3">
+          <div className="mt-12 grid gap-6 text-left sm:grid-cols-3">
             {reviews.map((r) => (
               <div
                 key={r.name}
-                className="rounded-3xl bg-white p-7 shadow-sm shadow-orange-100 sm:p-8"
+                className="flex flex-col rounded-3xl bg-white p-7 shadow-sm shadow-orange-100 sm:p-8"
               >
                 {/* Stars */}
                 <div className="flex gap-0.5 text-[#f97316]">
@@ -380,13 +380,11 @@ export default function Home() {
                 <p className="mt-4 text-sm leading-6 text-gray-600">
                   &ldquo;{r.text}&rdquo;
                 </p>
-                <div className="mt-5 flex items-center gap-3">
-                  <div>
-                    <p className="text-sm font-bold text-[#1a1a1a]">{r.name}</p>
-                    <p className="text-xs text-gray-400">{r.detail}</p>
-                  </div>
-                  <span className="ml-auto rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-semibold text-gray-400">
-                    Google Reviews
+                <div className="mt-5">
+                  <p className="font-semibold text-gray-900">{r.name}</p>
+                  <p className="text-xs text-gray-400">{r.detail}</p>
+                  <span className="mt-2 inline-block rounded-full bg-[#f97316]/10 px-3 py-1 text-xs font-semibold text-[#f97316]">
+                    ⭐ Google Reviews
                   </span>
                 </div>
               </div>
