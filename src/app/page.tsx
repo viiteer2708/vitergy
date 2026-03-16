@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const stats = [
@@ -131,7 +132,7 @@ export default function Home() {
     <>
       {/* ─── 1. HERO ─── */}
       <section className="bg-[#fff5f0] px-4 pb-20 pt-16 sm:px-6 md:pb-32 md:pt-24 lg:px-8">
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-3xl text-center">
           {/* Badge */}
           <span className="inline-block rounded-full border border-[#f97316]/30 bg-[#f97316]/10 px-4 py-1.5 text-sm font-medium text-[#f97316]">
             ⚡ Asesor energético independiente · Molins de Rei
@@ -148,13 +149,13 @@ export default function Home() {
           </h1>
 
           {/* Subtítulo */}
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-gray-500 sm:text-xl">
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-gray-500 sm:text-xl">
             Analizamos tu factura gratis y te conseguimos el mejor precio entre
             +40 compañías. Sin permanencia. Sin sorpresas.
           </p>
 
           {/* CTAs */}
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+          <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
               href="/contacto"
               className="inline-flex items-center justify-center rounded-xl bg-[#f97316] px-8 py-4 text-lg font-bold text-white shadow-lg shadow-orange-200 transition hover:bg-orange-600"
@@ -170,7 +171,7 @@ export default function Home() {
           </div>
 
           {/* Stats */}
-          <div className="mt-14 flex flex-wrap items-center gap-6 sm:gap-0 sm:divide-x sm:divide-gray-300">
+          <div className="mt-14 flex flex-wrap items-center justify-center gap-6 sm:gap-0 sm:divide-x sm:divide-gray-300">
             {stats.map((s) => (
               <div key={s.label} className="sm:px-8 first:sm:pl-0 last:sm:pr-0">
                 <p className="text-2xl font-black text-[#1a1a1a] sm:text-3xl">
@@ -180,6 +181,17 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Hero image (desktop only) */}
+        <div className="hidden md:block">
+          <Image
+            src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=900&q=80"
+            alt="Dashboard de análisis de factura eléctrica"
+            width={900}
+            height={288}
+            className="mx-auto mt-12 h-72 w-full max-w-4xl rounded-3xl object-cover shadow-xl"
+          />
         </div>
       </section>
 
@@ -205,10 +217,10 @@ export default function Home() {
       {/* ─── 3. EL PROBLEMA ─── */}
       <section className="bg-[#1a1a1a] px-4 py-24 sm:px-6 md:py-32 lg:px-8">
         <div className="mx-auto max-w-6xl">
-          <p className="text-sm font-semibold uppercase tracking-widest text-[#f97316]">
+          <p className="text-center text-sm font-semibold uppercase tracking-widest text-[#f97316]">
             El problema
           </p>
-          <h2 className="mt-4 text-4xl font-black leading-tight text-white sm:text-5xl">
+          <h2 className="mt-4 text-center text-4xl font-black leading-tight text-white sm:text-5xl">
             Las eléctricas ganan más
             <br className="hidden sm:block" />
             cuanto menos entiendes
@@ -342,11 +354,15 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Avatar placeholder */}
+          {/* Photo */}
           <div className="flex justify-center lg:justify-end">
-            <div className="flex h-72 w-72 items-center justify-center rounded-3xl bg-[#f97316] shadow-2xl shadow-orange-500/20 sm:h-80 sm:w-80">
-              <span className="text-8xl font-black text-white">VM</span>
-            </div>
+            <Image
+              src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&q=80"
+              alt="Víctor Marrón — asesor energético"
+              width={500}
+              height={600}
+              className="min-h-[400px] w-full rounded-3xl object-cover shadow-2xl shadow-orange-500/20"
+            />
           </div>
         </div>
       </section>
