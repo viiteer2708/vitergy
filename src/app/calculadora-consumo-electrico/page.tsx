@@ -220,7 +220,7 @@ export default function CalculadoraConsumoPage() {
                 key={i}
                 className="flex gap-4 rounded-xl border border-gray-100 bg-gray-50 p-5"
               >
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#f97316] text-sm font-bold text-white">
                   {i + 1}
                 </span>
                 <div>
