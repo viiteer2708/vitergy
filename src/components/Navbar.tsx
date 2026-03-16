@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 
 const servicios = [
@@ -44,8 +45,15 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-extrabold tracking-tight text-[#f97316]">
-            VITERGY
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/logo-vitergy.png"
+              alt="Vitergy - Asesoría Energética"
+              width={140}
+              height={48}
+              className="h-10 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop menu */}
