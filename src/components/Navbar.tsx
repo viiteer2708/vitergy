@@ -41,7 +41,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="sticky top-0 z-50 bg-white shadow-sm">
+    <nav className="sticky top-0 z-50 border-b border-gray-100 bg-[#fefefe]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
@@ -60,7 +60,7 @@ export default function Navbar() {
           <div className="hidden items-center gap-1 md:flex">
             {/* Servicios dropdown */}
             <div className="group relative">
-              <button className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:bg-orange-50 hover:text-[#f97316]">
+              <button className="rounded-lg px-4 py-2 text-sm font-normal text-gray-600 hover:text-gray-900">
                 Servicios
                 <svg className="ml-1 inline-block h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -71,7 +71,7 @@ export default function Navbar() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-[#f97316]"
+                    className="block px-4 py-2 text-sm text-gray-600 hover:text-gray-900"
                   >
                     {item.label}
                   </Link>
@@ -81,7 +81,7 @@ export default function Navbar() {
 
             {/* Herramientas dropdown */}
             <div className="group relative">
-              <button className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:bg-orange-50 hover:text-[#f97316]">
+              <button className="rounded-lg px-4 py-2 text-sm font-normal text-gray-600 hover:text-gray-900">
                 Herramientas
                 <svg className="ml-1 inline-block h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -92,7 +92,7 @@ export default function Navbar() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-[#f97316]"
+                    className="block px-4 py-2 text-sm text-gray-600 hover:text-gray-900"
                   >
                     {item.label}
                   </Link>
@@ -102,19 +102,19 @@ export default function Navbar() {
 
             <Link
               href="/blog"
-              className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:bg-orange-50 hover:text-[#f97316]"
+              className="rounded-lg px-4 py-2 text-sm font-normal text-gray-600 hover:text-gray-900"
             >
               Blog
             </Link>
             <Link
               href="/sobre-mi"
-              className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:bg-orange-50 hover:text-[#f97316]"
+              className="rounded-lg px-4 py-2 text-sm font-normal text-gray-600 hover:text-gray-900"
             >
               Sobre Mí
             </Link>
             <Link
               href="/contacto"
-              className="ml-2 rounded-lg bg-[#f97316] px-5 py-2 text-sm font-semibold text-white hover:bg-orange-600"
+              className="ml-2 rounded-sm bg-[#f97316] px-4 py-2 text-sm font-medium text-white hover:bg-orange-600"
             >
               Contacto
             </Link>
@@ -154,7 +154,7 @@ export default function Navbar() {
               {/* Servicios accordion */}
               <button
                 onClick={() => setMobileServiciosOpen(!mobileServiciosOpen)}
-                className="flex w-full items-center justify-between rounded-lg px-3 py-3 text-base font-medium text-gray-700 hover:bg-orange-50 hover:text-[#f97316]"
+                className="flex w-full items-center justify-between rounded-lg px-3 py-3 text-base font-normal text-gray-600 hover:text-gray-900"
               >
                 Servicios
                 <svg
@@ -172,7 +172,7 @@ export default function Navbar() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="block rounded-lg px-3 py-2.5 text-sm text-gray-600 hover:bg-orange-50 hover:text-[#f97316]"
+                      className="block rounded-lg px-3 py-2.5 text-sm text-gray-600 hover:text-gray-900"
                       onClick={closeMobile}
                     >
                       {item.label}
@@ -184,7 +184,7 @@ export default function Navbar() {
               {/* Herramientas accordion */}
               <button
                 onClick={() => setMobileHerramientasOpen(!mobileHerramientasOpen)}
-                className="flex w-full items-center justify-between rounded-lg px-3 py-3 text-base font-medium text-gray-700 hover:bg-orange-50 hover:text-[#f97316]"
+                className="flex w-full items-center justify-between rounded-lg px-3 py-3 text-base font-normal text-gray-600 hover:text-gray-900"
               >
                 Herramientas
                 <svg
@@ -202,7 +202,7 @@ export default function Navbar() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="block rounded-lg px-3 py-2.5 text-sm text-gray-600 hover:bg-orange-50 hover:text-[#f97316]"
+                      className="block rounded-lg px-3 py-2.5 text-sm text-gray-600 hover:text-gray-900"
                       onClick={closeMobile}
                     >
                       {item.label}
@@ -213,14 +213,14 @@ export default function Navbar() {
 
               <Link
                 href="/blog"
-                className="block rounded-lg px-3 py-3 text-base font-medium text-gray-700 hover:bg-orange-50 hover:text-[#f97316]"
+                className="block rounded-lg px-3 py-3 text-base font-normal text-gray-600 hover:text-gray-900"
                 onClick={closeMobile}
               >
                 Blog
               </Link>
               <Link
                 href="/sobre-mi"
-                className="block rounded-lg px-3 py-3 text-base font-medium text-gray-700 hover:bg-orange-50 hover:text-[#f97316]"
+                className="block rounded-lg px-3 py-3 text-base font-normal text-gray-600 hover:text-gray-900"
                 onClick={closeMobile}
               >
                 Sobre Mí
@@ -229,7 +229,7 @@ export default function Navbar() {
               <div className="pt-4">
                 <Link
                   href="/contacto"
-                  className="block rounded-lg bg-[#f97316] px-3 py-3 text-center text-base font-semibold text-white hover:bg-orange-600"
+                  className="block rounded-sm bg-[#f97316] px-3 py-3 text-center text-base font-medium text-white hover:bg-orange-600"
                   onClick={closeMobile}
                 >
                   Contacto
