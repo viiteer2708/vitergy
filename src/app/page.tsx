@@ -521,7 +521,7 @@ export default function Home() {
 
           <div className="flex justify-center lg:justify-end">
             <Image
-              src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&q=80"
+              src="/victor.png"
               alt="Víctor Marrón — asesor energético en Molins de Rei"
               width={500}
               height={600}
