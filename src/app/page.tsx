@@ -103,7 +103,7 @@ export default function Home() {
   return (
     <>
       {/* ─── 1. HERO — La historia que engancha ─── */}
-      <section className="relative overflow-hidden bg-[#fff5f0] px-6 pb-24 pt-28 md:pb-36 md:pt-40">
+      <section className="relative overflow-hidden bg-[#fff5f0] px-6 pb-24 pt-12 md:pb-36 md:pt-20">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(249,115,22,0.08)_0%,_transparent_70%)]" />
 
         <div className="relative mx-auto max-w-3xl text-center">

@@ -144,12 +144,12 @@ export default function Navbar() {
         <>
           {/* Backdrop */}
           <div
-            className="fixed inset-0 top-16 z-40 bg-black/40 md:hidden"
+            className="fixed inset-0 top-16 z-[60] bg-black/40 md:hidden"
             onClick={closeMobile}
           />
 
           {/* Panel */}
-          <div className="fixed inset-x-0 top-16 bottom-0 z-50 overflow-y-auto bg-white md:hidden">
+          <div className="fixed inset-x-0 top-16 bottom-0 z-[70] overflow-y-auto bg-white md:hidden">
             <div className="space-y-1 px-4 py-4">
               {/* Servicios accordion */}
               <button
