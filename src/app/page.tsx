@@ -106,43 +106,55 @@ export default function Home() {
       <section className="relative overflow-hidden bg-[#fff5f0] px-6 pb-20 pt-24 md:pb-32 md:pt-32">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(249,115,22,0.08)_0%,_transparent_70%)]" />
 
-        <div className="relative mx-auto max-w-3xl">
-          <span className="inline-block rounded-full border border-[#f97316]/20 bg-white/60 px-5 py-2 text-xs font-medium tracking-wide text-[#f97316] backdrop-blur-sm">
-            Asesor energético independiente · Molins de Rei
-          </span>
+        <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <span className="inline-block rounded-full border border-[#f97316]/20 bg-white/60 px-5 py-2 text-xs font-medium tracking-wide text-[#f97316] backdrop-blur-sm">
+              Asesor energético independiente · Molins de Rei
+            </span>
 
-          <h1 className="mt-10 text-4xl font-semibold leading-[1.1] tracking-[-0.03em] text-[#1f2942] sm:text-5xl md:text-6xl">
-            A mi abuela la cambiaron de compañía eléctrica{" "}
-            <span className="text-[#f97316]">7 veces en un año</span>
-            <br className="hidden md:block" />
-            sin que se enterara.
-          </h1>
+            <h1 className="mt-10 text-4xl font-semibold leading-[1.1] tracking-[-0.03em] text-[#1f2942] sm:text-5xl lg:text-[3.4rem]">
+              A mi abuela la cambiaron de compañía eléctrica{" "}
+              <span className="text-[#f97316]">7 veces en un año</span>{" "}
+              sin que se enterara.
+            </h1>
 
-          <p className="mt-7 max-w-2xl text-lg leading-relaxed text-[#383d4c]">
-            Ese día decidí entender cómo funcionaba el mercado eléctrico.
-          </p>
-          <p className="mt-3 max-w-2xl text-lg leading-relaxed text-[#383d4c]">
-            Desde entonces he ayudado a más de 5.000 personas a dejar de pagar
-            de más. Analizo tu factura gratis, comparo más de 40 compañías, y te
-            digo exactamente cuánto puedes ahorrar.
-          </p>
-          <p className="mt-3 max-w-2xl text-lg font-semibold text-[#1f2942]">
-            Si no te ahorro dinero, no cobro nada.
-          </p>
+            <p className="mt-7 max-w-lg text-lg leading-relaxed text-[#383d4c]">
+              Ese día decidí entender cómo funcionaba el mercado eléctrico.
+            </p>
+            <p className="mt-3 max-w-lg text-lg leading-relaxed text-[#383d4c]">
+              Desde entonces he ayudado a más de 5.000 personas a dejar de pagar
+              de más. Analizo tu factura gratis, comparo más de 40 compañías, y te
+              digo exactamente cuánto puedes ahorrar.
+            </p>
+            <p className="mt-3 max-w-lg text-lg font-semibold text-[#1f2942]">
+              Si no te ahorro dinero, no cobro nada.
+            </p>
 
-          <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-            <Link
-              href="/contacto"
-              className="inline-flex items-center justify-center rounded-full bg-[#f97316] px-8 py-4 text-base font-medium text-white shadow-lg shadow-orange-200/50 transition hover:bg-orange-600 hover:shadow-orange-300/50"
-            >
-              Analizar mi factura gratis
-            </Link>
-            <Link
-              href="#casos-reales"
-              className="inline-flex items-center gap-1 text-base font-medium text-[#f97316] transition hover:opacity-70"
-            >
-              Ver casos reales de ahorro →
-            </Link>
+            <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+              <Link
+                href="/contacto"
+                className="inline-flex items-center justify-center rounded-full bg-[#f97316] px-8 py-4 text-base font-medium text-white shadow-lg shadow-orange-200/50 transition hover:bg-orange-600 hover:shadow-orange-300/50"
+              >
+                Analizar mi factura gratis
+              </Link>
+              <Link
+                href="#casos-reales"
+                className="inline-flex items-center gap-1 text-base font-medium text-[#f97316] transition hover:opacity-70"
+              >
+                Ver casos reales de ahorro →
+              </Link>
+            </div>
+          </div>
+
+          <div className="hidden lg:flex justify-center">
+            <Image
+              src="/victor.png"
+              alt="Víctor Marrón — asesor energético"
+              width={480}
+              height={560}
+              className="max-h-[560px] w-auto object-contain drop-shadow-2xl"
+              priority
+            />
           </div>
         </div>
       </section>
@@ -246,7 +258,7 @@ export default function Home() {
               factura. Y te digo, con números exactos, cuánto puedes ahorrar y
               cómo.
             </p>
-            <p>Si aceptas, yo me encargo de todo:</p>
+            <p>Si aceptas, yo me encargo de todo.</p>
           </div>
 
           <div className="mx-auto mt-10 grid max-w-2xl gap-4 sm:grid-cols-3">
@@ -475,25 +487,25 @@ export default function Home() {
       </section>
 
       {/* ─── 8. VÍCTOR — Vulnerable, con opinión, corto ─── */}
-      <section className="bg-[#0e0f12] px-6 py-32">
+      <section className="bg-[#fff5f0] px-6 py-32">
         <div className="mx-auto grid max-w-5xl items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
             <p className="text-xs font-medium uppercase tracking-widest text-[#f97316]">
               Tu asesor
             </p>
-            <h2 className="mt-4 text-4xl font-semibold leading-[1.1] tracking-[-0.03em] text-white sm:text-5xl">
+            <h2 className="mt-4 text-4xl font-semibold leading-[1.1] tracking-[-0.03em] text-[#1f2942] sm:text-5xl">
               Soy Víctor Marrón.
               <br />
               <span className="text-[#f97316]">Y tengo una opinión.</span>
             </h2>
 
-            <div className="mt-8 space-y-4 leading-7 text-[#8892a4]">
+            <div className="mt-8 space-y-4 leading-7 text-[#383d4c]">
               <p>
                 Las comercializadoras eléctricas se aprovechan de que la gente
                 no entiende su factura. Lo llevan haciendo décadas. Y nadie dice
                 nada porque todos cobran comisiones de ellas.
               </p>
-              <p className="text-white">Yo no cobro comisiones de nadie.</p>
+              <p className="text-[#1f2942] font-semibold">Yo no cobro comisiones de nadie.</p>
               <p>
                 Llevo desde 2015 haciendo esto. Empecé porque a mi abuela la
                 cambiaron de compañía 7 veces en un año sin que se enterara.
@@ -506,14 +518,14 @@ export default function Home() {
             </div>
 
             <blockquote className="mt-6 border-l-2 border-[#f97316] pl-5">
-              <p className="text-xl font-semibold italic leading-snug text-white">
+              <p className="text-xl font-semibold italic leading-snug text-[#1f2942]">
                 &ldquo;Si no te ahorro dinero, no cobro nada.&rdquo;
               </p>
             </blockquote>
 
             <Link
               href="/sobre-mi"
-              className="mt-8 inline-flex items-center rounded-full bg-white px-8 py-3.5 text-sm font-medium text-[#1f2942] transition hover:bg-gray-100"
+              className="mt-8 inline-flex items-center rounded-full bg-[#1f2942] px-8 py-3.5 text-sm font-medium text-white transition hover:bg-[#2a3654]"
             >
               Mi historia completa →
             </Link>
@@ -525,19 +537,24 @@ export default function Home() {
               alt="Víctor Marrón — asesor energético en Molins de Rei"
               width={500}
               height={600}
-              className="min-h-[400px] w-full rounded-3xl object-cover"
+              className="min-h-[400px] w-auto rounded-3xl object-contain"
             />
           </div>
         </div>
       </section>
 
       {/* ─── 9. LEAD MAGNET — Captación de email ─── */}
-      <section className="bg-[#1a1c22] px-6 py-24">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-semibold leading-[1.1] tracking-[-0.03em] text-white sm:text-4xl">
+      <section className="bg-[#fefefe] px-6 py-24">
+        <div className="mx-auto max-w-2xl rounded-3xl border border-[#f97316]/20 bg-[#fff5f0] px-8 py-14 text-center sm:px-14">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f97316]/10">
+            <svg className="h-7 w-7 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h2 className="mt-6 text-3xl font-semibold leading-[1.1] tracking-[-0.03em] text-[#1f2942] sm:text-4xl">
             Los 5 errores que estás cometiendo en tu factura de la luz
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-[#8892a4]">
+          <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-[#383d4c]">
             Un documento de 3 páginas. Sin rodeos. Te cuento los errores más
             comunes que veo en las facturas de mis clientes y cómo solucionarlos
             tú mismo.
@@ -546,11 +563,11 @@ export default function Home() {
             <input
               type="email"
               placeholder="Tu email"
-              className="flex-1 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-sm text-white placeholder-[#8892a4] outline-none transition focus:border-[#f97316]/50 focus:ring-1 focus:ring-[#f97316]/50"
+              className="flex-1 rounded-full border border-gray-200 bg-white px-6 py-3.5 text-sm text-[#1f2942] placeholder-[#8892a4] outline-none transition focus:border-[#f97316] focus:ring-2 focus:ring-[#f97316]/20"
             />
             <button
               type="submit"
-              className="rounded-full bg-[#f97316] px-8 py-3.5 text-sm font-medium text-white transition hover:bg-orange-600"
+              className="rounded-full bg-[#f97316] px-8 py-3.5 text-sm font-medium text-white shadow-lg shadow-orange-200/50 transition hover:bg-orange-600"
             >
               Quiero el documento
             </button>
