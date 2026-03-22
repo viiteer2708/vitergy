@@ -112,18 +112,50 @@ export default function Home() {
           </span>
 
           <h1 className="mt-10 text-4xl font-semibold leading-[1.1] tracking-[-0.03em] text-[#1f2942] sm:text-5xl md:text-6xl">
-            A mi abuela la cambiaron de compañía eléctrica{" "}
-            <span className="text-[#f97316]">7 veces en un año</span>{" "}
-            sin que se enterara.
+            A mi abuela la cambiaron de compañía{" "}
+            <span className="text-[#f97316]">7 veces en un solo año</span>
           </h1>
 
           <p className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-[#383d4c]">
-            Ese día decidí entender cómo funcionaba el mercado eléctrico.
-            Desde entonces he ayudado a más de 5.000 personas a dejar de pagar
-            de más.
+            Y la pobre nunca se enteraba del lío que le estaban haciendo.
           </p>
-          <p className="mx-auto mt-3 max-w-xl text-lg font-semibold text-[#1f2942]">
-            Analizo tu factura gratis. Si no te ahorro dinero, no cobro nada.
+          <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-[#383d4c]">
+            Arreglarle ese desastre me costó un montón de llamadas incómodas.
+          </p>
+          <p className="mx-auto mt-4 max-w-xl text-lg font-semibold text-[#1f2942]">
+            Por eso abrí este negocio.
+          </p>
+
+          <div className="mx-auto mt-10 max-w-md space-y-3 text-left">
+            {[
+              "Para que no te mareen (y a tu abuela tampoco)",
+              "Para que sepas lo que pagas",
+              "Para que ahorres de verdad",
+              "Para que tengas a dónde ir — oficina física, no una centralita remota",
+            ].map((item) => (
+              <div key={item} className="flex items-start gap-3">
+                <svg
+                  className="mt-1 h-5 w-5 shrink-0 text-[#f97316]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                <p className="text-base leading-snug text-[#383d4c]">{item}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="mx-auto mt-10 max-w-xl text-lg leading-relaxed text-[#383d4c]">
+            Desde 2015 he conseguido que{" "}
+            <span className="font-semibold text-[#1f2942]">+5.000 clientes</span>{" "}
+            paguen menos en sus facturas de luz y gas.
           </p>
 
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
