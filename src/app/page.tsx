@@ -103,58 +103,42 @@ export default function Home() {
   return (
     <>
       {/* ─── 1. HERO — La historia que engancha ─── */}
-      <section className="relative overflow-hidden bg-[#fff5f0] px-6 pb-20 pt-24 md:pb-32 md:pt-32">
+      <section className="relative overflow-hidden bg-[#fff5f0] px-6 pb-24 pt-28 md:pb-36 md:pt-40">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(249,115,22,0.08)_0%,_transparent_70%)]" />
 
-        <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <div>
-            <span className="inline-block rounded-full border border-[#f97316]/20 bg-white/60 px-5 py-2 text-xs font-medium tracking-wide text-[#f97316] backdrop-blur-sm">
-              Asesor energético independiente · Molins de Rei
-            </span>
+        <div className="relative mx-auto max-w-3xl text-center">
+          <span className="inline-block rounded-full border border-[#f97316]/20 bg-white/60 px-5 py-2 text-xs font-medium tracking-wide text-[#f97316] backdrop-blur-sm">
+            Asesor energético independiente · Molins de Rei
+          </span>
 
-            <h1 className="mt-10 text-4xl font-semibold leading-[1.1] tracking-[-0.03em] text-[#1f2942] sm:text-5xl lg:text-[3.4rem]">
-              A mi abuela la cambiaron de compañía eléctrica{" "}
-              <span className="text-[#f97316]">7 veces en un año</span>{" "}
-              sin que se enterara.
-            </h1>
+          <h1 className="mt-10 text-4xl font-semibold leading-[1.1] tracking-[-0.03em] text-[#1f2942] sm:text-5xl md:text-6xl">
+            A mi abuela la cambiaron de compañía eléctrica{" "}
+            <span className="text-[#f97316]">7 veces en un año</span>{" "}
+            sin que se enterara.
+          </h1>
 
-            <p className="mt-7 max-w-lg text-lg leading-relaxed text-[#383d4c]">
-              Ese día decidí entender cómo funcionaba el mercado eléctrico.
-            </p>
-            <p className="mt-3 max-w-lg text-lg leading-relaxed text-[#383d4c]">
-              Desde entonces he ayudado a más de 5.000 personas a dejar de pagar
-              de más. Analizo tu factura gratis, comparo más de 40 compañías, y te
-              digo exactamente cuánto puedes ahorrar.
-            </p>
-            <p className="mt-3 max-w-lg text-lg font-semibold text-[#1f2942]">
-              Si no te ahorro dinero, no cobro nada.
-            </p>
+          <p className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-[#383d4c]">
+            Ese día decidí entender cómo funcionaba el mercado eléctrico.
+            Desde entonces he ayudado a más de 5.000 personas a dejar de pagar
+            de más.
+          </p>
+          <p className="mx-auto mt-3 max-w-xl text-lg font-semibold text-[#1f2942]">
+            Analizo tu factura gratis. Si no te ahorro dinero, no cobro nada.
+          </p>
 
-            <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-              <Link
-                href="/contacto"
-                className="inline-flex items-center justify-center rounded-full bg-[#f97316] px-8 py-4 text-base font-medium text-white shadow-lg shadow-orange-200/50 transition hover:bg-orange-600 hover:shadow-orange-300/50"
-              >
-                Analizar mi factura gratis
-              </Link>
-              <Link
-                href="#casos-reales"
-                className="inline-flex items-center gap-1 text-base font-medium text-[#f97316] transition hover:opacity-70"
-              >
-                Ver casos reales de ahorro →
-              </Link>
-            </div>
-          </div>
-
-          <div className="hidden lg:flex justify-center">
-            <Image
-              src="/victor.png"
-              alt="Víctor Marrón — asesor energético"
-              width={480}
-              height={560}
-              className="max-h-[560px] w-auto object-contain drop-shadow-2xl"
-              priority
-            />
+          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+            <Link
+              href="/contacto"
+              className="inline-flex items-center justify-center rounded-full bg-[#f97316] px-8 py-4 text-base font-medium text-white shadow-lg shadow-orange-200/50 transition hover:bg-orange-600 hover:shadow-orange-300/50"
+            >
+              Analizar mi factura gratis
+            </Link>
+            <Link
+              href="#casos-reales"
+              className="inline-flex items-center gap-1 text-base font-medium text-[#f97316] transition hover:opacity-70"
+            >
+              Ver casos reales de ahorro →
+            </Link>
           </div>
         </div>
       </section>
