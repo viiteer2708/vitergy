@@ -162,7 +162,14 @@ export default function Navbar() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center">
+            <Link
+              href="/"
+              className="flex items-center"
+              onClick={() => {
+                closeMobile();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
               <Image
                 src="/logo-vitergy.png"
                 alt="Vitergy - Asesoría Energética"
