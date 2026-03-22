@@ -112,7 +112,7 @@ export default function Home() {
           </span>
 
           <h1 className="mt-10 text-4xl font-semibold leading-[1.1] tracking-[-0.03em] text-[#1f2942] sm:text-5xl md:text-6xl">
-            A mi abuela la cambiaron de compañía{" "}
+            A mi abuela la cambiaron de compañía eléctrica{" "}
             <span className="text-[#f97316]">7 veces en un solo año</span>
           </h1>
 
