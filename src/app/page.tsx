@@ -252,7 +252,7 @@ export default function Home() {
       </section>
 
       {/* ─── 4. LA SOLUCIÓN — Directo, sin rodeos ─── */}
-      <section className="bg-[#fefefe] px-6 py-32">
+      <section className="bg-[#fff5f0] px-6 py-32">
         <div className="mx-auto max-w-3xl">
           <p className="text-center text-xs font-medium uppercase tracking-widest text-[#f97316]">
             La solución
@@ -277,7 +277,7 @@ export default function Home() {
             <p>Si aceptas, yo me encargo de todo.</p>
           </div>
 
-          <div className="mx-auto mt-10 grid max-w-2xl gap-4 sm:grid-cols-3">
+          <div className="mx-auto mt-10 grid max-w-4xl gap-4 sm:grid-cols-3">
             {[
               {
                 icon: (
@@ -366,7 +366,7 @@ export default function Home() {
       {/* ─── 5. CASOS REALES — Antes/Después con cifras ─── */}
       <section
         id="casos-reales"
-        className="border-t border-gray-100 bg-[#fefefe] px-6 py-32"
+        className="bg-[#fefefe] px-6 py-32"
       >
         <div className="mx-auto max-w-5xl">
           <p className="text-center text-xs font-medium uppercase tracking-widest text-[#f97316]">
@@ -424,7 +424,7 @@ export default function Home() {
       {/* ─── 6. CÓMO FUNCIONA ─── */}
       <section
         id="como-funciona"
-        className="border-t border-gray-100 bg-[#fefefe] px-6 py-32"
+        className="bg-[#f9fafb] px-6 py-32"
       >
         <div className="mx-auto max-w-5xl text-center">
           <p className="text-xs font-medium uppercase tracking-widest text-[#f97316]">
@@ -548,19 +548,21 @@ export default function Home() {
           </div>
 
           <div className="flex justify-center lg:justify-end">
-            <Image
-              src="/victor.png"
-              alt="Víctor Marrón — asesor energético en Molins de Rei"
-              width={500}
-              height={600}
-              className="min-h-[400px] w-auto rounded-3xl object-contain"
-            />
+            <div className="rounded-3xl bg-white/60 p-4 shadow-lg shadow-orange-100/50">
+              <Image
+                src="/victor.png"
+                alt="Víctor Marrón — asesor energético en Molins de Rei"
+                width={500}
+                height={600}
+                className="min-h-[400px] w-auto rounded-2xl object-contain"
+              />
+            </div>
           </div>
         </div>
       </section>
 
       {/* ─── 9. LEAD MAGNET — Captación de email ─── */}
-      <section className="bg-[#fefefe] px-6 py-24">
+      <section className="bg-[#f9fafb] px-6 py-24">
         <div className="mx-auto max-w-2xl rounded-3xl border border-[#f97316]/20 bg-[#fff5f0] px-8 py-14 text-center sm:px-14">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f97316]/10">
             <svg className="h-7 w-7 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
