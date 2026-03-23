@@ -12,6 +12,55 @@ export const metadata: Metadata = {
 
 const articles = [
   {
+    slug: "como-calcular-consumo-electrico",
+    title: "Cómo Calcular tu Consumo Eléctrico en kWh [Fórmulas + Ejemplos]",
+    description:
+      "Aprende a calcular el consumo eléctrico de tu hogar con fórmulas sencillas, ejemplos prácticos y tablas de consumo por electrodoméstico. Ahorra hasta un 30%.",
+    date: "2026-03-23",
+  },
+  {
+    slug: "pvpc-precio-voluntario",
+    title: "PVPC: Qué Es y Cómo Funciona el Precio Voluntario [Guía 2026]",
+    description:
+      "Todo sobre el PVPC: cómo se calcula, horarios, ventajas e inconvenientes, y cuándo te conviene frente a una tarifa de precio fijo. Comparativa detallada.",
+    date: "2026-03-23",
+  },
+  {
+    slug: "entender-factura-luz",
+    title: "Cómo Entender tu Factura de la Luz: Guía Completa con Ejemplos",
+    description:
+      "Desglosamos cada concepto de tu factura eléctrica: término de potencia, consumo, peajes, impuestos y cargos. Con ejemplo real de factura analizada.",
+    date: "2026-03-23",
+  },
+  {
+    slug: "mejores-comercializadoras-espana",
+    title: "Las Mejores Comercializadoras de Luz en España [Ranking 2026]",
+    description:
+      "Ranking actualizado de las mejores compañías eléctricas en España. Comparamos precios, atención al cliente, energía verde y condiciones de contrato.",
+    date: "2026-03-23",
+  },
+  {
+    slug: "penalizacion-cambio-compania",
+    title: "Penalización por Cambiar de Compañía Eléctrica: ¿Es Legal?",
+    description:
+      "¿Te cobran por cambiar de compañía de luz? Explicamos cuándo es legal, cuánto pueden cobrarte, cómo reclamar y cuándo compensa pagar la penalización.",
+    date: "2026-03-23",
+  },
+  {
+    slug: "optimizar-potencia-contratada",
+    title: "Cómo Optimizar la Potencia Contratada y Ahorrar en tu Factura",
+    description:
+      "Descubre si estás pagando de más por tu potencia contratada. Te enseñamos a calcular la potencia ideal y cómo cambiarla paso a paso.",
+    date: "2026-03-23",
+  },
+  {
+    slug: "monitorizacion-consumo-energetico",
+    title: "Monitorización del Consumo Energético: Guía para Empresas y Hogares",
+    description:
+      "Guía completa sobre monitorización energética: dispositivos, herramientas, implementación paso a paso y cómo interpretar los datos para ahorrar.",
+    date: "2026-03-23",
+  },
+  {
     slug: "comparativa-tarifas-luz",
     title: "Comparativa de Tarifas de Luz 2026: ¿Cuál es la Mejor para Ti?",
     description:
