@@ -560,31 +560,27 @@ export default function Home() {
             </p>
             <div className="grid gap-6 md:grid-cols-2">
               {/* Card 1: Víctor */}
-              <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/5">
-                <div className="flex items-stretch">
-                  <div className="flex shrink-0 items-end bg-gradient-to-t from-white/5 to-transparent px-4 pt-6">
-                    <Image
-                      src="/victor.png"
-                      alt="Víctor Marrón — asesor energético en Molins de Rei"
-                      width={180}
-                      height={242}
-                      className="h-auto w-36 object-contain drop-shadow-lg md:w-44"
-                    />
-                  </div>
-                  <div className="flex flex-col justify-center py-8 pr-6">
-                    <h3 className="text-lg font-bold text-white">Tu asesor dedicado</h3>
-                    <p className="mt-1 text-sm font-semibold text-[#f97316]">Víctor Marrón</p>
-                    <p className="mt-3 text-sm leading-relaxed text-white/60">
-                      Lleva desde 2015 ayudando a familias, negocios y comunidades a pagar menos en su factura de la luz. Más de 5.000 clientes confían en él.
-                    </p>
-                    <div className="mt-4 flex items-center gap-1 text-[#f97316]">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <svg key={i} className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                      ))}
-                      <span className="ml-1 text-xs text-white/40">5.0 en Google</span>
-                    </div>
+              <div className="flex items-center gap-6 rounded-2xl border border-white/10 bg-white/5 p-6 md:gap-8 md:p-8">
+                <Image
+                  src="/victor.png"
+                  alt="Víctor Marrón — asesor energético en Molins de Rei"
+                  width={120}
+                  height={120}
+                  className="h-24 w-24 shrink-0 rounded-full object-cover object-top md:h-28 md:w-28"
+                />
+                <div>
+                  <h3 className="text-lg font-bold text-white">Tu asesor dedicado</h3>
+                  <p className="mt-1 text-sm font-semibold text-[#f97316]">Víctor Marrón</p>
+                  <p className="mt-3 text-sm leading-relaxed text-white/60">
+                    Lleva desde 2015 ayudando a familias, negocios y comunidades a pagar menos en su factura de la luz. Más de 5.000 clientes confían en él.
+                  </p>
+                  <div className="mt-4 flex items-center gap-1 text-[#f97316]">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <svg key={i} className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                    <span className="ml-1 text-xs text-white/40">5.0 en Google</span>
                   </div>
                 </div>
               </div>
