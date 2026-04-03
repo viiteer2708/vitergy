@@ -564,9 +564,9 @@ export default function Home() {
                 <Image
                   src="/victor.png"
                   alt="Víctor Marrón — asesor energético en Molins de Rei"
-                  width={120}
-                  height={120}
-                  className="h-24 w-24 shrink-0 rounded-full object-cover object-top md:h-28 md:w-28"
+                  width={140}
+                  height={188}
+                  className="h-auto w-28 shrink-0 rounded-xl object-cover md:w-32"
                 />
                 <div>
                   <h3 className="text-lg font-bold text-white">Tu asesor dedicado</h3>
