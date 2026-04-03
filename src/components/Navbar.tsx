@@ -39,12 +39,12 @@ function MobileMenu({
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 top-16 z-[60] bg-black/40 md:hidden"
+        className="fixed inset-0 top-20 z-[60] bg-black/40 md:hidden"
         onClick={closeMobile}
       />
 
       {/* Panel */}
-      <div className="fixed inset-x-0 top-16 bottom-0 z-[70] overflow-y-auto bg-white md:hidden">
+      <div className="fixed inset-x-0 top-20 bottom-0 z-[70] overflow-y-auto bg-white md:hidden">
         <div className="space-y-1 px-4 py-4">
           {/* Servicios accordion */}
           <button
@@ -160,7 +160,7 @@ export default function Navbar() {
     <>
       <nav className="sticky top-0 z-50 border-b border-gray-100 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
+          <div className="flex h-20 items-center justify-between md:h-24">
             {/* Logo */}
             <Link
               href="/"
@@ -173,9 +173,9 @@ export default function Navbar() {
               <Image
                 src="/logo-vitergy.png"
                 alt="Vitergy - Asesoría Energética"
-                width={140}
-                height={48}
-                className="h-10 w-auto"
+                width={220}
+                height={64}
+                className="h-14 w-auto md:h-20"
                 priority
               />
             </Link>

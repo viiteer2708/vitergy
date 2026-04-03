@@ -3,6 +3,10 @@
 @theme inline {
   --color-background: #fefefe;
   --color-foreground: #1f2942;
+  --color-dark: #1f2942;
+  --color-accent: #f97316;
+  --color-tint: #fff7ed;
+  --color-muted: #6b7280;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -44,6 +48,24 @@ details[open] summary ~ * {
 @keyframes faq-sweep {
   0% { opacity: 0; transform: translateY(-10px); }
   100% { opacity: 1; transform: translateY(0); }
+}
+
+/* CSS-only tabs (server component compatible) */
+.tab-radio { display: none; }
+.tab-pane { display: none; }
+#tab-analiza:checked ~ .tab-content .tab-pane-analiza,
+#tab-compara:checked ~ .tab-content .tab-pane-compara,
+#tab-optimiza:checked ~ .tab-content .tab-pane-optimiza,
+#tab-gestiona:checked ~ .tab-content .tab-pane-gestiona {
+  display: grid;
+}
+#tab-analiza:checked ~ .tab-labels label[for="tab-analiza"],
+#tab-compara:checked ~ .tab-labels label[for="tab-compara"],
+#tab-optimiza:checked ~ .tab-labels label[for="tab-optimiza"],
+#tab-gestiona:checked ~ .tab-labels label[for="tab-gestiona"] {
+  background-color: #f97316;
+  color: #ffffff;
+  border-color: #f97316;
 }
 
 /* Hide scrollbar for carousels / horizontal scroll */
