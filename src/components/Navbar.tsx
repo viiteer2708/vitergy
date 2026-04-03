@@ -124,10 +124,10 @@ function MobileMenu({
           <div className="pt-4">
             <Link
               href="/contacto"
-              className="block rounded-full bg-[#f97316] px-3 py-3 text-center text-base font-medium text-white hover:bg-orange-600"
+              className="block rounded-xl bg-[#f97316] px-3 py-3 text-center text-base font-semibold text-white shadow-[0_4px_14px_0_rgba(249,115,22,0.39)] hover:bg-orange-600"
               onClick={closeMobile}
             >
-              Contacto
+              Analizar mi factura
             </Link>
           </div>
         </div>
@@ -158,7 +158,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 border-b border-gray-100 bg-[#fefefe]/80 backdrop-blur-lg">
+      <nav className="sticky top-0 z-50 border-b border-gray-100 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
@@ -238,9 +238,9 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/contacto"
-                className="ml-2 rounded-full bg-[#f97316] px-5 py-2 text-sm font-medium text-white transition hover:bg-orange-600"
+                className="ml-2 rounded-xl bg-[#f97316] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_4px_14px_0_rgba(249,115,22,0.39)] transition-all hover:-translate-y-0.5 hover:bg-orange-600 hover:shadow-[0_6px_20px_rgba(249,115,22,0.23)]"
               >
-                Contacto
+                Analizar mi factura
               </Link>
             </div>
 

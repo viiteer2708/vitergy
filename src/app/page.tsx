@@ -30,21 +30,41 @@ const pasos = [
     num: "01",
     title: "Envía tu factura",
     desc: "Por WhatsApp, email o formulario. Una foto vale.",
+    icon: (
+      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+      </svg>
+    ),
   },
   {
     num: "02",
     title: "Analizamos todo",
     desc: "En menos de 24h revisamos cada concepto de tu factura.",
+    icon: (
+      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+    ),
   },
   {
     num: "03",
     title: "Te proponemos un plan",
     desc: "Con cifras reales de ahorro y sin letra pequeña.",
+    icon: (
+      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5" />
+      </svg>
+    ),
   },
   {
     num: "04",
     title: "Gestionamos el cambio",
     desc: "Si aceptas, nos encargamos de todo. Sin cortes ni papeleo.",
+    icon: (
+      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+      </svg>
+    ),
   },
 ];
 
@@ -80,7 +100,7 @@ const faqs = [
   {
     question: "¿Trabajáis para alguna compañía eléctrica?",
     answer:
-      "No. Somos independientes. No cobramos comisiones de ninguna comercializadora. Comparamos más de 40 compañías y te recomendamos la que más te conviene a ti, no la que nos paga más.",
+      "Comparamos más de 40 compañías y te recomendamos la que más te conviene a ti. Todo lo que cobramos de comisiones lo reinvertimos en dar un mejor servicio a nuestros clientes.",
   },
   {
     question: "¿Cuánto tarda el proceso?",
@@ -102,307 +122,251 @@ const faqs = [
 export default function Home() {
   return (
     <>
-      {/* ─── 1. HERO — La historia que engancha ─── */}
-      <section className="relative overflow-hidden bg-[#fff5f0] px-6 pb-24 pt-12 md:pb-36 md:pt-20">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(249,115,22,0.08)_0%,_transparent_70%)]" />
+      {/* ─── 1. HERO ─── */}
+      <section className="relative overflow-hidden bg-[#fefefe] px-6 pb-12 pt-12 md:pb-20 md:pt-20">
+        {/* Ambient blobs */}
+        <div className="pointer-events-none absolute left-1/2 top-0 -z-10 w-full max-w-7xl -translate-x-1/2 overflow-hidden">
+          <div className="absolute -top-[10%] left-[20%] h-[500px] w-[500px] rounded-full bg-orange-50 opacity-70 blur-3xl" />
+          <div className="absolute right-[10%] top-[20%] h-[400px] w-[400px] rounded-full bg-orange-100 opacity-50 blur-3xl" />
+        </div>
 
-        <div className="relative mx-auto max-w-3xl text-center">
-          <span className="inline-block rounded-full border border-[#f97316]/20 bg-white/60 px-5 py-2 text-xs font-medium tracking-wide text-[#f97316] backdrop-blur-sm">
-            Asesor energético independiente · Molins de Rei
-          </span>
+        <div className="relative z-10 mx-auto max-w-7xl text-center">
+          {/* Badge */}
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 shadow-sm">
+            <span className="flex h-2 w-2 rounded-full bg-[#f97316]" />
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#1f2942]">
+              Asesor energético independiente · Molins de Rei
+            </span>
+          </div>
 
-          <h1 className="mt-10 text-4xl font-semibold leading-[1.1] tracking-[-0.03em] text-[#1f2942] sm:text-5xl md:text-6xl">
+          <h1 className="mx-auto max-w-4xl text-4xl font-bold leading-[1.1] tracking-tight text-[#1f2942] sm:text-5xl md:text-6xl lg:text-7xl">
             A mi abuela la cambiaron de compañía eléctrica{" "}
             <span className="text-[#f97316]">7 veces en un solo año</span>
           </h1>
 
-          <p className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-[#383d4c]">
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#6b7280]">
             Y la pobre nunca se enteraba del lío que le estaban haciendo.
-          </p>
-          <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-[#383d4c]">
-            Arreglarle ese desastre me costó un montón de llamadas incómodas.
-          </p>
-          <p className="mx-auto mt-4 max-w-xl text-lg font-semibold text-[#1f2942]">
-            Por eso abrí este negocio.
+            Arreglarle ese desastre me costó un montón de llamadas incómodas.{" "}
+            <span className="font-semibold text-[#1f2942]">Por eso abrí este negocio.</span>
           </p>
 
-          <div className="mx-auto mt-10 max-w-md space-y-3 text-left">
-            {[
-              "Para que no te mareen (y a tu abuela tampoco)",
-              "Para que sepas lo que pagas",
-              "Para que ahorres de verdad",
-              "Para que tengas a dónde ir — oficina física, no una centralita remota",
-            ].map((item) => (
-              <div key={item} className="flex items-start gap-3">
-                <svg
-                  className="mt-1 h-5 w-5 shrink-0 text-[#f97316]"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2.5}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-                <p className="text-base leading-snug text-[#383d4c]">{item}</p>
-              </div>
-            ))}
-          </div>
-
-          <p className="mx-auto mt-10 max-w-xl text-lg leading-relaxed text-[#383d4c]">
-            Desde 2015 he conseguido que{" "}
-            <span className="font-semibold text-[#1f2942]">+5.000 clientes</span>{" "}
-            paguen menos en sus facturas de luz y gas.
-          </p>
-
-          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          {/* CTA buttons */}
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/contacto"
-              className="inline-flex items-center justify-center rounded-full bg-[#f97316] px-8 py-4 text-base font-medium text-white shadow-lg shadow-orange-200/50 transition hover:bg-orange-600 hover:shadow-orange-300/50"
+              className="inline-flex w-full items-center justify-center rounded-xl bg-[#f97316] px-8 py-4 text-base font-semibold text-white shadow-[0_4px_14px_0_rgba(249,115,22,0.39)] transition-all hover:-translate-y-1 hover:bg-orange-600 hover:shadow-[0_6px_20px_rgba(249,115,22,0.23)] sm:w-auto"
             >
               Analizar mi factura gratis
             </Link>
             <Link
-              href="#casos-reales"
-              className="inline-flex items-center gap-1 text-base font-medium text-[#f97316] transition hover:opacity-70"
+              href="#como-funciona"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-8 py-4 text-base font-semibold text-[#1f2942] shadow-sm transition-all hover:-translate-y-1 hover:border-gray-300 hover:shadow-md sm:w-auto"
             >
-              Ver casos reales de ahorro →
+              <svg className="h-5 w-5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Ver cómo funciona
             </Link>
+          </div>
+
+          {/* Dashboard mockup */}
+          <div className="relative mx-auto mt-16 max-w-5xl">
+            <div className="pointer-events-none absolute inset-0 z-10 h-full w-full bg-gradient-to-t from-[#fefefe] via-transparent to-transparent" />
+            <div className="relative overflow-hidden rounded-[24px] border border-gray-100 bg-white p-2 shadow-[0_20px_40px_-4px_rgba(31,41,66,0.08)] sm:p-4">
+              {/* Browser bar */}
+              <div className="mb-4 flex items-center gap-2 border-b border-gray-100 px-2 py-2">
+                <div className="h-3 w-3 rounded-full bg-gray-200" />
+                <div className="h-3 w-3 rounded-full bg-gray-200" />
+                <div className="h-3 w-3 rounded-full bg-gray-200" />
+                <div className="mx-4 h-6 flex-1 rounded-md bg-gray-50" />
+              </div>
+              {/* Mock content */}
+              <div className="grid grid-cols-1 gap-4 p-4 md:grid-cols-3 lg:gap-6">
+                {/* Left: current bill */}
+                <div className="rounded-xl border border-gray-100 bg-gray-50 p-5">
+                  <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-[#6b7280]">Tu factura actual</h4>
+                  <div className="mb-6 flex items-end gap-2">
+                    <span className="text-4xl font-bold text-[#1f2942]">€342</span>
+                    <span className="mb-1 text-sm text-[#6b7280]">/mes</span>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="h-2 w-full rounded-full bg-gray-200">
+                      <div className="h-2 rounded-full bg-red-400" style={{ width: "85%" }} />
+                    </div>
+                    <div className="flex justify-between text-xs text-[#6b7280]">
+                      <span>Término Potencia</span>
+                      <span className="font-medium text-[#1f2942]">Ineficiente</span>
+                    </div>
+                  </div>
+                </div>
+                {/* Right: optimization */}
+                <div className="col-span-1 space-y-4 md:col-span-2">
+                  <div className="relative flex h-40 flex-col justify-between overflow-hidden rounded-xl border border-orange-100 bg-orange-50 p-5">
+                    <div className="relative z-10 flex items-start justify-between">
+                      <div>
+                        <h4 className="mb-1 text-sm font-semibold text-[#f97316]">Proyección Optimizada</h4>
+                        <span className="text-2xl font-bold text-[#1f2942]">€198<span className="text-sm font-normal text-[#6b7280]">/mes</span></span>
+                      </div>
+                      <div className="flex items-center gap-1 rounded-full bg-white px-3 py-1 text-xs font-bold text-green-600 shadow-sm">
+                        <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
+                        -42%
+                      </div>
+                    </div>
+                    <svg className="absolute bottom-0 left-0 h-24 w-full text-[#f97316] opacity-20" preserveAspectRatio="none" viewBox="0 0 100 100">
+                      <path d="M0,100 L0,50 Q25,80 50,40 T100,20 L100,100 Z" fill="currentColor" />
+                    </svg>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex items-center gap-3 rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-50 text-green-600">
+                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                      </div>
+                      <div>
+                        <p className="text-xs text-[#6b7280]">Potencia Ajustada</p>
+                        <p className="text-sm font-semibold text-[#1f2942]">-3kW</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                      </div>
+                      <div>
+                        <p className="text-xs text-[#6b7280]">Mejor Tarifa</p>
+                        <p className="text-sm font-semibold text-[#1f2942]">Indexada</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ─── 2. PRUEBA SOCIAL — Números reales ─── */}
-      <section className="border-b border-gray-100 bg-[#fefefe] px-6 py-14">
-        <div className="mx-auto max-w-5xl">
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
+      {/* ─── 2. STATS BAR ─── */}
+      <section className="border-y border-gray-100 bg-white px-6 py-12">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 divide-y divide-gray-100 text-center md:grid-cols-4 md:divide-x md:divide-y-0">
             {[
-              { value: "+5.000", label: "clientes que ya ahorran" },
-              { value: "180€", label: "ahorro medio al año" },
-              { value: "10+", label: "años en el sector" },
-              { value: "40+", label: "compañías comparadas" },
+              { value: "5.000+", label: "Clientes asesorados" },
+              { value: "40+", label: "Comercializadoras" },
+              { value: "180€", label: "Ahorro medio anual", highlight: true },
+              { value: "10+", label: "Años de experiencia" },
             ].map((s) => (
-              <div key={s.label} className="text-center">
-                <p className="text-3xl font-semibold tracking-tight text-[#f97316] sm:text-4xl">
+              <div key={s.label} className="flex flex-col items-center py-6 md:py-0">
+                <span className={`mb-2 text-4xl font-bold ${s.highlight ? "text-[#f97316]" : "text-[#1f2942]"}`}>
                   {s.value}
-                </p>
-                <p className="mt-1 text-sm text-[#8892a4]">{s.label}</p>
+                </span>
+                <span className="text-sm font-medium text-[#6b7280]">{s.label}</span>
               </div>
             ))}
           </div>
-          <div className="mt-8 flex items-center justify-center gap-2">
-            <div className="flex gap-0.5 text-[#f97316]">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <svg
-                  key={i}
-                  className="h-4 w-4"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              ))}
-            </div>
-            <p className="text-sm text-[#8892a4]">
-              5.0 en Google Reviews · Reseñas verificadas
-            </p>
-          </div>
         </div>
       </section>
 
-      {/* ─── 3. EL PROBLEMA — Frases cortas, ritmo de metralleta ─── */}
-      <section className="bg-[#0e0f12] px-6 py-32">
-        <div className="mx-auto max-w-3xl">
-          <p className="text-center text-xs font-medium uppercase tracking-widest text-[#f97316]">
-            El problema que nadie te cuenta
-          </p>
-          <h2 className="mx-auto mt-6 max-w-2xl text-center text-4xl font-semibold leading-[1.1] tracking-[-0.03em] text-white sm:text-5xl">
-            El mercado eléctrico está diseñado para que pagues de más
-          </h2>
-
-          <div className="mx-auto mt-14 max-w-2xl space-y-6 text-lg leading-relaxed text-[#8892a4]">
-            <p>
-              Tu compañía eléctrica tiene un equipo de 200 personas pensando en
-              cómo cobrarte más.
-            </p>
-            <p className="text-white font-medium">
-              Tú tienes 3 minutos al mes para mirar la factura.
-            </p>
-            <p>Adivina quién gana.</p>
-            <p>
-              Cambian las condiciones de tu contrato sin avisarte. Te meten
-              servicios que no pediste. Te suben el precio cuando caduca la
-              promoción y rezan para que no te des cuenta.
-            </p>
-            <p>
-              Y si llamas para reclamar, 45 minutos esperando al teléfono. Te
-              pasan de departamento en departamento. Una hora de tu vida para que
-              al final no te solucionen nada.
-            </p>
-            <p className="text-white font-medium">
-              No es que no entiendas la factura.
-              <br />
-              Es que está diseñada para que no la entiendas.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── 4. LA SOLUCIÓN — Directo, sin rodeos ─── */}
-      <section className="bg-[#fff5f0] px-6 py-32">
-        <div className="mx-auto max-w-3xl">
-          <p className="text-center text-xs font-medium uppercase tracking-widest text-[#f97316]">
-            La solución
-          </p>
-          <h2 className="mx-auto mt-4 max-w-2xl text-center text-4xl font-semibold leading-[1.1] tracking-[-0.03em] text-[#1f2942] sm:text-5xl">
-            Un asesor que trabaja para ti, no para las eléctricas
-          </h2>
-
-          <div className="mx-auto mt-14 max-w-2xl space-y-6 text-lg leading-relaxed text-[#383d4c]">
-            <p>
-              No trabajo para ninguna compañía eléctrica.
-              <br />
-              No cobro comisiones de nadie.
-              <br />
-              Mi único incentivo es que tú pagues menos.
-            </p>
-            <p>
-              Comparo más de 40 comercializadoras. Analizo cada línea de tu
-              factura. Y te digo, con números exactos, cuánto puedes ahorrar y
-              cómo.
-            </p>
-            <p>Si aceptas, yo me encargo de todo.</p>
+      {/* ─── 3. SOLUCIÓN — Qué hacemos ─── */}
+      <section id="solucion" className="bg-[#fff7ed] px-6 py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-16 text-center">
+            <span className="mb-2 block text-sm font-semibold uppercase tracking-wide text-[#f97316]">
+              La solución
+            </span>
+            <h2 className="text-3xl font-bold tracking-tight text-[#1f2942] md:text-5xl">
+              Un asesor que trabaja para ti, no para las eléctricas
+            </h2>
           </div>
 
-          <div className="mx-auto mt-10 grid max-w-4xl gap-4 sm:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-3">
             {[
               {
                 icon: (
-                  <svg
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                    />
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
                 ),
                 title: "Cambio de compañía",
-                desc: "Todo el papeleo. Cero cortes.",
+                desc: "Comparamos más de 40 comercializadoras. Todo el papeleo, cero cortes.",
               },
               {
                 icon: (
-                  <svg
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M13 10V3L4 14h7v7l9-11h-7z"
-                    />
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 ),
                 title: "Ajuste de potencia",
-                desc: "Pagas solo lo que necesitas.",
+                desc: "Analizamos tu consumo real. Pagas solo lo que necesitas, ni un kW más.",
               },
               {
                 icon: (
-                  <svg
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                    />
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                 ),
                 title: "Reclamaciones",
-                desc: "Si te han cobrado de más, lo recuperamos.",
+                desc: "Si te han cobrado de más, lo detectamos y lo recuperamos por ti.",
               },
             ].map((s) => (
               <div
                 key={s.title}
-                className="rounded-2xl border border-gray-100 bg-white p-6 text-center transition hover:shadow-md"
+                className="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md"
               >
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-[#f97316]/10 text-[#f97316]">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#f97316]/10 text-[#f97316]">
                   {s.icon}
                 </div>
-                <h3 className="mt-4 text-base font-semibold text-[#1f2942]">
-                  {s.title}
-                </h3>
-                <p className="mt-1 text-sm text-[#383d4c]">{s.desc}</p>
+                <h3 className="mb-2 text-lg font-bold text-[#1f2942]">{s.title}</h3>
+                <p className="text-sm leading-relaxed text-[#6b7280]">{s.desc}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-10 text-center">
-            <Link
-              href="/contacto"
-              className="inline-flex items-center justify-center rounded-full bg-[#f97316] px-8 py-4 text-base font-medium text-white shadow-lg shadow-orange-200/50 transition hover:bg-orange-600"
-            >
-              Quiero que analicen mi factura
-            </Link>
+          {/* Testimonial integrado */}
+          <div className="mx-auto mt-12 max-w-2xl rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+            <p className="mb-4 text-sm italic text-[#1f2942]">
+              &ldquo;Todo lo que cobro de comisiones lo reinvierto en mis clientes. Mi único incentivo es que tú pagues menos.&rdquo;
+            </p>
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#f97316]/10 text-sm font-bold text-[#f97316]">
+                VM
+              </div>
+              <div>
+                <p className="text-sm font-bold text-[#1f2942]">Víctor Marrón</p>
+                <p className="text-xs text-[#6b7280]">Fundador de Vitergy</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ─── 5. CASOS REALES — Antes/Después con cifras ─── */}
-      <section
-        id="casos-reales"
-        className="bg-[#fefefe] px-6 py-32"
-      >
+      {/* ─── 4. CASOS REALES ─── */}
+      <section id="casos-reales" className="bg-white px-6 py-24">
         <div className="mx-auto max-w-5xl">
-          <p className="text-center text-xs font-medium uppercase tracking-widest text-[#f97316]">
-            Casos reales
-          </p>
-          <h2 className="mx-auto mt-4 max-w-3xl text-center text-4xl font-semibold leading-[1.1] tracking-[-0.03em] text-[#1f2942] sm:text-5xl">
-            Esto no lo decimos nosotros.
-            <br />
-            Lo dicen las facturas.
-          </h2>
+          <div className="mb-16 text-center">
+            <span className="mb-2 block text-sm font-semibold uppercase tracking-wide text-[#f97316]">
+              Casos reales
+            </span>
+            <h2 className="text-3xl font-bold tracking-tight text-[#1f2942] md:text-5xl">
+              Esto no lo decimos nosotros.
+              <br />
+              Lo dicen las facturas.
+            </h2>
+          </div>
 
-          <div className="mt-16 grid gap-6 sm:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-3">
             {casosReales.map((c) => (
               <div
                 key={c.tipo}
-                className="rounded-2xl border border-gray-100 bg-white p-8 transition hover:shadow-md"
+                className="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md"
               >
-                <p className="text-xs font-medium uppercase tracking-widest text-[#f97316]">
+                <span className="text-xs font-semibold uppercase tracking-wider text-[#f97316]">
                   {c.tipo}
-                </p>
+                </span>
                 <div className="mt-5 flex items-baseline gap-3">
                   <span className="text-2xl font-semibold text-red-400 line-through">
                     {c.antes}
                   </span>
-                  <svg
-                    className="h-5 w-5 text-[#8892a4]"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 7l5 5m0 0l-5 5m5-5H6"
-                    />
+                  <svg className="h-5 w-5 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                   <span className="text-2xl font-semibold text-green-600">
                     {c.despues}
@@ -411,8 +375,8 @@ export default function Home() {
                 <p className="mt-3 text-3xl font-bold tracking-tight text-[#1f2942]">
                   {c.ahorro}
                 </p>
-                <p className="text-sm text-[#8892a4]">de ahorro al año</p>
-                <p className="mt-4 text-sm leading-relaxed text-[#383d4c]">
+                <p className="text-sm text-[#6b7280]">de ahorro al año</p>
+                <p className="mt-4 text-sm leading-relaxed text-[#6b7280]">
                   {c.detalle}
                 </p>
               </div>
@@ -421,33 +385,85 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── 6. CÓMO FUNCIONA ─── */}
-      <section
-        id="como-funciona"
-        className="bg-[#f9fafb] px-6 py-32"
-      >
-        <div className="mx-auto max-w-5xl text-center">
-          <p className="text-xs font-medium uppercase tracking-widest text-[#f97316]">
-            Proceso
-          </p>
-          <h2 className="mx-auto mt-4 max-w-3xl text-4xl font-semibold leading-[1.1] tracking-[-0.03em] text-[#1f2942] sm:text-5xl">
-            En 10 minutos sabrás cuánto puedes ahorrar
+      {/* ─── 5. CONFIANZA ─── */}
+      <section className="border-y border-gray-100 bg-white px-6 py-24">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f97316]/10">
+            <svg className="h-7 w-7 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <h2 className="text-3xl font-bold tracking-tight text-[#1f2942] md:text-4xl">
+            Trabajamos para ti.
+            <br />
+            No para las eléctricas.
           </h2>
+          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-[#6b7280]">
+            Todo lo que cobramos de comisiones lo reinvertimos en dar un mejor servicio a nuestros clientes. Nuestro
+            único objetivo es reducir tus costes. Analizamos el mercado de forma transparente y te
+            presentamos las mejores opciones. Mi único incentivo es que tú pagues menos.
+          </p>
 
-          <div className="relative mt-20 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="absolute top-8 left-[12.5%] hidden h-px w-[75%] bg-gradient-to-r from-[#f97316]/10 via-[#f97316]/40 to-[#f97316]/10 lg:block" />
+          <div className="mx-auto mt-10 grid max-w-2xl gap-4 sm:grid-cols-2">
+            <div className="rounded-2xl border border-green-100 bg-green-50 p-6 text-left">
+              <h3 className="mb-2 text-sm font-bold text-green-800">Enfoque Vitergy</h3>
+              <ul className="space-y-2 text-sm text-green-700">
+                <li className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                  Comisiones reinvertidas en ti
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                  Comparamos +40 compañías por ti
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                  Si no ahorras, no pagas
+                </li>
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-red-100 bg-red-50 p-6 text-left">
+              <h3 className="mb-2 text-sm font-bold text-red-800">Otros asesores</h3>
+              <ul className="space-y-2 text-sm text-red-700">
+                <li className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
+                  Se quedan las comisiones para ellos
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
+                  Te recomiendan lo que les pagan
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="mt-0.5 h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
+                  Permanencias y letra pequeña
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
 
+      {/* ─── 6. CÓMO FUNCIONA ─── */}
+      <section id="como-funciona" className="bg-[#fefefe] px-6 py-24">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-16 text-center">
+            <span className="mb-2 block text-sm font-semibold uppercase tracking-wide text-[#f97316]">
+              Proceso
+            </span>
+            <h2 className="text-3xl font-bold tracking-tight text-[#1f2942] md:text-5xl">
+              En 10 minutos sabrás cuánto puedes ahorrar
+            </h2>
+          </div>
+
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {pasos.map((p) => (
               <div key={p.num} className="relative text-center">
-                <div className="relative z-10 mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#f97316] text-lg font-semibold text-white shadow-lg shadow-orange-200/40">
-                  {p.num}
+                <div className="relative z-10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#f97316] text-white shadow-[0_4px_14px_0_rgba(249,115,22,0.39)]">
+                  {p.icon}
                 </div>
-                <h3 className="mt-6 text-base font-semibold text-[#1f2942]">
-                  {p.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#383d4c]">
-                  {p.desc}
-                </p>
+                <span className="mb-2 block text-xs font-bold text-[#f97316]">PASO {p.num}</span>
+                <h3 className="mb-2 text-base font-bold text-[#1f2942]">{p.title}</h3>
+                <p className="text-sm leading-relaxed text-[#6b7280]">{p.desc}</p>
               </div>
             ))}
           </div>
@@ -455,45 +471,52 @@ export default function Home() {
       </section>
 
       {/* ─── 7. TESTIMONIOS ─── */}
-      <section className="bg-[#0e0f12] px-6 py-32">
-        <div className="mx-auto max-w-5xl text-center">
-          <p className="text-xs font-medium uppercase tracking-widest text-[#f97316]">
-            Google Reviews
-          </p>
-          <h2 className="mx-auto mt-4 max-w-3xl text-4xl font-semibold leading-[1.1] tracking-[-0.03em] text-white sm:text-5xl">
-            No nos creas a nosotros.
-            <br />
-            Créeles a ellos.
-          </h2>
+      <section className="bg-gray-50 px-6 py-24">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-16 text-center">
+            <span className="mb-2 block text-sm font-semibold uppercase tracking-wide text-[#f97316]">
+              Google Reviews
+            </span>
+            <h2 className="text-3xl font-bold tracking-tight text-[#1f2942] md:text-5xl">
+              No nos creas a nosotros.
+              <br />
+              Créeles a ellos.
+            </h2>
+            <div className="mt-4 flex items-center justify-center gap-2">
+              <div className="flex gap-0.5 text-[#f97316]">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <svg key={i} className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <p className="text-sm text-[#6b7280]">5.0 en Google Reviews</p>
+            </div>
+          </div>
 
-          <div className="mt-16 grid gap-6 text-left sm:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-3">
             {reviews.map((r) => (
               <div
                 key={r.name}
-                className="flex flex-col rounded-2xl border border-white/[0.06] bg-[#16181d] p-8 transition hover:border-white/[0.12]"
+                className="flex flex-col rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md"
               >
                 <div className="flex gap-0.5 text-[#f97316]">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <svg
-                      key={i}
-                      className="h-4 w-4"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
+                    <svg key={i} className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   ))}
                 </div>
-                <p className="mt-5 flex-1 text-sm leading-relaxed text-[#8892a4]">
+                <p className="mt-5 flex-1 text-sm leading-relaxed text-[#6b7280]">
                   &ldquo;{r.text}&rdquo;
                 </p>
-                <div className="mt-6 flex items-center justify-between border-t border-white/[0.06] pt-5">
+                <div className="mt-6 flex items-center justify-between border-t border-gray-100 pt-5">
                   <div>
-                    <p className="text-sm font-semibold text-white">{r.name}</p>
-                    <p className="text-xs text-[#8892a4]">{r.detail}</p>
+                    <p className="text-sm font-bold text-[#1f2942]">{r.name}</p>
+                    <p className="text-xs text-[#6b7280]">{r.detail}</p>
                   </div>
                   <span className="rounded-full bg-[#f97316]/10 px-3 py-1 text-[10px] font-medium text-[#f97316]">
-                    Google Reviews
+                    Google
                   </span>
                 </div>
               </div>
@@ -502,26 +525,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── 8. VÍCTOR — Vulnerable, con opinión, corto ─── */}
-      <section className="bg-[#fff5f0] px-6 py-32">
+      {/* ─── 8. VÍCTOR ─── */}
+      <section className="bg-white px-6 py-24">
         <div className="mx-auto grid max-w-5xl items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
-            <p className="text-xs font-medium uppercase tracking-widest text-[#f97316]">
+            <span className="mb-2 block text-sm font-semibold uppercase tracking-wide text-[#f97316]">
               Tu asesor
-            </p>
-            <h2 className="mt-4 text-4xl font-semibold leading-[1.1] tracking-[-0.03em] text-[#1f2942] sm:text-5xl">
+            </span>
+            <h2 className="text-3xl font-bold leading-[1.1] tracking-tight text-[#1f2942] md:text-4xl">
               Soy Víctor Marrón.
               <br />
               <span className="text-[#f97316]">Y tengo una opinión.</span>
             </h2>
 
-            <div className="mt-8 space-y-4 leading-7 text-[#383d4c]">
+            <div className="mt-8 space-y-4 leading-7 text-[#6b7280]">
               <p>
                 Las comercializadoras eléctricas se aprovechan de que la gente
                 no entiende su factura. Lo llevan haciendo décadas. Y nadie dice
-                nada porque todos cobran comisiones de ellas.
+                nada porque todos se quedan las comisiones para ellos.
               </p>
-              <p className="text-[#1f2942] font-semibold">Yo no cobro comisiones de nadie.</p>
+              <p className="font-semibold text-[#1f2942]">Yo reinvierto todo lo que cobro de comisiones en mis clientes.</p>
               <p>
                 Llevo desde 2015 haciendo esto. Empecé porque a mi abuela la
                 cambiaron de compañía 7 veces en un año sin que se enterara.
@@ -533,46 +556,46 @@ export default function Home() {
               </p>
             </div>
 
-            <blockquote className="mt-6 border-l-2 border-[#f97316] pl-5">
-              <p className="text-xl font-semibold italic leading-snug text-[#1f2942]">
+            <blockquote className="mt-6 rounded-xl border-l-4 border-[#f97316] bg-[#fff7ed] py-4 pl-5 pr-4">
+              <p className="text-xl font-bold italic leading-snug text-[#1f2942]">
                 &ldquo;Si no te ahorro dinero, no cobro nada.&rdquo;
               </p>
             </blockquote>
 
             <Link
               href="/sobre-mi"
-              className="mt-8 inline-flex items-center rounded-full bg-[#1f2942] px-8 py-3.5 text-sm font-medium text-white transition hover:bg-[#2a3654]"
+              className="mt-8 inline-flex items-center rounded-xl border border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-[#1f2942] shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
             >
               Mi historia completa →
             </Link>
           </div>
 
           <div className="flex justify-center lg:justify-end">
-            <div className="rounded-3xl bg-white/60 p-4 shadow-lg shadow-orange-100/50">
+            <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white p-3 shadow-[0_20px_40px_-4px_rgba(31,41,66,0.08)]">
               <Image
                 src="/victor.png"
                 alt="Víctor Marrón — asesor energético en Molins de Rei"
                 width={500}
                 height={600}
-                className="min-h-[400px] w-auto rounded-2xl object-contain"
+                className="min-h-[400px] w-auto rounded-xl object-contain"
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* ─── 9. LEAD MAGNET — Captación de email ─── */}
-      <section className="bg-[#f9fafb] px-6 py-24">
-        <div className="mx-auto max-w-2xl rounded-3xl border border-[#f97316]/20 bg-[#fff5f0] px-8 py-14 text-center sm:px-14">
+      {/* ─── 9. LEAD MAGNET ─── */}
+      <section className="bg-gray-50 px-6 py-24">
+        <div className="mx-auto max-w-2xl rounded-2xl border border-gray-100 bg-white px-8 py-14 text-center shadow-sm sm:px-14">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f97316]/10">
             <svg className="h-7 w-7 text-[#f97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
           </div>
-          <h2 className="mt-6 text-3xl font-semibold leading-[1.1] tracking-[-0.03em] text-[#1f2942] sm:text-4xl">
+          <h2 className="mt-6 text-2xl font-bold leading-[1.1] tracking-tight text-[#1f2942] sm:text-3xl">
             Los 5 errores que estás cometiendo en tu factura de la luz
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-[#383d4c]">
+          <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-[#6b7280]">
             Un documento de 3 páginas. Sin rodeos. Te cuento los errores más
             comunes que veo en las facturas de mis clientes y cómo solucionarlos
             tú mismo.
@@ -581,87 +604,83 @@ export default function Home() {
             <input
               type="email"
               placeholder="Tu email"
-              className="flex-1 rounded-full border border-gray-200 bg-white px-6 py-3.5 text-sm text-[#1f2942] placeholder-[#8892a4] outline-none transition focus:border-[#f97316] focus:ring-2 focus:ring-[#f97316]/20"
+              className="flex-1 rounded-xl border border-gray-200 bg-white px-5 py-3.5 text-sm text-[#1f2942] placeholder-[#6b7280] outline-none transition focus:border-[#f97316] focus:ring-2 focus:ring-[#f97316]/20"
             />
             <button
               type="submit"
-              className="rounded-full bg-[#f97316] px-8 py-3.5 text-sm font-medium text-white shadow-lg shadow-orange-200/50 transition hover:bg-orange-600"
+              className="rounded-xl bg-[#f97316] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_4px_14px_0_rgba(249,115,22,0.39)] transition-all hover:-translate-y-0.5 hover:bg-orange-600"
             >
               Quiero el documento
             </button>
           </form>
-          <p className="mt-3 text-xs text-[#8892a4]">
+          <p className="mt-3 text-xs text-[#6b7280]">
             Gratis. Sin spam. Te lo envío y ya.
           </p>
         </div>
       </section>
 
-      {/* ─── 10. FAQ — SEO + Schema ─── */}
-      <section className="bg-[#fefefe] px-6 py-32">
+      {/* ─── 10. FAQ ─── */}
+      <section className="bg-white px-6 py-24">
         <div className="mx-auto max-w-3xl">
-          <p className="text-center text-xs font-medium uppercase tracking-widest text-[#f97316]">
-            Preguntas frecuentes
-          </p>
-          <h2 className="mx-auto mt-4 max-w-2xl text-center text-4xl font-semibold leading-[1.1] tracking-[-0.03em] text-[#1f2942] sm:text-5xl">
-            Todo lo que necesitas saber sobre asesoría energética
-          </h2>
+          <div className="mb-16 text-center">
+            <span className="mb-2 block text-sm font-semibold uppercase tracking-wide text-[#f97316]">
+              Preguntas frecuentes
+            </span>
+            <h2 className="text-3xl font-bold tracking-tight text-[#1f2942] md:text-5xl">
+              Todo lo que necesitas saber
+            </h2>
+          </div>
 
-          <div className="mt-14 space-y-0 divide-y divide-gray-100">
+          <div className="space-y-0 divide-y divide-gray-100">
             {faqs.map((faq) => (
               <details key={faq.question} className="group py-6">
-                <summary className="flex cursor-pointer items-center justify-between text-lg font-semibold text-[#1f2942] transition hover:text-[#f97316]">
+                <summary className="flex cursor-pointer list-none items-center justify-between text-lg font-semibold text-[#1f2942] transition hover:text-[#f97316]">
                   {faq.question}
                   <svg
-                    className="h-5 w-5 shrink-0 text-[#8892a4] transition group-open:rotate-45"
+                    className="h-5 w-5 shrink-0 text-[#6b7280] transition-transform duration-300 group-open:rotate-180"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 6v12m6-6H6"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </summary>
-                <p className="mt-3 leading-relaxed text-[#383d4c]">
-                  {faq.answer}
-                </p>
+                <p className="mt-3 leading-relaxed text-[#6b7280]">{faq.answer}</p>
               </details>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ─── 11. CTA FINAL — Escasez + acción ─── */}
-      <section className="relative overflow-hidden bg-[#f97316] px-6 py-32">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.15)_0%,_transparent_60%)]" />
-        <div className="relative mx-auto max-w-3xl text-center">
-          <h2 className="text-4xl font-semibold leading-[1.1] tracking-[-0.03em] text-white sm:text-5xl">
-            Cada mes que pasa con la tarifa equivocada es dinero que pierdes
+      {/* ─── 11. CTA FINAL ─── */}
+      <section className="relative overflow-hidden bg-[#fff7ed] px-6 py-24">
+        <div className="relative z-10 mx-auto max-w-3xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-[#1f2942] md:text-5xl">
+            Deja de pagar de más hoy mismo
           </h2>
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/80">
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-[#6b7280]">
             Envíanos tu factura. En menos de 24 horas te decimos exactamente
             cuánto puedes ahorrar. Sin compromiso.
           </p>
-          <p className="mt-4 text-sm font-medium text-white/90">
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link
+              href="/contacto"
+              className="inline-flex w-full items-center justify-center rounded-xl bg-[#f97316] px-10 py-4 text-base font-semibold text-white shadow-[0_4px_14px_0_rgba(249,115,22,0.39)] transition-all hover:-translate-y-1 hover:bg-orange-600 hover:shadow-[0_6px_20px_rgba(249,115,22,0.23)] sm:w-auto"
+            >
+              Analizar mi factura gratis
+            </Link>
+          </div>
+          <p className="mt-6 text-sm text-[#6b7280]">
             Solo aceptamos 100 clientes nuevos al mes para poder atenderlos
             como se merecen.
           </p>
-          <Link
-            href="/contacto"
-            className="mt-10 inline-flex items-center rounded-full bg-white px-10 py-4 text-base font-medium text-[#f97316] transition hover:bg-gray-50"
-          >
-            Analizar mi factura gratis
-          </Link>
-          <p className="mt-8 text-sm text-white/50">
+          <p className="mt-2 text-sm text-[#6b7280]">
             Molins de Rei · 633 15 10 83 · WhatsApp disponible
           </p>
         </div>
       </section>
 
-      {/* ─── FAQ Schema Markup ─── */}
+      {/* ─── Schema Markup ─── */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -679,7 +698,6 @@ export default function Home() {
           }),
         }}
       />
-      {/* ─── LocalBusiness Schema Markup ─── */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

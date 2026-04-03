@@ -28,13 +28,13 @@ const empresaLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0e0f12] text-[#8892a4]">
+    <footer className="border-t border-gray-100 bg-gray-50 text-[#6b7280]">
       <div className="mx-auto max-w-5xl px-6 py-16">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Columna 1: Logo + info */}
           <div>
-            <Link href="/" className="text-xl font-semibold tracking-tight text-white">
-              VITERGY
+            <Link href="/" className="text-xl font-bold tracking-tight text-[#1f2942]">
+              vitergy
             </Link>
             <p className="mt-4 text-sm leading-6">
               Asesor energético independiente en Molins de Rei.
@@ -43,12 +43,12 @@ export default function Footer() {
               <p>Carrer de Ferran Agulló 6, LOCAL</p>
               <p>08750 Molins de Rei</p>
               <p>
-                <a href="tel:+34633151083" className="transition hover:text-white">
+                <a href="tel:+34633151083" className="transition hover:text-[#1f2942]">
                   633 15 10 83
                 </a>
               </p>
               <p>
-                <a href="mailto:info@vitergy.es" className="transition hover:text-white">
+                <a href="mailto:info@vitergy.es" className="transition hover:text-[#1f2942]">
                   info@vitergy.es
                 </a>
               </p>
@@ -57,7 +57,7 @@ export default function Footer() {
 
           {/* Columna 2: Servicios */}
           <div>
-            <h3 className="text-xs font-medium uppercase tracking-widest text-white">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-[#1f2942]">
               Servicios
             </h3>
             <ul className="mt-4 space-y-2.5">
@@ -65,7 +65,7 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm transition hover:text-white"
+                    className="text-sm transition hover:text-[#f97316]"
                   >
                     {item.label}
                   </Link>
@@ -76,7 +76,7 @@ export default function Footer() {
 
           {/* Columna 3: Herramientas */}
           <div>
-            <h3 className="text-xs font-medium uppercase tracking-widest text-white">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-[#1f2942]">
               Herramientas
             </h3>
             <ul className="mt-4 space-y-2.5">
@@ -84,7 +84,7 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm transition hover:text-white"
+                    className="text-sm transition hover:text-[#f97316]"
                   >
                     {item.label}
                   </Link>
@@ -95,7 +95,7 @@ export default function Footer() {
 
           {/* Columna 4: Empresa */}
           <div>
-            <h3 className="text-xs font-medium uppercase tracking-widest text-white">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-[#1f2942]">
               Empresa
             </h3>
             <ul className="mt-4 space-y-2.5">
@@ -103,7 +103,7 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm transition hover:text-white"
+                    className="text-sm transition hover:text-[#f97316]"
                   >
                     {item.label}
                   </Link>
@@ -114,7 +114,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-14 border-t border-white/[0.06] pt-8 text-center text-xs text-[#8892a4]">
+        <div className="mt-14 border-t border-gray-200 pt-8 text-center text-xs">
           © 2026 Vitergy — Por encima del techo del cielo SL. Todos los derechos reservados.
         </div>
       </div>

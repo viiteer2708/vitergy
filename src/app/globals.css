@@ -10,10 +10,9 @@
 :root {
   --font-heading: "Geist", "Inter", sans-serif;
   --color-bg: #fefefe;
-  --color-bg-dark: #0e0f12;
+  --color-bg-tint: #fff7ed;
   --color-text: #1f2942;
-  --color-text-muted: #383d4c;
-  --color-text-dark-muted: #8892a4;
+  --color-text-muted: #6b7280;
   --color-accent: #f97316;
 }
 
@@ -33,6 +32,18 @@ body {
   font-family: var(--font-heading);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* FAQ accordion animation */
+details summary::-webkit-details-marker {
+  display: none;
+}
+details[open] summary ~ * {
+  animation: faq-sweep 0.4s ease-in-out;
+}
+@keyframes faq-sweep {
+  0% { opacity: 0; transform: translateY(-10px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 /* Hide scrollbar for carousels / horizontal scroll */
