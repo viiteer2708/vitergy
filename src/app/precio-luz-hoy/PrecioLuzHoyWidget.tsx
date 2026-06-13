@@ -1,34 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-interface PriceEntry {
-  hour: number;
-  price: number; // €/kWh
-}
-
-type Zone = "cheap" | "mid" | "expensive";
-
-function classify(prices: PriceEntry[]): Map<number, Zone> {
-  const sorted = [...prices].sort((a, b) => a.price - b.price);
-  const zones = new Map<number, Zone>();
-  sorted.forEach((e, i) => {
-    if (i < 8) zones.set(e.hour, "cheap");
-    else if (i >= prices.length - 4) zones.set(e.hour, "expensive");
-    else zones.set(e.hour, "mid");
-  });
-  return zones;
-}
-
-const zoneStyle: Record<Zone, { bg: string; bar: string; text: string; label: string }> = {
-  cheap:     { bg: "bg-green-50",  bar: "bg-green-500",  text: "text-green-700",  label: "Barato" },
-  mid:       { bg: "bg-yellow-50", bar: "bg-yellow-400", text: "text-yellow-700", label: "Normal" },
-  expensive: { bg: "bg-red-50",    bar: "bg-red-500",    text: "text-red-700",    label: "Caro" },
-};
-
-function fmt(n: number) {
-  return n.toFixed(3);
-}
+import {
+  fetchPrices,
+  classifyPrices,
+  getStats,
+  formatPrice as fmt,
+  zoneColors,
+  zoneLabels,
+  type PriceEntry,
+  type PriceZone as Zone,
+} from "@/lib/precios-luz";
 
 /* ── Skeleton ── */
 function Skeleton() {
@@ -67,29 +49,10 @@ export default function PrecioLuzHoyWidget() {
   const currentHour = new Date().getHours();
 
   useEffect(() => {
-    const today = new Date();
-    const yy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-    const dd = String(today.getDate()).padStart(2, "0");
-
-    fetch(
-      `https://apidatos.ree.es/es/datos/mercados/precios-mercados-tiempo-real?start_date=${yy}-${mm}-${dd}T00:00&end_date=${yy}-${mm}-${dd}T23:59&time_trunc=hour&geo_trunc=electric_system&geo_limit=peninsular&geo_ids=8741`
-    )
-      .then((r) => {
-        if (!r.ok) throw new Error();
-        return r.json();
-      })
+    fetchPrices(new Date())
       .then((data) => {
-        const series = (
-          data.included as Array<{
-            attributes?: { title?: string; values?: Array<{ value: number }> };
-          }>
-        )?.find((s) => s.attributes?.title?.toUpperCase().includes("PVPC"));
-
-        const vals = series?.attributes?.values;
-        if (!vals?.length) throw new Error();
-
-        setPrices(vals.map((v, i) => ({ hour: i, price: v.value / 1000 })));
+        if (!data.length) throw new Error();
+        setPrices(data);
       })
       .catch(() => setError(true))
       .finally(() => setLoading(false));
@@ -117,10 +80,8 @@ export default function PrecioLuzHoyWidget() {
   }
 
   /* ── Data ready ── */
-  const zones = classify(prices);
-  const minP = Math.min(...prices.map((p) => p.price));
-  const maxP = Math.max(...prices.map((p) => p.price));
-  const avgP = prices.reduce((s, p) => s + p.price, 0) / prices.length;
+  const zones = classifyPrices(prices);
+  const { min: minP, max: maxP, avg: avgP } = getStats(prices);
   const nowP = prices[currentHour]?.price ?? 0;
 
   return (
@@ -153,8 +114,8 @@ export default function PrecioLuzHoyWidget() {
       <div className="flex flex-wrap items-center justify-center gap-4 text-xs">
         {(["cheap", "mid", "expensive"] as Zone[]).map((z) => (
           <span key={z} className="flex items-center gap-1.5">
-            <span className={`inline-block h-3 w-3 rounded ${zoneStyle[z].bar}`} />
-            {zoneStyle[z].label}
+            <span className={`inline-block h-3 w-3 rounded ${zoneColors[z].bar}`} />
+            {zoneLabels[z]}
           </span>
         ))}
       </div>
@@ -172,7 +133,7 @@ export default function PrecioLuzHoyWidget() {
           <tbody>
             {prices.map((entry) => {
               const zone = zones.get(entry.hour) ?? "mid";
-              const s = zoneStyle[zone];
+              const s = zoneColors[zone];
               const isCurrent = entry.hour === currentHour;
               const barWidth = maxP > 0 ? (entry.price / maxP) * 100 : 0;
 

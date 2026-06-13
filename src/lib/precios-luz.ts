@@ -51,10 +51,8 @@ export function parseREEResponse(data: Record<string, unknown>): PriceEntry[] {
     attributes?: { title?: string; values?: Array<{ value: number; datetime: string }> };
   }> | undefined;
 
-  const pvpcSeries = included?.find(
-    (s) =>
-      s.type === "included" ||
-      s.attributes?.title?.toUpperCase().includes("PVPC")
+  const pvpcSeries = included?.find((s) =>
+    s.attributes?.title?.toUpperCase().includes("PVPC")
   );
 
   const values = pvpcSeries?.attributes?.values;

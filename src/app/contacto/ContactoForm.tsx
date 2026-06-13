@@ -2,6 +2,15 @@
 
 import { useState } from "react";
 
+const WHATSAPP_NUMBER = "34633151083";
+
+const motivoLabels: Record<string, string> = {
+  analizar: "Analizar mi factura",
+  cambiar: "Cambiar de compañía",
+  autoconsumo: "Autoconsumo solar",
+  otro: "Otro",
+};
+
 export default function ContactoForm() {
   const [form, setForm] = useState({
     nombre: "",
@@ -14,6 +23,19 @@ export default function ContactoForm() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    const lines = [
+      `Hola Víctor, soy ${form.nombre}.`,
+      form.motivo && `Motivo: ${motivoLabels[form.motivo] ?? form.motivo}`,
+      form.mensaje && `Mensaje: ${form.mensaje}`,
+      form.email && `Email: ${form.email}`,
+      form.telefono && `Teléfono: ${form.telefono}`,
+    ].filter(Boolean);
+
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+      lines.join("\n")
+    )}`;
+    window.open(url, "_blank", "noopener,noreferrer");
     setSubmitted(true);
   }
 
@@ -34,10 +56,15 @@ export default function ContactoForm() {
           />
         </svg>
         <h3 className="mt-3 text-lg font-semibold text-green-800">
-          ¡Gracias!
+          ¡Casi listo!
         </h3>
         <p className="mt-1 text-sm text-green-600">
-          Te contactamos en menos de 2 horas.
+          Hemos abierto WhatsApp con tu consulta preparada: solo tienes que
+          pulsar enviar. Si no se ha abierto, escríbenos al{" "}
+          <a href={`https://wa.me/${WHATSAPP_NUMBER}`} className="font-semibold underline">
+            633 15 10 83
+          </a>
+          .
         </p>
       </div>
     );

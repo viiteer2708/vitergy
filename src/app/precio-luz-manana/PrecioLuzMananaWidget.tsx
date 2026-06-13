@@ -1,58 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-interface PriceEntry {
-  hour: number;
-  price: number; // €/kWh
-}
-
-type Zone = "cheap" | "mid" | "expensive";
-
-function classify(prices: PriceEntry[]): Map<number, Zone> {
-  const sorted = [...prices].sort((a, b) => a.price - b.price);
-  const zones = new Map<number, Zone>();
-  sorted.forEach((e, i) => {
-    if (i < 8) zones.set(e.hour, "cheap");
-    else if (i >= prices.length - 4) zones.set(e.hour, "expensive");
-    else zones.set(e.hour, "mid");
-  });
-  return zones;
-}
-
-const zoneStyle: Record<Zone, { bg: string; bar: string; text: string; label: string }> = {
-  cheap:     { bg: "bg-green-50",  bar: "bg-green-500",  text: "text-green-700",  label: "Barato" },
-  mid:       { bg: "bg-yellow-50", bar: "bg-yellow-400", text: "text-yellow-700", label: "Normal" },
-  expensive: { bg: "bg-red-50",    bar: "bg-red-500",    text: "text-red-700",    label: "Caro" },
-};
-
-function fmt(n: number) {
-  return n.toFixed(3);
-}
-
-function dateStr(d: Date) {
-  const yy = d.getFullYear();
-  const mm = String(d.getMonth() + 1).padStart(2, "0");
-  const dd = String(d.getDate()).padStart(2, "0");
-  return `${yy}-${mm}-${dd}`;
-}
-
-function buildUrl(date: Date) {
-  const d = dateStr(date);
-  return `https://apidatos.ree.es/es/datos/mercados/precios-mercados-tiempo-real?start_date=${d}T00:00&end_date=${d}T23:59&time_trunc=hour&geo_trunc=electric_system&geo_limit=peninsular&geo_ids=8741`;
-}
-
-function parsePrices(data: Record<string, unknown>): PriceEntry[] {
-  const included = data.included as Array<{
-    attributes?: { title?: string; values?: Array<{ value: number }> };
-  }> | undefined;
-  const series = included?.find((s) =>
-    s.attributes?.title?.toUpperCase().includes("PVPC")
-  );
-  const vals = series?.attributes?.values;
-  if (!vals?.length) return [];
-  return vals.map((v, i) => ({ hour: i, price: v.value / 1000 }));
-}
+import {
+  fetchPrices,
+  classifyPrices,
+  getStats,
+  formatPrice as fmt,
+  zoneColors,
+  zoneLabels,
+  type PriceEntry,
+  type PriceZone as Zone,
+} from "@/lib/precios-luz";
 
 /* ── Skeleton ── */
 function Skeleton() {
@@ -95,14 +53,8 @@ export default function PrecioLuzMananaWidget() {
     tomorrow.setDate(tomorrow.getDate() + 1);
 
     Promise.all([
-      fetch(buildUrl(tomorrow))
-        .then((r) => { if (!r.ok) throw new Error(); return r.json(); })
-        .then(parsePrices)
-        .catch(() => [] as PriceEntry[]),
-      fetch(buildUrl(today))
-        .then((r) => { if (!r.ok) throw new Error(); return r.json(); })
-        .then(parsePrices)
-        .catch(() => [] as PriceEntry[]),
+      fetchPrices(tomorrow).catch(() => [] as PriceEntry[]),
+      fetchPrices(today).catch(() => [] as PriceEntry[]),
     ])
       .then(([mananaPrices, hoyPrices]) => {
         if (!mananaPrices.length) {
@@ -156,10 +108,8 @@ export default function PrecioLuzMananaWidget() {
   }
 
   /* ── Data ready ── */
-  const zones = classify(manana);
-  const minP = Math.min(...manana.map((p) => p.price));
-  const maxP = Math.max(...manana.map((p) => p.price));
-  const avgP = manana.reduce((s, p) => s + p.price, 0) / manana.length;
+  const zones = classifyPrices(manana);
+  const { min: minP, max: maxP, avg: avgP } = getStats(manana);
   const cheapestHour = manana.reduce((a, b) => (a.price < b.price ? a : b));
 
   const hoyAvg = hoy.length
@@ -196,8 +146,8 @@ export default function PrecioLuzMananaWidget() {
       <div className="flex flex-wrap items-center justify-center gap-4 text-xs">
         {(["cheap", "mid", "expensive"] as Zone[]).map((z) => (
           <span key={z} className="flex items-center gap-1.5">
-            <span className={`inline-block h-3 w-3 rounded ${zoneStyle[z].bar}`} />
-            {zoneStyle[z].label}
+            <span className={`inline-block h-3 w-3 rounded ${zoneColors[z].bar}`} />
+            {zoneLabels[z]}
           </span>
         ))}
       </div>
@@ -215,7 +165,7 @@ export default function PrecioLuzMananaWidget() {
           <tbody>
             {manana.map((entry) => {
               const zone = zones.get(entry.hour) ?? "mid";
-              const s = zoneStyle[zone];
+              const s = zoneColors[zone];
               const barWidth = maxP > 0 ? (entry.price / maxP) * 100 : 0;
 
               return (
