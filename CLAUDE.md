@@ -71,3 +71,16 @@ Principios de Karpathy aplicados a este repo:
 - **Simplicidad primero.** Es una web de marketing, no una app. Nada de abstracciones, "configurabilidad" ni state management que no se haya pedido. El patrón vigente es: página + componentes de ruta locales.
 - **Cambios quirúrgicos.** Toca solo lo que pide la tarea. Respeta el estilo existente aunque lo harías distinto. Si ves código muerto o sin usar, **menciónalo, no lo borres** salvo que te lo pidan.
 - **Criterio de hecho verificable.** Tras un cambio, deja claro cómo comprobarlo: `npm run build` sin errores, `npm run lint` limpio, y la ruta afectada renderiza en `npm run dev`. Para cambios de SEO, confirma que `sitemap.ts` sigue coherente.
+
+## Conocimiento (Segundo Cerebro)
+
+Wiki persistente de Victor: `C:\Users\Victor\Documents\VITER VAULT\_Wiki\` — índice en
+`_Wiki\index.md`, contrato en `_Wiki\CLAUDE.md`. Antes de trabajo de SEO, copy o negocio,
+lee las páginas de este repo:
+
+- `wiki/projects/vitergy.md` — el proyecto
+- `wiki/concepts/estrategia-maestra-seo-vitergy.md` · `wiki/concepts/contenido-seo-vitergy.md`
+- `wiki/concepts/seo-local.md` · `wiki/concepts/google-business-profile.md`
+- `wiki/syntheses/roadmap-ejecucion-vitergy-q2-2026.md`
+
+Ancla todo claim de negocio en una página del wiki; si no existe página, dilo.
