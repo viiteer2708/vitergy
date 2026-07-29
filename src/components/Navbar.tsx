@@ -22,15 +22,27 @@ const herramientas = [
   { label: "🧮 Calculadora de Consumo", href: "/calculadora-consumo-electrico" },
 ];
 
+const empresas = [
+  { label: "Asesoría para grandes consumos", href: "/grandes-consumos" },
+  { label: "🏋️ Gimnasios y centros deportivos", href: "/grandes-consumos/gimnasios" },
+  { label: "🧺 Lavanderías industriales", href: "/grandes-consumos/lavanderias-industriales" },
+  { label: "🎾 Clubs de pádel", href: "/grandes-consumos/clubs-de-padel" },
+  { label: "🩺 Centros médicos y clínicas", href: "/grandes-consumos/centros-medicos" },
+];
+
 function MobileMenu({
   mobileServiciosOpen,
   setMobileServiciosOpen,
+  mobileEmpresasOpen,
+  setMobileEmpresasOpen,
   mobileHerramientasOpen,
   setMobileHerramientasOpen,
   closeMobile,
 }: {
   mobileServiciosOpen: boolean;
   setMobileServiciosOpen: (v: boolean) => void;
+  mobileEmpresasOpen: boolean;
+  setMobileEmpresasOpen: (v: boolean) => void;
   mobileHerramientasOpen: boolean;
   setMobileHerramientasOpen: (v: boolean) => void;
   closeMobile: () => void;
@@ -64,6 +76,36 @@ function MobileMenu({
           {mobileServiciosOpen && (
             <div className="pl-4">
               {servicios.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="block rounded-lg px-3 py-2.5 text-sm text-gray-600 hover:text-gray-900"
+                  onClick={closeMobile}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          )}
+
+          {/* Empresas accordion */}
+          <button
+            onClick={() => setMobileEmpresasOpen(!mobileEmpresasOpen)}
+            className="flex w-full items-center justify-between rounded-lg px-3 py-3 text-base font-normal text-gray-600 hover:text-gray-900"
+          >
+            Empresas
+            <svg
+              className={`h-5 w-5 transition-transform ${mobileEmpresasOpen ? "rotate-180" : ""}`}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          {mobileEmpresasOpen && (
+            <div className="pl-4">
+              {empresas.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
@@ -140,6 +182,7 @@ function MobileMenu({
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileServiciosOpen, setMobileServiciosOpen] = useState(false);
+  const [mobileEmpresasOpen, setMobileEmpresasOpen] = useState(false);
   const [mobileHerramientasOpen, setMobileHerramientasOpen] = useState(false);
 
   // Prevent body scroll when mobile menu is open
@@ -153,6 +196,7 @@ export default function Navbar() {
   function closeMobile() {
     setMobileOpen(false);
     setMobileServiciosOpen(false);
+    setMobileEmpresasOpen(false);
     setMobileHerramientasOpen(false);
   }
 
@@ -192,6 +236,27 @@ export default function Navbar() {
                 </button>
                 <div className="invisible absolute left-0 top-full min-w-[240px] rounded-lg bg-white py-2 shadow-lg ring-1 ring-black/5 transition-all group-hover:visible">
                   {servicios.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="block px-4 py-2 text-sm text-gray-600 hover:text-gray-900"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* Empresas dropdown */}
+              <div className="group relative">
+                <button className="rounded-lg px-4 py-2 text-sm font-normal text-gray-600 hover:text-gray-900">
+                  Empresas
+                  <svg className="ml-1 inline-block h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div className="invisible absolute left-0 top-full min-w-[280px] rounded-lg bg-white py-2 shadow-lg ring-1 ring-black/5 transition-all group-hover:visible">
+                  {empresas.map((item) => (
                     <Link
                       key={item.href}
                       href={item.href}
@@ -269,6 +334,8 @@ export default function Navbar() {
         <MobileMenu
           mobileServiciosOpen={mobileServiciosOpen}
           setMobileServiciosOpen={setMobileServiciosOpen}
+          mobileEmpresasOpen={mobileEmpresasOpen}
+          setMobileEmpresasOpen={setMobileEmpresasOpen}
           mobileHerramientasOpen={mobileHerramientasOpen}
           setMobileHerramientasOpen={setMobileHerramientasOpen}
           closeMobile={closeMobile}

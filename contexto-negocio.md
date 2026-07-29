@@ -64,3 +64,4 @@
 | Fecha | Auditoría | Estado | Acciones abiertas |
 |-------|-----------|--------|-------------------|
 | 2026-07-05 | 10 · Money page (home `/`) | Hecha (mitad "yo"); competidores pendientes | P1: quitar `aggregateRating` self-serving + reforzar H1 con keyword+geo · P2: `streetAddress` en schema, `Service` schema, `priceRange`, click-to-call en hero · P3: calibrar FAQPage, revisar testimonio "GRUPO NEW ENERGY" |
+| 2026-07-29 | SEO técnico + contenido (sitio completo) | Hecha — informe en [auditoria-seo-2026-07-29.md](auditoria-seo-2026-07-29.md) | 🔴 `aggregateRating` falso (5,0/50 vs 4,9/9 reales en GBP) · 🔴 `/legal`, `/privacidad` y `/cookies` dan 404 enlazadas desde el pie de las 35 páginas · 🔴 `foundingDate: 2015` vs enero 2025 · 🟡 sin `og:image` en todo el sitio · 🟡 sin `Person`/`sameAs` (E-E-A-T) · 🟡 formulario sin email para B2B · ✅ ejecutado: sección `/grandes-consumos` + 4 landings sectoriales |

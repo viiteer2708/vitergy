@@ -33,6 +33,7 @@ Todo cuelga de `src/app/` (App Router). Cada ruta = una carpeta con `page.tsx`. 
 | Tipo | Ejemplos | Nº |
 |---|---|---|
 | Servicios | `estudio-factura-electrica`, `cambiar-compania-luz`, `autoconsumo-fotovoltaico`, … | 9 |
+| Grandes consumos (B2B) | `grandes-consumos` (pilar) + `/gimnasios`, `/lavanderias-industriales`, `/clubs-de-padel`, `/centros-medicos` | 5 |
 | Landing local (SEO) | `asesoria-energetica-barcelona`, `-cataluna`, `-espana` | 3 |
 | Herramientas | `calculadora-consumo-electrico`, `precio-luz-hoy`, `precio-luz-manana` | 3 |
 | Blog | `blog/` (índice) + 10 artículos en subcarpetas | 11 |
@@ -41,6 +42,7 @@ Todo cuelga de `src/app/` (App Router). Cada ruta = una carpeta con `page.tsx`. 
 - **Layout global** ([src/app/layout.tsx](src/app/layout.tsx)): monta `<Navbar/>`, `<Footer/>`, el **botón flotante de WhatsApp** (nº `633151083`) y los metadatos SEO base / OpenGraph. `lang="es"`.
 - **Componentes compartidos**: `Navbar` y `Footer` en [src/components/](src/components/) (montados en el layout).
 - **Componentes específicos de ruta**: conviven junto a su `page.tsx` (p. ej. `contacto/ContactoForm.tsx`, `calculadora-consumo-electrico/Calculadora.tsx`, `precio-luz-hoy/PrecioLuzHoyWidget.tsx`). **Este es el patrón a seguir** para UI de una sola página.
+- **Excepción — `grandes-consumos/`**: las cuatro landings sectoriales comparten plantilla, así que el contenido vive en [sectores.ts](src/app/grandes-consumos/sectores.ts) (un objeto `Sector` por sector) y se renderiza con `SectorLanding.tsx`; los bloques comunes con la pilar están en `Bloques.tsx`. Para añadir un sector nuevo: entrada en `sectores.ts` + carpeta con `page.tsx` de 20 líneas + alta en `sitemap.ts`, `Navbar.tsx` y `Footer.tsx`.
 - **Lógica compartida**: en [src/lib/](src/lib/) (p. ej. `precios-luz.ts`). Si una lógica la usan ≥2 rutas, va aquí, no duplicada inline.
 - **SEO**: [src/app/sitemap.ts](src/app/sitemap.ts) (30 URLs, generadas por listas de slugs) y [src/app/robots.ts](src/app/robots.ts). Si añades una ruta indexable, **añádela también al sitemap**.
 

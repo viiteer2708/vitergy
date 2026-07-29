@@ -16,6 +16,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'penalizaciones-electricas', 'mantenimiento-electrico', 'monitorizacion-consumo',
   ].map((slug) => ({ url: `${baseUrl}/${slug}`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 }))
 
+  const grandesConsumos = [
+    { url: `${baseUrl}/grandes-consumos`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.9 },
+    ...[
+      'gimnasios', 'lavanderias-industriales', 'clubs-de-padel', 'centros-medicos',
+    ].map((slug) => ({ url: `${baseUrl}/grandes-consumos/${slug}`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 })),
+  ]
+
   const localPages = [
     'asesoria-energetica-barcelona', 'asesoria-energetica-cataluna', 'asesoria-energetica-espana',
   ].map((slug) => ({ url: `${baseUrl}/${slug}`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 }))
@@ -33,5 +40,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'penalizacion-cambio-compania', 'pvpc-precio-voluntario',
   ].map((slug) => ({ url: `${baseUrl}/blog/${slug}`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.6 }))
 
-  return [...mainPages, ...servicePages, ...localPages, ...toolPages, blogIndex, ...blogPosts]
+  return [...mainPages, ...grandesConsumos, ...servicePages, ...localPages, ...toolPages, blogIndex, ...blogPosts]
 }

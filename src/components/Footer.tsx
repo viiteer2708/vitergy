@@ -11,6 +11,14 @@ const serviciosLinks = [
   { label: "Monitorización de Consumo", href: "/monitorizacion-consumo" },
 ];
 
+const empresasLinks = [
+  { label: "Grandes consumos", href: "/grandes-consumos" },
+  { label: "Gimnasios", href: "/grandes-consumos/gimnasios" },
+  { label: "Lavanderías industriales", href: "/grandes-consumos/lavanderias-industriales" },
+  { label: "Clubs de pádel", href: "/grandes-consumos/clubs-de-padel" },
+  { label: "Centros médicos", href: "/grandes-consumos/centros-medicos" },
+];
+
 const herramientasLinks = [
   { label: "Precio Luz Hoy", href: "/precio-luz-hoy" },
   { label: "Precio Luz Mañana", href: "/precio-luz-manana" },
@@ -29,8 +37,8 @@ const empresaLinks = [
 export default function Footer() {
   return (
     <footer className="border-t border-gray-100 bg-gray-50 text-[#6b7280]">
-      <div className="mx-auto max-w-5xl px-6 py-16">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto max-w-6xl px-6 py-16">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5">
           {/* Columna 1: Logo + info */}
           <div>
             <Link href="/" className="text-xl font-bold tracking-tight text-[#1f2942]">
@@ -74,7 +82,26 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Columna 3: Herramientas */}
+          {/* Columna 3: Empresas / grandes consumos */}
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-[#1f2942]">
+              Empresas
+            </h3>
+            <ul className="mt-4 space-y-2.5">
+              {empresasLinks.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-sm transition hover:text-[#f97316]"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Columna 4: Herramientas */}
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-widest text-[#1f2942]">
               Herramientas
@@ -93,7 +120,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Columna 4: Empresa */}
+          {/* Columna 5: Empresa */}
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-widest text-[#1f2942]">
               Empresa
