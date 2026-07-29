@@ -64,6 +64,7 @@ Tokens en `@theme` de [globals.css](src/app/globals.css). Úsalos, no hardcodees
 1. **El formulario de contacto no usa backend.** [contacto/ContactoForm.tsx](src/app/contacto/ContactoForm.tsx) **no hace POST ni envía email**: al enviar, abre WhatsApp (`wa.me/34633151083`) con la consulta prerrellenada y muestra el mensaje de éxito. Toda la captación va por WhatsApp/teléfono. Si en el futuro se pide "que el formulario llegue por email", hay que **añadir el envío desde cero** (API route + proveedor de email).
 2. **`next.config.ts`** solo permite imágenes remotas de `images.unsplash.com`. Para otros dominios externos, añádelos a `remotePatterns`.
 3. `.env.local` solo contiene `VERCEL_OIDC_TOKEN` (lo genera Vercel CLI). No hay secretos de app que configurar.
+4. **Este repo es PÚBLICO en GitHub.** Las propuestas y estudios de clientes (PDFs con NIF, CUPS, direcciones y consumos) pueden vivir en el directorio de trabajo pero JAMÁS en un commit — el `.gitignore` ya excluye `/*.pdf`, `/propuestas/`, `/estudios/` y `/facturas/`. Antes de commitear, comprueba que ningún dato de cliente se cuela.
 
 ## Cómo trabajar aquí (guía de comportamiento)
 

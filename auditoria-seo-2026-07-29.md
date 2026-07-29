@@ -147,14 +147,14 @@ Añadidas al `sitemap.ts` (35 URLs en total), al menú de navegación bajo un de
 Las cinco páginas ya no se apoyan solo en la independencia. Se han incorporado tres datos reales:
 
 - **Más de 12 años en el sector energético** y **más de 200 GWh de consumo gestionado** — en la tira de métricas de las cinco cabeceras, en el bloque «Por qué nosotros» de las cinco páginas y en el nodo `founder` del schema de la home. Para que el número sea tangible se acompaña de su equivalencia: lo que consumen en un año más de cincuenta mil hogares.
-- **20.000 € de ahorro anual en un centro médico**, cliente real, publicado como bloque destacado en `/grandes-consumos` y en `/grandes-consumos/centros-medicos`. Sin nombrar al cliente, porque no hay autorización para hacerlo.
+- **Caso real con desglose** (fundación con residencia 6.1TD + centro de día 3.0TD con autoconsumo, en Madrid), publicado en `/grandes-consumos` y en `/grandes-consumos/centros-medicos`. Fuente: la propuesta de julio 2026 (PDF fuera de git). Cifras publicadas, las del documento: **5.107,68 € de ahorro en las 8 facturas analizadas (16,5 %) → 12.533 €/año proyectados**, vía margen fijo de 0,5 c€/kWh frente a un sobreprecio que había crecido de 1,45 a 4,02 c€/kWh, y excedentes de 3 → 10 c€/kWh. Sin nombrar al cliente.
+  - ⚠️ **Corrección respecto a la primera versión:** se publicó inicialmente «20.000 €/año» (cifra de memoria de Victor). El PDF dice 12.533 €/año (15.165 € con IVA), así que la web se ajustó al documento. Si los 20k salen de otra fuente (gas, acumulado, contrato anterior), actualizar con esa fuente delante.
 
 Los escenarios de cálculo siguen etiquetados como tales y separados visualmente del caso real, para que no se confundan.
 
 ## Lo que sigue pendiente de Víctor
 
-1. **El NIF de la sociedad** para completar el aviso legal. Es lo único que bloquea el cumplimiento pleno de la LSSI.
-2. **Casos reales de los otros tres sectores** (gimnasio, lavandería, club de pádel). El del centro médico ya está y es el que más peso da a esa landing; los otros tres tienen ahora el bloque vacío.
-3. **El desglose del caso de 20.000 €**: sobre qué factura anual se consiguió y de qué palancas salió. Con eso el bloque pasa de ser una cifra a ser una demostración, que es lo que cierra a un comprador técnico.
-4. **Autorización para nombrar al cliente**, aunque sea de forma genérica («un centro médico de X consultas en el Baix Llobregat»). Concreta sin identificar y multiplica la credibilidad.
-5. **Una decisión de posicionamiento:** su cargo en Mega Energía es la credencial más potente que existe para hablar con un gran consumidor —conoce la mesa desde el otro lado—, pero choca de frente con el mensaje de independencia sobre el que está construida toda la web. **No se ha usado.** Es una decisión suya, no técnica.
+1. ~~El NIF de la sociedad~~ ✅ **B22517494**, publicado en `/legal` y `/privacidad` el 29-jul. LSSI art. 10 completo.
+2. **Casos reales de los otros tres sectores** (gimnasio, lavandería, club de pádel). El de la fundación ya está desglosado; los otros tres tienen el bloque `casoReal` vacío.
+3. **Autorización de la fundación para nombrarla** (o confirmar si la propuesta se firmó — hoy la web habla del análisis, que es lo verificable, no de un ahorro ya cobrado).
+4. **Una decisión de posicionamiento:** su cargo en Mega Energía es la credencial más potente que existe para hablar con un gran consumidor —conoce la mesa desde el otro lado—, pero choca de frente con el mensaje de independencia sobre el que está construida toda la web. **No se ha usado.** Es una decisión suya, no técnica.

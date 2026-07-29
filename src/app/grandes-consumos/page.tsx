@@ -326,10 +326,10 @@ export default function GrandesConsumosPage() {
         </section>
 
         <CasoReal
-          cifra="20.000 €"
-          pie="de ahorro anual en un solo cliente"
-          titular="Lo que hay en juego en un gran consumo"
-          texto="Es el ahorro que mantiene cada año un centro médico desde que nos confió su suministro. No fue una rebaja puntual de un año bueno de mercado: es la diferencia estructural entre el contrato que tenía y el que le correspondía. Ese es el orden de magnitud del que hablamos cuando decimos que en un gran consumo el margen no está en el precio del kilovatio."
+          cifra="12.533 €"
+          pie="de ahorro anual · 16,5 % de la factura"
+          titular="Lo que aparece cuando lees la factura entera"
+          texto="Una fundación con residencia y centro de día nos pidió revisar su contrato indexado. Sobre el papel estaba «a precio de mercado»; reproducidas sus ocho facturas periodo a periodo, el sobreprecio sobre el índice había crecido de 1,45 a 4,02 céntimos por kWh en cuatro meses, y los excedentes de sus placas se compensaban a 3 céntimos. Sin tocar potencias ni peajes —solo el precio de la energía y los excedentes—, el resultado fue un 16,5 % de ahorro: 12.533 € al año. Eso no lo ve un comparador. Lo ve quien reconstruye la factura periodo a periodo."
         />
 
         <ProcesoGrandesConsumos />

@@ -1,13 +1,10 @@
 import Link from "next/link";
 
-/* Identidad legal común a /legal, /privacidad y /cookies.
-   ⚠️ NIF: pendiente de que Victor lo facilite. Mientras esté vacío, la línea
-   no se pinta (mejor omitirla que publicar un dato inventado), pero el aviso
-   legal no cumple del todo el art. 10 de la LSSI hasta que se rellene. */
+/* Identidad legal común a /legal, /privacidad y /cookies. */
 export const TITULAR = {
   razonSocial: "Por encima del techo del cielo, S.L.",
   marca: "Vitergy",
-  nif: "",
+  nif: "B22517494",
   domicilio: "Carrer de Ferran Agulló 6, local · 08750 Molins de Rei (Barcelona)",
   email: "info@vitergy.es",
   telefono: "633 15 10 83",

@@ -24,6 +24,14 @@
 .DS_Store
 *.pem
 
+# ⚠️ Documentación de clientes — este repo es PÚBLICO.
+# Propuestas, estudios y facturas llevan NIF, CUPS, direcciones y consumos.
+# Nunca deben acabar en un commit. Si necesitas una aquí, déjala fuera de git.
+/*.pdf
+/propuestas/
+/estudios/
+/facturas/
+
 # debug
 npm-debug.log*
 yarn-debug.log*

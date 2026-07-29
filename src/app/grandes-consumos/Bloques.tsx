@@ -150,7 +150,7 @@ export function CasoReal({
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-[#f97316]">
-              Cliente real
+              Caso real · verificado factura a factura
             </p>
             <h2 className="mt-2 text-xl font-bold tracking-tight text-[#1f2942] sm:text-2xl">
               {titular}
