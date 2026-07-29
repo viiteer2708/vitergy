@@ -64,7 +64,18 @@ export function ProcesoGrandesConsumos() {
   );
 }
 
+export const METRICAS = [
+  { k: "+12 años", v: "en el sector energético" },
+  { k: "+200 GWh", v: "de consumo gestionado" },
+  { k: "+40", v: "comercializadoras comparadas" },
+  { k: "0 €", v: "coste del estudio" },
+];
+
 const CREDENCIALES = [
+  {
+    title: "Más de 200 GWh gestionados",
+    text: "Víctor Marrón lleva más de doce años en el sector energético y ha gestionado por encima de 200 GWh de consumo: el equivalente a lo que gastan en un año más de cincuenta mil hogares. Cuando te sientas a negociar con ese recorrido detrás, ya has visto antes el contrato que te ponen delante.",
+  },
   {
     title: "Independientes de verdad",
     text: "No pertenecemos a ninguna comercializadora ni tenemos exclusiva con nadie. Comparamos más de cuarenta compañías y la recomendación es la que más te ahorra a ti, no la que más nos conviene a nosotros.",
@@ -72,10 +83,6 @@ const CREDENCIALES = [
   {
     title: "Analizamos la curva, no la portada de la factura",
     text: "Trabajamos con la curva de carga horaria que facilita tu distribuidora. Es la diferencia entre optimizar de verdad un 3.0TD o un 6.1TD y limitarse a comparar el precio del kWh de dos ofertas.",
-  },
-  {
-    title: "Acostumbrados a consumos altos",
-    text: "Tarifas de acceso 3.0TD y 6.1TD, potencias de cientos de kilovatios, carteras con varios puntos de suministro y contratos de luz y gas negociados a la vez. No es un servicio doméstico ampliado: es otro tipo de trabajo.",
   },
   {
     title: "Si no te ahorramos, no cobramos",
@@ -100,6 +107,57 @@ export function AutoridadBloque() {
             <p className="mt-2 text-sm leading-6 text-white/70">{c.text}</p>
           </div>
         ))}
+      </div>
+    </section>
+  );
+}
+
+/** Tira compacta de credenciales para las cabeceras oscuras. */
+export function MetricasTira() {
+  return (
+    <dl className="mt-14 grid grid-cols-2 gap-6 border-t border-white/10 pt-8 sm:grid-cols-4">
+      {METRICAS.map((m) => (
+        <div key={m.v}>
+          <dt className="text-xl font-bold text-white sm:text-2xl">{m.k}</dt>
+          <dd className="mt-1 text-sm leading-5 text-white/60">{m.v}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+/** Caso real de cliente. Solo se pinta en los sectores que tienen uno. */
+export function CasoReal({
+  cifra,
+  pie,
+  titular,
+  texto,
+}: {
+  cifra: string;
+  pie: string;
+  titular: string;
+  texto: string;
+}) {
+  return (
+    <section className="mt-16">
+      <div className="overflow-hidden rounded-3xl border border-orange-100 bg-[#fff7ed]">
+        <div className="grid gap-8 p-8 sm:grid-cols-[auto_1fr] sm:items-center sm:gap-10 sm:p-10">
+          <div className="border-l-4 border-[#f97316] pl-6 sm:pl-8">
+            <p className="text-4xl font-bold tracking-tight text-[#1f2942] sm:text-5xl">
+              {cifra}
+            </p>
+            <p className="mt-2 text-sm font-medium text-[#6b7280]">{pie}</p>
+          </div>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#f97316]">
+              Cliente real
+            </p>
+            <h2 className="mt-2 text-xl font-bold tracking-tight text-[#1f2942] sm:text-2xl">
+              {titular}
+            </h2>
+            <p className="mt-3 leading-7 text-[#6b7280]">{texto}</p>
+          </div>
+        </div>
       </div>
     </section>
   );

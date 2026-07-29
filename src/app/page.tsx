@@ -843,8 +843,13 @@ export default function Home() {
             founder: {
               "@type": "Person",
               name: "Víctor Marrón",
+              jobTitle: "Asesor energético",
+              description:
+                "Más de 12 años en el sector energético y más de 200 GWh de consumo gestionado.",
             },
-            foundingDate: "2015",
+            // Fecha de constitución de Vitergy. La trayectoria previa de Víctor
+            // (12+ años en el sector) va en `founder`, que es donde es cierta.
+            foundingDate: "2025-01",
             areaServed: [
               "Molins de Rei",
               "Barcelona",
@@ -852,12 +857,6 @@ export default function Home() {
               "España",
             ],
             priceRange: "Consulta gratuita",
-            aggregateRating: {
-              "@type": "AggregateRating",
-              ratingValue: "5",
-              bestRating: "5",
-              ratingCount: "50",
-            },
           }),
         }}
       />

@@ -31,6 +31,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'calculadora-consumo-electrico', 'precio-luz-hoy', 'precio-luz-manana',
   ].map((slug) => ({ url: `${baseUrl}/${slug}`, lastModified: new Date(), changeFrequency: 'daily' as const, priority: 0.7 }))
 
+  const legalPages = [
+    'legal', 'privacidad', 'cookies',
+  ].map((slug) => ({ url: `${baseUrl}/${slug}`, lastModified: new Date(), changeFrequency: 'yearly' as const, priority: 0.3 }))
+
   const blogIndex = { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.7 }
 
   const blogPosts = [
@@ -40,5 +44,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'penalizacion-cambio-compania', 'pvpc-precio-voluntario',
   ].map((slug) => ({ url: `${baseUrl}/blog/${slug}`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.6 }))
 
-  return [...mainPages, ...grandesConsumos, ...servicePages, ...localPages, ...toolPages, blogIndex, ...blogPosts]
+  return [...mainPages, ...grandesConsumos, ...servicePages, ...localPages, ...toolPages, blogIndex, ...blogPosts, ...legalPages]
 }

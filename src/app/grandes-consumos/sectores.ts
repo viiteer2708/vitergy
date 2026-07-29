@@ -19,6 +19,8 @@ export type Sector = {
     lineas: { concepto: string; detalle: string; efecto: string }[];
     cierre: string;
   };
+  /** Cliente real con cifra verificada. Solo en los sectores que tienen uno. */
+  casoReal?: { cifra: string; pie: string; titular: string; texto: string };
   faqs: { question: string; answer: string }[];
   relacionados: { label: string; href: string }[];
 };
@@ -615,6 +617,13 @@ export const SECTORES: Sector[] = [
       ],
       cierre:
         "En un grupo de centros médicos el orden importa: primero se pone en orden la casa —potencia, base 24 h, clima, medida—, y solo después se sale a mercado con la cartera agregada. Al revés, se negocia sobre una curva que no representa lo que realmente vas a consumir.",
+    },
+    casoReal: {
+      cifra: "20.000 €",
+      pie: "de ahorro anual, año tras año",
+      titular: "Un centro médico que llevaba años pagando de más sin saberlo",
+      texto:
+        "Es el ahorro anual que mantiene uno de nuestros clientes desde que nos confió su suministro. No fue una rebaja puntual de un año bueno de mercado: es la diferencia estructural entre el contrato que tenía y el que le correspondía, y se repite cada ejercicio. Ese es el tamaño real de lo que hay en juego en un centro con equipamiento y climatización exigentes.",
     },
     faqs: [
       {

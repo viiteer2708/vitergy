@@ -3,7 +3,9 @@ import Link from "next/link";
 import { SECTORES } from "./sectores";
 import {
   AutoridadBloque,
+  CasoReal,
   CtaGrandesConsumos,
+  MetricasTira,
   ProcesoGrandesConsumos,
 } from "./Bloques";
 
@@ -204,19 +206,7 @@ export default function GrandesConsumosPage() {
             </a>
           </div>
 
-          <dl className="mt-14 grid grid-cols-2 gap-6 border-t border-white/10 pt-8 sm:grid-cols-4">
-            {[
-              { k: "+40", v: "comercializadoras comparadas" },
-              { k: "3.0TD · 6.1TD", v: "tarifas con las que trabajamos" },
-              { k: "12 meses", v: "de curva horaria analizada" },
-              { k: "0 €", v: "coste del estudio" },
-            ].map((m) => (
-              <div key={m.v}>
-                <dt className="text-xl font-bold text-white sm:text-2xl">{m.k}</dt>
-                <dd className="mt-1 text-sm leading-5 text-white/60">{m.v}</dd>
-              </div>
-            ))}
-          </dl>
+          <MetricasTira />
         </div>
       </section>
 
@@ -334,6 +324,13 @@ export default function GrandesConsumosPage() {
             .
           </p>
         </section>
+
+        <CasoReal
+          cifra="20.000 €"
+          pie="de ahorro anual en un solo cliente"
+          titular="Lo que hay en juego en un gran consumo"
+          texto="Es el ahorro que mantiene cada año un centro médico desde que nos confió su suministro. No fue una rebaja puntual de un año bueno de mercado: es la diferencia estructural entre el contrato que tenía y el que le correspondía. Ese es el orden de magnitud del que hablamos cuando decimos que en un gran consumo el margen no está en el precio del kilovatio."
+        />
 
         <ProcesoGrandesConsumos />
         <AutoridadBloque />

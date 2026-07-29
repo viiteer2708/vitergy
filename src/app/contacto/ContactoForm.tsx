@@ -169,6 +169,21 @@ export default function ContactoForm() {
       >
         Enviar consulta
       </button>
+
+      <p className="text-xs leading-5 text-gray-500">
+        Al pulsar &laquo;Enviar consulta&raquo; abriremos WhatsApp con tu mensaje
+        preparado; tus datos no salen de tu dispositivo hasta que lo envíes desde
+        allí. Responsable: Por encima del techo del cielo, S.L. Finalidad:
+        atender tu consulta y elaborar el estudio energético. Puedes ejercer tus
+        derechos en info@vitergy.es. Más información en la{" "}
+        <a
+          href="/privacidad"
+          className="font-medium text-[#f97316] underline underline-offset-2"
+        >
+          política de privacidad
+        </a>
+        .
+      </p>
     </form>
   );
 }

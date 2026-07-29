@@ -3,7 +3,9 @@ import type { Sector } from "./sectores";
 import { SECTORES } from "./sectores";
 import {
   AutoridadBloque,
+  CasoReal,
   CtaGrandesConsumos,
+  MetricasTira,
   ProcesoGrandesConsumos,
 } from "./Bloques";
 
@@ -125,6 +127,8 @@ export default function SectorLanding({ sector }: { sector: Sector }) {
               Llamar al 633 15 10 83
             </a>
           </div>
+
+          <MetricasTira />
         </div>
       </section>
 
@@ -254,6 +258,15 @@ export default function SectorLanding({ sector }: { sector: Sector }) {
             {sector.escenario.cierre}
           </p>
         </section>
+
+        {sector.casoReal && (
+          <CasoReal
+            cifra={sector.casoReal.cifra}
+            pie={sector.casoReal.pie}
+            titular={sector.casoReal.titular}
+            texto={sector.casoReal.texto}
+          />
+        )}
 
         <ProcesoGrandesConsumos />
         <AutoridadBloque />
