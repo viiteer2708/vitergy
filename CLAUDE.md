@@ -4,7 +4,7 @@ Guía para trabajar en **Vitergy**. Léela antes de tocar código.
 
 ## Qué es
 
-Landing/web de marca para **Vitergy** — asesoría energética independiente en Molins de Rei (Víctor). El objetivo del sitio es **captar clientes vía SEO** y empujarlos a contacto (WhatsApp / formulario). Es una web de marketing **estática** con dos herramientas dinámicas (precio de la luz hoy/mañana). No hay backend propio, ni base de datos, ni autenticación.
+Landing/web de marca para **Vitergy** — asesoría energética independiente en Molins de Rei (Víctor). El objetivo del sitio es **captar clientes vía SEO** y empujarlos a contacto (WhatsApp / formulario). Es una web de marketing **estática** con dos herramientas dinámicas (precio de la luz hoy/mañana) y un chat de soporte con IA. No hay base de datos ni autenticación; el único backend es la API route del chat (`/api/chat`).
 
 Dominio en producción: `https://vitergy.es` · Desplegado en **Vercel**.
 
@@ -39,8 +39,8 @@ Todo cuelga de `src/app/` (App Router). Cada ruta = una carpeta con `page.tsx`. 
 | Blog | `blog/` (índice) + 10 artículos en subcarpetas | 11 |
 | Institucional | `page.tsx` (home), `sobre-mi`, `contacto`, `consultoria-energetica` | 4 |
 
-- **Layout global** ([src/app/layout.tsx](src/app/layout.tsx)): monta `<Navbar/>`, `<Footer/>`, el **botón flotante de WhatsApp** (nº `633151083`) y los metadatos SEO base / OpenGraph. `lang="es"`.
-- **Componentes compartidos**: `Navbar` y `Footer` en [src/components/](src/components/) (montados en el layout).
+- **Layout global** ([src/app/layout.tsx](src/app/layout.tsx)): monta `<Navbar/>`, `<Footer/>`, el **botón flotante de WhatsApp** (nº `633151083`, esquina inferior derecha), el **chat de soporte con IA** (`<ChatWidget/>`, esquina inferior izquierda) y los metadatos SEO base / OpenGraph. `lang="es"`.
+- **Componentes compartidos**: `Navbar`, `Footer` y `ChatWidget` en [src/components/](src/components/) (montados en el layout).
 - **Componentes específicos de ruta**: conviven junto a su `page.tsx` (p. ej. `contacto/ContactoForm.tsx`, `calculadora-consumo-electrico/Calculadora.tsx`, `precio-luz-hoy/PrecioLuzHoyWidget.tsx`). **Este es el patrón a seguir** para UI de una sola página.
 - **Excepción — `grandes-consumos/`**: las cuatro landings sectoriales comparten plantilla, así que el contenido vive en [sectores.ts](src/app/grandes-consumos/sectores.ts) (un objeto `Sector` por sector) y se renderiza con `SectorLanding.tsx`; los bloques comunes con la pilar están en `Bloques.tsx`. Para añadir un sector nuevo: entrada en `sectores.ts` + carpeta con `page.tsx` de 20 líneas + alta en `sitemap.ts`, `Navbar.tsx` y `Footer.tsx`.
 - **Lógica compartida**: en [src/lib/](src/lib/) (p. ej. `precios-luz.ts`). Si una lógica la usan ≥2 rutas, va aquí, no duplicada inline.
@@ -51,6 +51,15 @@ Todo cuelga de `src/app/` (App Router). Cada ruta = una carpeta con `page.tsx`. 
 Las herramientas de precio llaman a la **API pública de REE** (`apidatos.ree.es`, serie PVPC) **desde el cliente** (`"use client"`, `fetch` en `useEffect`). No hay clave de API ni proxy.
 
 Toda la lógica vive en [src/lib/precios-luz.ts](src/lib/precios-luz.ts) — **fuente única**: `fetchPrices(date)`, `parseREEResponse` (filtra la serie por título PVPC), `classifyPrices` (3 zonas: las 8 horas más baratas `cheap`, las 4 más caras `expensive`, resto `mid`), `getStats`, `formatPrice`, `zoneColors`, `zoneLabels`. Los widgets de ruta (`PrecioLuzHoyWidget`, `PrecioLuzMananaWidget`) **importan de aquí**. No vuelvas a duplicar esta lógica inline.
+
+## Chat de soporte con IA
+
+Burbuja flotante ([src/components/ChatWidget.tsx](src/components/ChatWidget.tsx), esquina inferior **izquierda** — la derecha es de WhatsApp) que habla con la única API route del sitio, [src/app/api/chat/route.ts](src/app/api/chat/route.ts): un proxy hacia la **API de Gemini** (free tier de Google AI Studio, modelo `gemini-3.5-flash-lite`, cambiable con la env var `GEMINI_MODEL`).
+
+- **La clave de la API (`GEMINI_API_KEY`) SOLO existe en el servidor**: env var en Vercel y en `.env.local` (gitignored). Jamás en código, jamás con prefijo `NEXT_PUBLIC_` — el repo es público.
+- El system prompt, el modelo y `generationConfig` se fijan **en el servidor** (route.ts); nunca aceptar esos campos del cliente. El system prompt está anclado en el wiki (independencia, "análisis gratis, si no ahorro no cobro", nada de rankings de compañías ni cifras inventadas) — si cambias el mensaje de negocio, coteja con `wiki/projects/vitergy.md`.
+- Protecciones en la route: tope de longitud, historial capado, rate limit best-effort por IP, check de Origin y mensajes de error amables (429 = cuota gratis agotada, se resetea a medianoche hora del Pacífico).
+- Sin `GEMINI_API_KEY` configurada el chat responde 503 con un mensaje que redirige a WhatsApp — la web nunca se rompe por esto.
 
 ## Sistema de diseño
 
@@ -63,7 +72,7 @@ Tokens en `@theme` de [globals.css](src/app/globals.css). Úsalos, no hardcodees
 
 1. **El formulario de contacto no usa backend.** [contacto/ContactoForm.tsx](src/app/contacto/ContactoForm.tsx) **no hace POST ni envía email**: al enviar, abre WhatsApp (`wa.me/34633151083`) con la consulta prerrellenada y muestra el mensaje de éxito. Toda la captación va por WhatsApp/teléfono. Si en el futuro se pide "que el formulario llegue por email", hay que **añadir el envío desde cero** (API route + proveedor de email).
 2. **`next.config.ts`** solo permite imágenes remotas de `images.unsplash.com`. Para otros dominios externos, añádelos a `remotePatterns`.
-3. `.env.local` solo contiene `VERCEL_OIDC_TOKEN` (lo genera Vercel CLI). No hay secretos de app que configurar.
+3. `.env.local` contiene `VERCEL_OIDC_TOKEN` (lo genera Vercel CLI) y `GEMINI_API_KEY` (clave del chat de soporte; también debe estar en las env vars de Vercel). `.env*` está gitignored — nunca lo commitees.
 4. **Este repo es PÚBLICO en GitHub.** Las propuestas y estudios de clientes (PDFs con NIF, CUPS, direcciones y consumos) pueden vivir en el directorio de trabajo pero JAMÁS en un commit — el `.gitignore` ya excluye `/*.pdf`, `/propuestas/`, `/estudios/` y `/facturas/`. Antes de commitear, comprueba que ningún dato de cliente se cuela.
 
 ## Cómo trabajar aquí (guía de comportamiento)
