@@ -4,7 +4,7 @@ Guía para trabajar en **Vitergy**. Léela antes de tocar código.
 
 ## Qué es
 
-Landing/web de marca para **Vitergy** — asesoría energética independiente en Molins de Rei (Víctor). El objetivo del sitio es **captar clientes vía SEO** y empujarlos a contacto (WhatsApp / formulario). Es una web de marketing **estática** con dos herramientas dinámicas (precio de la luz hoy/mañana) y un chat de soporte con IA. No hay base de datos ni autenticación; el único backend es la API route del chat (`/api/chat`).
+Landing/web de marca para **Vitergy** — asesoría energética independiente en Molins de Rei (Víctor). El objetivo del sitio es **captar clientes vía SEO** y empujarlos a contacto (WhatsApp / calculadora de ahorro). Es una web de marketing **estática** con herramientas dinámicas (precio de la luz hoy/mañana, calculadora de ahorro en `/contacto`) y un chat de soporte con IA. No hay base de datos ni autenticación; el backend son 3 API routes: el chat (`/api/chat`) y las dos de la calculadora (`/api/factura/analizar`, `/api/factura/estudio`).
 
 Dominio en producción: `https://vitergy.es` · Desplegado en **Vercel**.
 
@@ -70,9 +70,9 @@ Tokens en `@theme` de [globals.css](src/app/globals.css). Úsalos, no hardcodees
 
 ## ⚠️ Trampas (importante)
 
-1. **El formulario de contacto no usa backend.** [contacto/ContactoForm.tsx](src/app/contacto/ContactoForm.tsx) **no hace POST ni envía email**: al enviar, abre WhatsApp (`wa.me/34633151083`) con la consulta prerrellenada y muestra el mensaje de éxito. Toda la captación va por WhatsApp/teléfono. Si en el futuro se pide "que el formulario llegue por email", hay que **añadir el envío desde cero** (API route + proveedor de email).
+1. **El formulario de contacto fue SUSTITUIDO por la calculadora de ahorro** (ago-2026). [contacto/CalculadoraAhorro.tsx](src/app/contacto/CalculadoraAhorro.tsx) es un wizard de 4 pasos: subir factura → Gemini extrae los datos (`/api/factura/analizar`) → el usuario los confirma → deja su email → estudio en pantalla (`/api/factura/estudio`). El estudio calcula el mejor precio contra el **Supabase de DPC** (server-side, réplica simplificada del motor; ver [src/lib/estudio-ahorro.ts](src/lib/estudio-ahorro.ts)) y captura el lead en **Brevo** (lista 488 "VITERGY") + aviso a `info@vitergy.es`. **REGLA INNEGOCIABLE**: la respuesta al navegador nunca lleva nombres de comercializadoras ni rankings — solo el ahorro agregado, presentado como estimación retrospectiva. Si hay prórroga fiscal del RDL 7/2026, actualizar las constantes de `estudio-ahorro.ts` cotejando con `dpc-comparador/src/lib/calculations/taxes.ts`.
 2. **`next.config.ts`** solo permite imágenes remotas de `images.unsplash.com`. Para otros dominios externos, añádelos a `remotePatterns`.
-3. `.env.local` contiene `VERCEL_OIDC_TOKEN` (lo genera Vercel CLI) y `GEMINI_API_KEY` (clave del chat de soporte; también debe estar en las env vars de Vercel). `.env*` está gitignored — nunca lo commitees.
+3. `.env.local` contiene `VERCEL_OIDC_TOKEN` (lo genera Vercel CLI), `GEMINI_API_KEY` (chat + lector de facturas), `DPC_SUPABASE_URL` + `DPC_SUPABASE_SERVICE_ROLE_KEY` (precios para la calculadora — ⚠️ llave maestra de la BD de DPC, SOLO server-side), `BREVO_API_KEY` + `BREVO_SENDER_EMAIL` (+ opcionales `BREVO_LIST_ID`, `LEAD_TO_EMAIL`, `GEMINI_MODEL_FACTURA`). Todas también en las env vars de Vercel. `.env*` está gitignored — nunca lo commitees.
 4. **Este repo es PÚBLICO en GitHub.** Las propuestas y estudios de clientes (PDFs con NIF, CUPS, direcciones y consumos) pueden vivir en el directorio de trabajo pero JAMÁS en un commit — el `.gitignore` ya excluye `/*.pdf`, `/propuestas/`, `/estudios/` y `/facturas/`. Antes de commitear, comprueba que ningún dato de cliente se cuela.
 
 ## Cómo trabajar aquí (guía de comportamiento)

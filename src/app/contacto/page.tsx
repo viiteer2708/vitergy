@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ContactoForm from "./ContactoForm";
+import CalculadoraAhorro from "./CalculadoraAhorro";
 
 export const metadata: Metadata = {
   title: "Contacto | Asesoría Energética Gratuita en Molins de Rei - Vitergy",
@@ -175,17 +175,18 @@ export default function ContactoPage() {
             </div>
           </div>
 
-          {/* ── Right: Form ── */}
+          {/* ── Right: Calculadora de ahorro ── */}
           <div>
             <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm sm:p-8">
               <h2 className="text-lg font-bold text-gray-900">
-                Envíanos un mensaje
+                Calcula tu ahorro en 1 minuto
               </h2>
               <p className="mt-1 text-sm text-gray-500">
-                Rellena el formulario y te responderemos en menos de 2 horas.
+                Sube tu factura de luz y descubre al momento cuánto podrías
+                ahorrar. Gratis y sin compromiso: si no hay ahorro, no se cobra.
               </p>
               <div className="mt-6">
-                <ContactoForm />
+                <CalculadoraAhorro />
               </div>
             </div>
           </div>

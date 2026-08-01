@@ -54,26 +54,38 @@ export default function PrivacidadPage() {
             cuando nos los envías para que hagamos el estudio.
           </li>
           <li>
+            <strong>Mensajes del chat de la web:</strong> lo que escribes en el
+            asistente virtual se envía al servicio de IA que lo responde (Google
+            — API de Gemini). No escribas datos personales en el chat: no los
+            necesita para ayudarte.
+          </li>
+          <li>
             <strong>Datos de facturación:</strong> los necesarios para emitir
             factura, si llegamos a contratar.
           </li>
         </ul>
         <p className="rounded-2xl border border-orange-100 bg-[#fff7ed] p-5 text-sm leading-6">
           <strong className="text-[#1f2942]">
-            Sobre el formulario de contacto de esta web:
+            Sobre la calculadora de ahorro de{" "}
+            <Link
+              href="/contacto"
+              className="font-semibold text-[#f97316] underline underline-offset-4"
+            >
+              /contacto
+            </Link>
+            :
           </strong>{" "}
-          conviene que lo sepas, porque no es lo habitual. El formulario de{" "}
-          <Link
-            href="/contacto"
-            className="font-semibold text-[#f97316] underline underline-offset-4"
-          >
-            /contacto
-          </Link>{" "}
-          <strong>no envía tus datos a ningún servidor nuestro</strong>. Lo que
-          hace es redactar con lo que has escrito un mensaje de WhatsApp y
-          abrírtelo para que tú decidas si lo envías. Hasta que pulsas enviar en
-          WhatsApp, tus datos no salen de tu dispositivo y nosotros no recibimos
-          nada.
+          si subes tu factura, el archivo completo se envía a través de nuestro
+          servidor al servicio de inteligencia artificial de Google (API de
+          Gemini) para leerla. De ella extraemos únicamente datos técnicos
+          (consumo, potencia contratada, días e importe): <strong>no extraemos
+          tu nombre, dirección, CUPS ni IBAN, y nosotros no guardamos el
+          archivo</strong>. Ten en cuenta que usamos el nivel gratuito del
+          servicio de Google, y Google puede utilizar el contenido enviado para
+          mejorar sus productos; si lo prefieres, tapa u oculta tus datos
+          personales en la foto antes de subirla — el análisis funciona igual.
+          El email que nos dejas para recibir el estudio se guarda en nuestra
+          herramienta de email (Brevo) junto con esos datos técnicos.
         </p>
       </Apartado>
 
@@ -134,8 +146,18 @@ export default function PrivacidadPage() {
           </li>
           <li>
             <strong>Proveedores tecnológicos</strong> que actúan como encargados
-            del tratamiento: alojamiento del sitio web (Vercel Inc.) y servicio de
-            correo electrónico.
+            del tratamiento: alojamiento del sitio web (Vercel Inc.), servicio de
+            correo electrónico, y la plataforma de email donde guardamos tu email
+            y los datos técnicos de tu estudio (Brevo).
+          </li>
+          <li>
+            <strong>Google (API de Gemini)</strong>, para dos funciones de la
+            web: leer tu factura en la calculadora de ahorro y responder los
+            mensajes del chat. Usamos el nivel gratuito del servicio, en el que
+            Google puede utilizar el contenido enviado para mejorar sus
+            productos. Nosotros no almacenamos tu factura ni tus conversaciones;
+            si lo prefieres, oculta tus datos personales en la foto de la
+            factura y no escribas datos personales en el chat.
           </li>
           <li>
             <strong>Asesoría fiscal y contable, y Administración Pública</strong>,
