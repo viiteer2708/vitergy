@@ -4,35 +4,37 @@ import { useRef, useState } from "react";
 
 // Calculadora interactiva de ahorro — sustituye al antiguo formulario de
 // contacto. Flujo: subir factura → confirmar datos extraídos → email →
-// estudio en pantalla. El usuario SIEMPRE confirma los datos antes de
-// calcular (la IA puede leer mal) y el resultado se presenta como estimación,
-// nunca como promesa. Sin nombres de comercializadoras en el resultado.
+// estudio en pantalla, para hogares (2.0TD) Y empresas (3.0TD/6.1TD/6.2TD).
+// El usuario SIEMPRE confirma los datos antes de calcular (la IA puede leer
+// mal) y el resultado se presenta como estimación. Se muestra LA OFERTA
+// GANADORA (dictamen Victor 2-ago-2026) — nunca un ranking.
 
 const WHATSAPP_NUMBER = "34633151083";
 const MAX_PDF_BYTES = 3 * 1024 * 1024; // límite request de Vercel: 4,5 MB
 const MAX_LADO_IMAGEN = 2000; // px — recomprime fotos de móvil en el navegador
 
 type Paso = "subir" | "analizando" | "confirmar" | "email" | "enviando" | "resultado";
+type Peaje = "2.0TD" | "3.0TD" | "6.1TD" | "6.2TD";
 
 interface DatosForm {
   importeTotalEur: string;
   consumoKwh: string;
   potenciaP1Kw: string;
   dias: string;
+  peaje: Peaje;
   zona: "peninsula" | "baleares" | "canarias";
 }
 
 interface Extraido {
   esFactura: boolean;
   comercializadora: string | null;
-  peaje: string | null;
-  potenciaP1Kw: number | null;
-  potenciaP2Kw: number | null;
+  peaje: Peaje | null;
+  potenciasKw: number[];
   consumoKwh: number | null;
-  consumoP1Kwh: number | null;
-  consumoP2Kwh: number | null;
-  consumoP3Kwh: number | null;
+  consumosKwh: number[];
   dias: number | null;
+  fechaInicio: string | null;
+  fechaFin: string | null;
   importeTotalEur: number | null;
   alquilerContadorEur: number | null;
   zona: "peninsula" | "baleares" | "canarias";
@@ -40,7 +42,7 @@ interface Extraido {
 }
 
 interface EstudioResp {
-  tipo: "ok" | "b2b" | "sin_calculo";
+  tipo: "ok" | "sin_calculo";
   estudio?: {
     costeMejorOfertaEur: number;
     ahorroPeriodoEur: number;
@@ -49,6 +51,8 @@ interface EstudioResp {
     ofertasComparadas: number;
     fechaPrecios: string;
     hayAhorro: boolean;
+    oferta: { compania: string; nombre: string; tipo: "fija" | "indexada" };
+    prioridadAplicada: boolean;
   };
 }
 
@@ -62,17 +66,24 @@ class ErrorUsuario extends Error {}
 const ERROR_RED =
   "No hemos podido conectar. Comprueba tu conexión e inténtalo de nuevo, o escríbenos por WhatsApp al 633 15 10 83.";
 
-// Números tecleados a la española: "1.234,56" → 1234.56 · "1.500" → 1500 ·
-// "85,5" → 85.5 · "4.6" → 4.6 (punto decimal también se acepta).
-function parseNumES(s: string): number {
+// Números tecleados a la española: "1.234,56" → 1234.56 · "85,5" → 85.5 ·
+// "4.6" → 4.6. El punto SOLO se trata como separador de miles si el campo lo
+// permite (importe/consumo) Y el patrón es estrictamente de miles — jamás en
+// potencia: "4.619" kW es una trifásica normal, no 4.619 kW (bug crítico
+// cazado en revisión: convertía hogares en industrias).
+function parseNumES(s: string, permitirMiles = false): number {
   const t = s.trim();
   if (t.includes(",")) return parseFloat(t.replace(/\./g, "").replace(",", "."));
-  const soloPuntos = t.match(/\./g);
-  if (soloPuntos && /\.\d{3}(\.|$)/.test(t) && !/\.\d{1,2}$/.test(t)) {
+  if (permitirMiles && /^\d{1,3}(\.\d{3})+$/.test(t)) {
     return parseFloat(t.replace(/\./g, ""));
   }
   return parseFloat(t);
 }
+
+// Prefill en formato español (coma decimal) para que parseNumES tome siempre
+// la rama inequívoca de la coma.
+const aTextoES = (n: number | null | undefined): string =>
+  n == null ? "" : String(n).replace(".", ",");
 
 async function archivoABase64(file: File): Promise<{ base64: string; mimeType: string }> {
   // PDF: tal cual (los nativos pesan poco).
@@ -134,6 +145,7 @@ export default function CalculadoraAhorro() {
     consumoKwh: "",
     potenciaP1Kw: "",
     dias: "30",
+    peaje: "2.0TD",
     zona: "peninsula",
   });
   const [email, setEmail] = useState("");
@@ -156,16 +168,19 @@ export default function CalculadoraAhorro() {
       });
       const data = await res.json().catch(() => null);
       if (!res.ok || !data?.datos) {
-        throw new ErrorUsuario(data?.error ?? "No se pudo analizar la factura. Puedes introducir los datos a mano.");
+        throw new ErrorUsuario(
+          data?.error ?? "No se pudo analizar la factura. Puedes introducir los datos a mano."
+        );
       }
 
       const d: Extraido = data.datos;
       setExtraido(d);
       setForm({
-        importeTotalEur: d.importeTotalEur?.toString() ?? "",
-        consumoKwh: d.consumoKwh?.toString() ?? "",
-        potenciaP1Kw: d.potenciaP1Kw?.toString() ?? "",
+        importeTotalEur: aTextoES(d.importeTotalEur),
+        consumoKwh: aTextoES(d.consumoKwh),
+        potenciaP1Kw: aTextoES(d.potenciasKw[0]),
         dias: d.dias?.toString() ?? "30",
+        peaje: d.peaje ?? "2.0TD",
         zona: d.zona,
       });
       setPaso("confirmar");
@@ -181,27 +196,42 @@ export default function CalculadoraAhorro() {
     setPaso("confirmar");
   }
 
-  // Espejo de los rangos del servidor (validarDatosFactura): así el error
-  // sale en el paso donde se puede corregir, con mensaje por campo.
+  /** Potencias que se enviarán: P1 del formulario + resto de las leídas. */
+  function potenciasEfectivas(pot: number): number[] {
+    if (extraido && extraido.potenciasKw.length > 0) {
+      return [pot, ...extraido.potenciasKw.slice(1)];
+    }
+    return [pot];
+  }
+
+  // Espejo de los rangos del servidor (validarDatosFactura), en SU MISMO
+  // orden: primero reclasificar el peaje con la potencia máxima, después
+  // validar con los rangos del peaje resultante.
   function confirmarDatos(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    const imp = parseNumES(form.importeTotalEur);
-    const con = parseNumES(form.consumoKwh);
+    const imp = parseNumES(form.importeTotalEur, true);
+    const con = parseNumES(form.consumoKwh, true);
     const pot = parseNumES(form.potenciaP1Kw);
     const dia = parseInt(form.dias, 10);
-    if (!(imp >= 5 && imp <= 5000)) {
-      setError("El importe total debe estar entre 5 y 5.000 € (ej.: 85,50).");
+    if (!(pot >= 0.1 && pot <= 20000)) {
+      setError("Revisa la potencia contratada en kW (ej.: 4,6).");
       return;
     }
-    if (!(con >= 10 && con <= 10000)) {
-      setError("El consumo debe estar entre 10 y 10.000 kWh (ej.: 290).");
+    let peaje = form.peaje;
+    const potMax = Math.max(...potenciasEfectivas(pot));
+    if (peaje === "2.0TD" && potMax > 15) {
+      // 2.0TD no existe por encima de 15 kW → es un suministro de empresa.
+      peaje = "3.0TD";
+      setForm({ ...form, peaje });
+    }
+    const esHogar = peaje === "2.0TD";
+    if (!(imp >= 5 && imp <= (esHogar ? 5000 : 500000))) {
+      setError("Revisa el importe total de la factura (ej.: 85,50).");
       return;
     }
-    if (!(pot >= 0.5 && pot <= 20)) {
-      setError(
-        "La potencia debe estar entre 0,5 y 20 kW. Si la tuya es mayor, tu suministro es de empresa: déjanos tu email igualmente o escríbenos por WhatsApp."
-      );
+    if (!(con >= 10 && con <= (esHogar ? 20000 : 5000000))) {
+      setError("Revisa el consumo en kWh del periodo (ej.: 290).");
       return;
     }
     if (!(dia >= 5 && dia <= 95)) {
@@ -219,10 +249,12 @@ export default function CalculadoraAhorro() {
       // Si el usuario corrigió un campo visible, sus derivados invisibles del
       // extraído quedan obsoletos: se anulan para no mandar datos incoherentes
       // (el servidor además coteja que el desglose cuadre con el total).
-      const con = parseNumES(form.consumoKwh);
+      const con = parseNumES(form.consumoKwh, true);
       const pot = parseNumES(form.potenciaP1Kw);
-      const consumoEditado = extraido?.consumoKwh != null && con !== extraido.consumoKwh;
-      const potenciaEditada = extraido?.potenciaP1Kw != null && pot !== extraido.potenciaP1Kw;
+      const dia = parseInt(form.dias, 10);
+      const cerca = (a: number, b: number) => Math.abs(a - b) < 0.001;
+      const consumoEditado = extraido?.consumoKwh != null && !cerca(con, extraido.consumoKwh);
+      const diasEditados = extraido?.dias != null && dia !== extraido.dias;
 
       const res = await fetch("/api/factura/estudio", {
         method: "POST",
@@ -233,22 +265,20 @@ export default function CalculadoraAhorro() {
           consienteMarketing,
           web: honeypot,
           datos: {
-            importeTotalEur: parseNumES(form.importeTotalEur),
+            importeTotalEur: parseNumES(form.importeTotalEur, true),
             consumoKwh: con,
-            potenciaP1Kw: pot,
-            potenciaP2Kw: potenciaEditada ? null : (extraido?.potenciaP2Kw ?? null),
-            consumoP1Kwh: consumoEditado ? null : (extraido?.consumoP1Kwh ?? null),
-            consumoP2Kwh: consumoEditado ? null : (extraido?.consumoP2Kwh ?? null),
-            consumoP3Kwh: consumoEditado ? null : (extraido?.consumoP3Kwh ?? null),
-            dias: parseInt(form.dias, 10),
+            consumosKwh: consumoEditado ? null : (extraido?.consumosKwh ?? null),
+            potenciasKw: potenciasEfectivas(pot),
+            dias: dia,
+            peaje: form.peaje,
             zona: form.zona,
-            alquilerContadorEur: extraido?.alquilerContadorEur ?? null,
+            // Días corregidos → las fechas y el alquiler leídos son de OTRO
+            // periodo: fuera (el servidor tiene fallbacks declarados).
+            fechaInicio: diasEditados ? null : (extraido?.fechaInicio ?? null),
+            fechaFin: diasEditados ? null : (extraido?.fechaFin ?? null),
+            alquilerContadorEur: diasEditados ? null : (extraido?.alquilerContadorEur ?? null),
           },
-          extra: {
-            comercializadora: extraido?.comercializadora ?? null,
-            peaje: extraido?.peaje ?? null,
-            esFactura: extraido?.esFactura ?? null,
-          },
+          extra: { comercializadora: extraido?.comercializadora ?? null },
         }),
       });
       const data = await res.json().catch(() => null);
@@ -322,7 +352,7 @@ export default function CalculadoraAhorro() {
                 Sube una foto o PDF de tu última factura de luz
               </p>
               <p className="mt-1 text-xs text-gray-500">
-                Vale una foto hecha con el móvil. JPG, PNG, HEIC o PDF.
+                Hogares y empresas. Vale una foto hecha con el móvil. JPG, PNG, HEIC o PDF.
               </p>
               <button
                 type="button"
@@ -373,7 +403,7 @@ export default function CalculadoraAhorro() {
   // ─────────────────── Paso: confirmar datos ───────────────────
   if (paso === "confirmar") {
     const avisoNoFactura = extraido && !extraido.esFactura;
-    const esB2B = extraido?.peaje !== null && extraido?.peaje !== undefined && !extraido.peaje.startsWith("2.0");
+    const esEmpresa = form.peaje !== "2.0TD";
     return (
       <form onSubmit={confirmarDatos} className="space-y-4">
         {extraido ? (
@@ -393,14 +423,7 @@ export default function CalculadoraAhorro() {
           </p>
         ) : (
           <p className="rounded-lg bg-[#fff7ed] p-3 text-sm text-gray-700">
-            Copia estos cuatro datos de tu última factura de luz.
-          </p>
-        )}
-
-        {esB2B && (
-          <p className="rounded-lg bg-blue-50 p-3 text-sm text-blue-800">
-            Tu tarifa ({extraido?.peaje}) es de empresa o gran consumo: el estudio te
-            lo prepara Víctor personalmente. Confirma los datos y déjanos tu email.
+            Copia estos datos de tu última factura de luz.
           </p>
         )}
 
@@ -449,6 +472,12 @@ export default function CalculadoraAhorro() {
               className={inputCls}
               placeholder="4,6"
             />
+            {extraido && extraido.potenciasKw.length > 1 && (
+              <p className="mt-1 text-xs text-gray-500">
+                Leídas {extraido.potenciasKw.length} potencias de tu factura — las
+                usaremos todas.
+              </p>
+            )}
           </div>
           <div>
             <label htmlFor="dias" className={labelCls}>
@@ -466,25 +495,47 @@ export default function CalculadoraAhorro() {
               placeholder="30"
             />
           </div>
+          <div>
+            <label htmlFor="peaje" className={labelCls}>
+              Tarifa de acceso
+            </label>
+            <select
+              id="peaje"
+              value={form.peaje}
+              onChange={(e) => setForm({ ...form, peaje: e.target.value as Peaje })}
+              className={inputCls + " text-gray-700"}
+            >
+              <option value="2.0TD">2.0TD (hogar)</option>
+              <option value="3.0TD">3.0TD (empresa)</option>
+              <option value="6.1TD">6.1TD (empresa)</option>
+              <option value="6.2TD">6.2TD (empresa)</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="zona" className={labelCls}>
+              Zona del suministro
+            </label>
+            <select
+              id="zona"
+              value={form.zona}
+              onChange={(e) =>
+                setForm({ ...form, zona: e.target.value as DatosForm["zona"] })
+              }
+              className={inputCls + " text-gray-700"}
+            >
+              <option value="peninsula">Península</option>
+              <option value="baleares">Baleares</option>
+              <option value="canarias">Canarias</option>
+            </select>
+          </div>
         </div>
 
-        <div>
-          <label htmlFor="zona" className={labelCls}>
-            Zona del suministro
-          </label>
-          <select
-            id="zona"
-            value={form.zona}
-            onChange={(e) =>
-              setForm({ ...form, zona: e.target.value as DatosForm["zona"] })
-            }
-            className={inputCls + " text-gray-700"}
-          >
-            <option value="peninsula">Península</option>
-            <option value="baleares">Baleares</option>
-            <option value="canarias">Canarias</option>
-          </select>
-        </div>
+        {esEmpresa && (
+          <p className="rounded-lg bg-blue-50 p-3 text-xs leading-5 text-blue-800">
+            Suministro de empresa: calculamos tu estimación con los periodos de tu
+            factura y Víctor la afina después con la curva real de consumo.
+          </p>
+        )}
 
         {error && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-700">{error}</p>}
 
@@ -634,7 +685,7 @@ export default function CalculadoraAhorro() {
   const est = resultado?.estudio;
   const waTexto = encodeURIComponent(
     resultado?.tipo === "ok" && est
-      ? `Hola Víctor, acabo de usar la calculadora de vitergy.es: ahorro estimado de ${eur(est.ahorroAnualEur)} €/año. Quiero mi estudio completo gratis. Mi email: ${email}`
+      ? `Hola Víctor, acabo de usar la calculadora de vitergy.es: mi mejor oferta es ${est.oferta.compania} ${est.oferta.nombre} (${est.oferta.tipo}), ahorro estimado de ${eur(est.ahorroAnualEur)} €/año. Quiero que me gestiones el cambio gratis. Mi email: ${email}`
       : `Hola Víctor, acabo de pedir mi estudio en la calculadora de vitergy.es. Mi email: ${email}`
   );
 
@@ -649,23 +700,31 @@ export default function CalculadoraAhorro() {
             <p className="text-5xl font-extrabold tracking-tight text-[#f97316]">
               ~{eur(est.ahorroAnualEur)} €<span className="text-2xl font-bold">/año</span>
             </p>
-            <p className="text-sm text-gray-700">
-              Con la mejor oferta real a nuestro alcance, esta factura te habría
-              costado <strong>~{eur(est.costeMejorOfertaEur)} €</strong> en lugar de{" "}
-              <strong>{form.importeTotalEur} €</strong> — un{" "}
-              <strong>{Math.round(est.ahorroPct * 100)}% menos</strong>.
-            </p>
+            <div className="rounded-xl border border-orange-200 bg-white p-4 text-left shadow-sm">
+              <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                Tu mejor oferta hoy
+              </p>
+              <p className="mt-1 text-lg font-bold text-gray-900">
+                {est.oferta.compania} · {est.oferta.nombre}
+                <span className="ml-2 rounded-full bg-[#fff7ed] px-2 py-0.5 text-xs font-semibold text-[#f97316]">
+                  {est.oferta.tipo === "indexada" ? "indexada" : "precio fijo"}
+                </span>
+              </p>
+              <p className="mt-1 text-sm text-gray-700">
+                Con ella, esta factura te habría costado{" "}
+                <strong>~{eur(est.costeMejorOfertaEur)} €</strong> en lugar de{" "}
+                <strong>{form.importeTotalEur} €</strong> — un{" "}
+                <strong>{Math.round(est.ahorroPct * 100)}% menos</strong>.
+              </p>
+            </div>
             <div className="rounded-xl bg-[#fff7ed] p-4 text-left text-xs leading-5 text-gray-600">
               <p>
-                <strong>¿Y qué tarifa es?</strong> No existe «la compañía más barata»
-                universal: depende de tu consumo, potencia y horarios. Tu estudio
-                gratuito con Víctor responde exactamente esa pregunta, verificado
-                factura a factura — y si no hay ahorro real, no se cobra.
-              </p>
-              <p className="mt-2">
                 Estimación calculada el {new Date().toLocaleDateString("es-ES")}{" "}
-                comparando {est.ofertasComparadas} ofertas reales del mercado, con la
-                fiscalidad vigente. No es una promesa de tu próxima factura.
+                comparando {est.ofertasComparadas} ofertas reales del mercado con la
+                fiscalidad vigente, sobre tu última factura («habrías pagado»). No
+                es una promesa de tu próxima factura: Víctor la verifica gratis,
+                factura a factura, y te gestiona el cambio sin cortes de luz. Si no
+                hay ahorro real, no se cobra.
               </p>
             </div>
           </>
@@ -683,19 +742,6 @@ export default function CalculadoraAhorro() {
             </p>
           </>
         )
-      ) : resultado?.tipo === "b2b" ? (
-        <>
-          <p className="text-4xl">🏭</p>
-          <p className="text-xl font-bold text-gray-900">
-            Tu suministro es de empresa o gran consumo
-          </p>
-          <p className="text-sm text-gray-700">
-            Estas tarifas no se comparan con una calculadora: hay que mirar periodos,
-            excesos de potencia y reactiva. Víctor (+12 años, +200 GWh gestionados)
-            te preparará el estudio personalmente y te lo enviará a{" "}
-            <strong>{email}</strong>.
-          </p>
-        </>
       ) : (
         <>
           <p className="text-4xl">📬</p>
@@ -717,7 +763,7 @@ export default function CalculadoraAhorro() {
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
         </svg>
         {resultado?.tipo === "ok" && est?.hayAhorro
-          ? "Quiero mi estudio completo gratis"
+          ? "Quiero que Víctor me gestione el cambio"
           : "Hablar con Víctor por WhatsApp"}
       </a>
 

@@ -2,10 +2,11 @@ import { NextResponse } from "next/server";
 import { crearRateLimiter, origenPermitido, ipDe } from "@/lib/api-guardas";
 
 // Paso 1 de la calculadora de ahorro: el usuario sube su factura (foto o PDF)
-// y Gemini extrae SOLO los datos técnicos necesarios para comparar. Privacidad
-// por diseño: el esquema de salida no contiene CUPS, ni nombre, ni dirección,
-// ni IBAN — no se piden y por tanto no se procesan ni almacenan. El archivo
-// se procesa en memoria y se descarta: aquí no se guarda nada.
+// y Gemini extrae SOLO los datos técnicos necesarios para comparar — de hogar
+// (2.0TD) o de empresa (3.0TD/6.1TD/6.2TD, hasta 6 periodos). Privacidad por
+// diseño: el esquema de salida no contiene CUPS, ni nombre, ni dirección, ni
+// IBAN — no se piden y por tanto no se procesan ni almacenan. El archivo se
+// procesa en memoria y se descarta: aquí no se guarda nada.
 //
 // La clave (GEMINI_API_KEY, la misma del chat) SOLO existe en el servidor.
 
@@ -29,22 +30,22 @@ const MIMES_PERMITIDOS = new Set([
   "image/heif",
 ]);
 
-const PROMPT_EXTRACCION = `Analiza este documento. Debería ser una factura de electricidad española (de una comercializadora como Iberdrola, Endesa, Naturgy, Repsol, etc.).
+const PROMPT_EXTRACCION = `Analiza este documento. Debería ser una factura de electricidad española (de una comercializadora como Iberdrola, Endesa, Naturgy, Repsol, etc.), de un hogar (tarifa 2.0TD, 1-2 potencias y hasta 3 periodos de consumo) o de una empresa (3.0TD/6.1TD/6.2TD, hasta 6 potencias y 6 periodos).
 
 Extrae ÚNICAMENTE datos técnicos del suministro. PROHIBIDO extraer o devolver datos personales: ni nombre del titular, ni dirección, ni CUPS, ni DNI/NIF, ni IBAN.
 
 Reglas de extracción (las facturas españolas confunden estos campos):
-- potencia_p1_kw / potencia_p2_kw: la POTENCIA CONTRATADA en kW (punta/valle). NO la potencia demandada ni el maxímetro. Si solo aparece una potencia, ponla en potencia_p1_kw.
+- potencias_kw: las POTENCIAS CONTRATADAS en kW, en orden P1, P2... (hasta 6). NO la potencia demandada ni el maxímetro. Un hogar suele tener 1 o 2; una empresa 3.0TD tiene 6.
 - consumo_total_kwh: el consumo facturado DEL PERIODO de esta factura. NO el consumo anual acumulado ni el del gráfico de barras de los últimos 12 meses.
-- consumo_p1/p2/p3_kwh: desglose del consumo por periodos (punta/llano/valle) si aparece.
+- consumos_kwh: desglose del consumo por periodos en orden P1, P2... (hasta 6), si aparece.
 - importe_total_eur: el TOTAL de la factura CON impuestos (el "total a pagar"). NO la base imponible.
 - dias_facturados: días del periodo de facturación. Si no aparece el número, deja null y rellena fecha_inicio y fecha_fin del periodo de lectura (formato YYYY-MM-DD). NO uses la fecha de emisión ni la de cargo.
 - comercializadora: la empresa que emite la factura.
-- peaje: la tarifa de acceso (por ejemplo "2.0TD", "3.0TD", "6.1TD").
+- peaje: la tarifa de acceso ("2.0TD", "3.0TD", "6.1TD" o "6.2TD").
 - alquiler_contador_eur: importe del alquiler de equipos/contador del periodo, si aparece.
 - zona: "baleares" si la dirección del punto de suministro es de Islas Baleares, "canarias" si es de Canarias, "peninsula" en cualquier otro caso. NO devuelvas la dirección.
 - Números SIEMPRE con punto decimal (la factura usará coma).
-- Si un campo no aparece o no estás seguro, déjalo en null y explica la duda en observaciones.
+- Si un campo no aparece o no estás seguro, déjalo en null (o array vacío) y explica la duda en observaciones.
 - Si el documento NO es una factura de electricidad (es otra cosa: gas, telefonía, un contrato, una foto cualquiera...), pon es_factura en false y explica qué es en observaciones.`;
 
 const RESPONSE_SCHEMA = {
@@ -53,12 +54,9 @@ const RESPONSE_SCHEMA = {
     es_factura: { type: "BOOLEAN" },
     comercializadora: { type: "STRING", nullable: true },
     peaje: { type: "STRING", nullable: true },
-    potencia_p1_kw: { type: "NUMBER", nullable: true },
-    potencia_p2_kw: { type: "NUMBER", nullable: true },
+    potencias_kw: { type: "ARRAY", items: { type: "NUMBER" }, nullable: true },
     consumo_total_kwh: { type: "NUMBER", nullable: true },
-    consumo_p1_kwh: { type: "NUMBER", nullable: true },
-    consumo_p2_kwh: { type: "NUMBER", nullable: true },
-    consumo_p3_kwh: { type: "NUMBER", nullable: true },
+    consumos_kwh: { type: "ARRAY", items: { type: "NUMBER" }, nullable: true },
     dias_facturados: { type: "INTEGER", nullable: true },
     fecha_inicio: { type: "STRING", nullable: true },
     fecha_fin: { type: "STRING", nullable: true },
@@ -72,12 +70,9 @@ const RESPONSE_SCHEMA = {
     "es_factura",
     "comercializadora",
     "peaje",
-    "potencia_p1_kw",
-    "potencia_p2_kw",
+    "potencias_kw",
     "consumo_total_kwh",
-    "consumo_p1_kwh",
-    "consumo_p2_kwh",
-    "consumo_p3_kwh",
+    "consumos_kwh",
     "dias_facturados",
     "fecha_inicio",
     "fecha_fin",
@@ -131,7 +126,7 @@ function normalizarPeaje(raw: unknown): string | null {
   if (s.includes("3.0") || s.includes("30TD")) return "3.0TD";
   if (s.includes("6.1")) return "6.1TD";
   if (s.includes("6.2")) return "6.2TD";
-  return raw.trim() || null;
+  return null;
 }
 
 function diasDesdeFechas(inicio: unknown, fin: unknown): number | null {
@@ -141,6 +136,16 @@ function diasDesdeFechas(inicio: unknown, fin: unknown): number | null {
   if (isNaN(a) || isNaN(b) || b <= a) return null;
   const dias = Math.round((b - a) / 86_400_000);
   return dias >= 5 && dias <= 95 ? dias : null;
+}
+
+function arrayNumeros(v: unknown, max: number, permitirCero = false): number[] {
+  if (!Array.isArray(v)) return [];
+  return v
+    .filter(
+      (n): n is number =>
+        typeof n === "number" && Number.isFinite(n) && (permitirCero ? n >= 0 : n > 0)
+    )
+    .slice(0, max);
 }
 
 export async function POST(request: Request) {
@@ -236,20 +241,24 @@ export async function POST(request: Request) {
         ? Math.round(extraido.dias_facturados)
         : null) ?? diasDesdeFechas(extraido.fecha_inicio, extraido.fecha_fin);
 
+    const fecha = (v: unknown): string | null =>
+      typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v : null;
+
     return NextResponse.json({
       datos: {
+        fechaInicio: fecha(extraido.fecha_inicio),
+        fechaFin: fecha(extraido.fecha_fin),
         esFactura: extraido.es_factura === true,
         comercializadora:
           typeof extraido.comercializadora === "string"
             ? extraido.comercializadora.slice(0, 80)
             : null,
         peaje: normalizarPeaje(extraido.peaje),
-        potenciaP1Kw: num(extraido.potencia_p1_kw),
-        potenciaP2Kw: num(extraido.potencia_p2_kw),
+        potenciasKw: arrayNumeros(extraido.potencias_kw, 6),
         consumoKwh: num(extraido.consumo_total_kwh),
-        consumoP1Kwh: num(extraido.consumo_p1_kwh),
-        consumoP2Kwh: num(extraido.consumo_p2_kwh),
-        consumoP3Kwh: num(extraido.consumo_p3_kwh),
+        // Los ceros del desglose son legítimos (periodos ATR inactivos en el
+        // mes facturado, p. ej. P1/P2/P5 en junio) — se conservan.
+        consumosKwh: arrayNumeros(extraido.consumos_kwh, 6, true),
         dias,
         importeTotalEur: num(extraido.importe_total_eur),
         alquilerContadorEur: num(extraido.alquiler_contador_eur),

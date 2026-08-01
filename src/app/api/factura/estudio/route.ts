@@ -3,10 +3,11 @@ import { crearRateLimiter, origenPermitido, ipDe } from "@/lib/api-guardas";
 import { calcularEstudio, validarDatosFactura, type Estudio } from "@/lib/estudio-ahorro";
 
 // Paso 2 de la calculadora: con los datos confirmados por el usuario y su
-// email, calcula el ahorro contra el catálogo (servidor DPC), captura el lead
-// y avisa a Víctor. La respuesta al navegador SOLO lleva el ahorro agregado —
-// nunca nombres de comercializadoras ni rankings (regla de negocio
-// innegociable, la misma del chat).
+// email, calcula el ahorro contra el catálogo completo de DPC (fijas +
+// indexadas, hogar y empresa), captura el lead y avisa a Víctor. Al navegador
+// va el ahorro agregado y LA OFERTA GANADORA (compañía + nombre) — dictamen
+// de Victor 2-ago-2026: se enseña la mejor oferta (prioridad CLEAR/NET/KLEEN),
+// nunca un ranking.
 //
 // El email es el peaje del estudio: sin email válido no hay cálculo. Y al
 // revés, un lead JAMÁS se pierde en silencio (lección de gnew-web jul-2026):
@@ -21,11 +22,6 @@ export const maxDuration = 30;
 
 const BREVO_API = "https://api.brevo.com/v3";
 const LISTA_VITERGY = 488; // lista "VITERGY" en la cuenta Brevo del grupo
-
-// 2.0TD solo existe hasta 15 kW; por encima el suministro es de empresa.
-const MAX_POTENCIA_HOGAR_KW = 15;
-
-const PEAJES_VALIDOS = new Set(["2.0TD", "3.0TD", "6.1TD", "6.2TD"]);
 
 const isRateLimited = crearRateLimiter(5);
 
@@ -49,7 +45,7 @@ export async function POST(request: Request) {
     email?: unknown;
     nombre?: unknown;
     datos?: unknown;
-    extra?: { comercializadora?: unknown; peaje?: unknown };
+    extra?: { comercializadora?: unknown };
     consienteMarketing?: unknown;
     web?: unknown; // honeypot: los humanos no lo ven; los bots lo rellenan
   } | null;
@@ -67,46 +63,32 @@ export async function POST(request: Request) {
   const nombre =
     typeof body?.nombre === "string" ? body.nombre.trim().slice(0, 80) : "";
   const consienteMarketing = body?.consienteMarketing === true;
-
-  const peajeRaw =
-    typeof body?.extra?.peaje === "string" ? body.extra.peaje.toUpperCase().trim() : null;
-  const peaje = peajeRaw !== null && PEAJES_VALIDOS.has(peajeRaw) ? peajeRaw : null;
   const comercializadora =
     typeof body?.extra?.comercializadora === "string"
       ? body.extra.comercializadora.slice(0, 80)
       : null;
 
   const datos = validarDatosFactura(body?.datos);
-
-  // Suministros que no son de hogar: peaje distinto de 2.0TD o potencia por
-  // encima de 15 kW (el 2.0TD no existe ahí). El motor no aplica; el estudio
-  // lo hace Víctor a mano. El lead vale oro igualmente.
-  const potenciaMax = datos
-    ? Math.max(datos.potenciaP1Kw, datos.potenciaP2Kw ?? 0)
-    : saneaNum((body?.datos as Record<string, unknown> | undefined)?.potenciaP1Kw, 0, 10000) ?? 0;
-  const esB2B = (peaje !== null && peaje !== "2.0TD") || potenciaMax > MAX_POTENCIA_HOGAR_KW;
-
-  if (!esB2B && datos === null) {
+  if (datos === null) {
     return NextResponse.json(
       { error: "Revisa los datos de la factura: falta alguno o no es válido." },
       { status: 422 }
     );
   }
 
-  // 1) Estudio (solo hogar). Si DPC no responde, degradamos con elegancia:
-  //    el lead se captura y el estudio se lo envía Víctor.
+  // 1) Estudio (hogar Y empresa). Si DPC no responde o el peaje no tiene
+  //    catálogo, degradamos con elegancia: el lead se captura y el estudio se
+  //    lo envía Víctor a mano.
   let estudio: Estudio | null = null;
-  let tipo: "ok" | "b2b" | "sin_calculo" = esB2B ? "b2b" : "ok";
-  if (!esB2B && datos) {
-    try {
-      estudio = await calcularEstudio(datos);
-    } catch (error) {
-      console.error(
-        "[estudio] No se pudo calcular:",
-        error instanceof Error ? error.message : error
-      );
-      tipo = "sin_calculo";
-    }
+  let tipo: "ok" | "sin_calculo" = "ok";
+  try {
+    estudio = await calcularEstudio(datos);
+  } catch (error) {
+    console.error(
+      "[estudio] No se pudo calcular:",
+      error instanceof Error ? error.message : error
+    );
+    tipo = "sin_calculo";
   }
 
   // 2) Captura del lead: aviso interno SIEMPRE; alta en Brevo solo con
@@ -143,10 +125,7 @@ export async function POST(request: Request) {
       }
     }
 
-    // Aviso a Víctor con el detalle completo (correo interno: aquí SÍ van
-    // los datos y la comercializadora actual). Para B2B sin datos validados,
-    // se vuelcan los valores crudos saneados: un lead de 30 kW / 12.000 kWh
-    // es justo el que más interesa ver con números.
+    // Aviso a Víctor con el detalle completo (correo interno).
     try {
       const destino = process.env.LEAD_TO_EMAIL ?? "info@vitergy.es";
       const remitente = process.env.BREVO_SENDER_EMAIL;
@@ -156,35 +135,35 @@ export async function POST(request: Request) {
           nombre ? fila("Nombre", escapeHtml(nombre)) : "",
           fila("Consentimiento marketing", consienteMarketing ? "SÍ (lista 488)" : "no"),
           comercializadora ? fila("Comercializadora actual", escapeHtml(comercializadora)) : "",
-          peaje ? fila("Peaje", peaje) : "",
+          fila("Peaje", datos.peaje),
+          fila("Importe factura", `${datos.importeTotalEur} €`),
+          fila("Consumo", `${datos.consumoKwh} kWh en ${datos.dias} días`),
+          fila("Potencias", datos.potenciasKw.join(" / ") + " kW"),
+          fila("Zona", datos.zona),
         ];
-        if (datos) {
+        // Si venía un desglose por periodos pero no superó la validación
+        // (no cuadra con el total o el peaje se reclasificó), el estudio fino
+        // debe saber que la cifra usó reparto estándar.
+        const desgloseCrudo = Array.isArray(
+          (body?.datos as Record<string, unknown> | undefined)?.consumosKwh
+        )
+          ? ((body!.datos as Record<string, unknown>).consumosKwh as unknown[]).length
+          : 0;
+        if (desgloseCrudo > 0 && datos.consumosKwh === null) {
           filas.push(
-            fila("Importe factura", `${datos.importeTotalEur} €`),
-            fila("Consumo", `${datos.consumoKwh} kWh en ${datos.dias} días`),
             fila(
-              "Potencia",
-              `${datos.potenciaP1Kw}${datos.potenciaP2Kw ? " / " + datos.potenciaP2Kw : ""} kW`
-            ),
-            fila("Zona", datos.zona)
+              "⚠️ Desglose",
+              "leído pero DESCARTADO (no cuadra o peaje reclasificado) — estimación con reparto estándar"
+            )
           );
-        } else {
-          const raw = (body?.datos ?? {}) as Record<string, unknown>;
-          const importe = saneaNum(raw.importeTotalEur, 0, 1_000_000);
-          const consumo = saneaNum(raw.consumoKwh, 0, 1_000_000);
-          const dias = saneaNum(raw.dias, 0, 400);
-          if (importe || consumo || potenciaMax) {
-            filas.push(
-              fila(
-                "Datos SIN validar (rangos de empresa)",
-                `${importe ?? "?"} € · ${consumo ?? "?"} kWh · ${potenciaMax || "?"} kW · ${dias ?? "?"} días`
-              )
-            );
-          }
         }
         if (estudio) {
           filas.push(
-            fila("Mejor oferta (est.)", `${estudio.costeMejorOfertaEur} € el periodo`),
+            fila(
+              "OFERTA GANADORA",
+              `${escapeHtml(estudio.oferta.compania)} · ${escapeHtml(estudio.oferta.nombre)} (${estudio.oferta.tipo})${estudio.prioridadAplicada ? " — por prioridad de marca" : " — mejor absoluta"}`
+            ),
+            fila("Coste estimado", `${estudio.costeMejorOfertaEur} € el periodo`),
             fila(
               "Ahorro estimado",
               `${estudio.ahorroAnualEur} €/año (${Math.round(estudio.ahorroPct * 100)}%)`
@@ -193,11 +172,9 @@ export async function POST(request: Request) {
           );
         }
         const asunto =
-          tipo === "b2b"
-            ? `🏭 Lead B2B calculadora${peaje ? ` (${peaje})` : ""}: ${email}`
-            : tipo === "sin_calculo"
-              ? `⚠️ Lead calculadora SIN cálculo (hacer estudio a mano): ${email}`
-              : `🧮 Lead calculadora: ${email} — ahorro est. ${estudio?.ahorroAnualEur ?? "?"} €/año`;
+          tipo === "sin_calculo"
+            ? `⚠️ Lead calculadora SIN cálculo (${datos.peaje}, estudio a mano): ${email}`
+            : `🧮 Lead calculadora (${datos.peaje}): ${email} — ${estudio?.oferta.compania ?? "?"} ${estudio?.oferta.nombre ?? ""}, ahorro est. ${estudio?.ahorroAnualEur ?? "?"} €/año`;
 
         const aviso = await fetch(`${BREVO_API}/smtp/email`, {
           method: "POST",
@@ -207,7 +184,7 @@ export async function POST(request: Request) {
             to: [{ email: destino }],
             replyTo: { email },
             subject: asunto,
-            htmlContent: `<h3>Nuevo lead de la calculadora de ahorro (vitergy.es/contacto)</h3><table border="1" cellpadding="6" cellspacing="0">${filas.filter(Boolean).join("")}</table><p>El usuario ${tipo === "ok" ? "ha visto su ahorro estimado en pantalla" : tipo === "b2b" ? "es un suministro de empresa: estudio a mano" : "NO ha visto cifra (falló el cálculo): estudio a mano cuanto antes"}.</p>`,
+            htmlContent: `<h3>Nuevo lead de la calculadora de ahorro (vitergy.es/contacto)</h3><table border="1" cellpadding="6" cellspacing="0">${filas.filter(Boolean).join("")}</table><p>El usuario ${tipo === "ok" ? "ha visto en pantalla la oferta y su ahorro estimado" : "NO ha visto cifra (falló el cálculo): estudio a mano cuanto antes"}.</p>`,
           }),
           signal: AbortSignal.timeout(10_000),
         });
@@ -233,7 +210,7 @@ export async function POST(request: Request) {
   if (tipo === "ok" && estudio) {
     return NextResponse.json({ tipo, estudio });
   }
-  return NextResponse.json({ tipo });
+  return NextResponse.json({ tipo: "sin_calculo" });
 }
 
 function altaBrevo(
@@ -257,11 +234,6 @@ function altaBrevo(
 
 function fila(label: string, valor: string): string {
   return `<tr><td><b>${label}</b></td><td>${valor}</td></tr>`;
-}
-
-function saneaNum(v: unknown, min: number, max: number): number | null {
-  const n = typeof v === "number" ? v : typeof v === "string" ? Number(v) : NaN;
-  return Number.isFinite(n) && n > min && n <= max ? Math.round(n * 100) / 100 : null;
 }
 
 function escapeHtml(s: string): string {
