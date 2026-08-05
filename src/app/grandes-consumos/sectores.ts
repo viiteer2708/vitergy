@@ -619,11 +619,11 @@ export const SECTORES: Sector[] = [
         "En un grupo de centros médicos el orden importa: primero se pone en orden la casa —potencia, base 24 h, clima, medida—, y solo después se sale a mercado con la cartera agregada. Al revés, se negocia sobre una curva que no representa lo que realmente vas a consumir.",
     },
     casoReal: {
-      cifra: "12.533 €",
-      pie: "de ahorro anual · 16,5 % de la factura",
-      titular: "Una fundación con residencia y centro de día, factura a factura",
+      cifra: "20.000 €",
+      pie: "de ahorro anual · nuestro récord con un solo cliente",
+      titular: "Una fundación con varios centros: nuestro récord de ahorro",
       texto:
-        "Dos puntos de suministro en Madrid —una residencia en 6.1TD y un centro de día en 3.0TD con placas solares— y ocho facturas reproducidas periodo a periodo. El análisis destapó las dos fugas: un contrato indexado cuyo sobreprecio sobre el índice de mercado había crecido de 1,45 a 4,02 céntimos por kWh en solo cuatro meses, y unos excedentes solares compensados a 3 céntimos cuando el mercado justificaba 10. La propuesta no tocó ni potencias ni peajes: margen fijo de 0,5 céntimos y excedentes a 10. Resultado: 5.107 € de ahorro en las ocho facturas analizadas y 12.533 € al año proyectados sobre su consumo real.",
+        "Es el máximo que hemos llegado a ahorrar a un solo cliente en un año: una fundación de Madrid con varios centros, entre ellos una residencia en 6.1TD y un centro de día en 3.0TD con placas solares. Y el caso sigue dando: la revisión de julio de 2026 —ocho facturas reproducidas periodo a periodo— destapó un nuevo margen de 12.533 € anuales, porque el sobreprecio de su indexado había crecido de 1,45 a 4,02 céntimos por kWh en cuatro meses y sus excedentes se compensaban a 3 céntimos cuando el mercado justificaba 10. La propuesta lo corrige con margen fijo de 0,5 céntimos y excedentes a 10, sin tocar potencias ni peajes: 5.107 € de mejora en las ocho facturas analizadas.",
     },
     faqs: [
       {

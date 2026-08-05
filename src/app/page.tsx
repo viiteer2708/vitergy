@@ -95,7 +95,7 @@ const faqs = [
   {
     question: "¿Cuánto puedo ahorrar con un asesor energético?",
     answer:
-      "Depende de tu caso. La media de nuestros clientes ahorra 180€ al año solo cambiando de tarifa. En casos con potencia mal ajustada o penalizaciones, el ahorro supera los 500€ anuales.",
+      "Depende del punto de partida. En un hogar, entre tarifa y potencia, el ahorro suele ser de cientos de euros al año. En negocios y grandes consumos la cifra escala: nuestro récord son 20.000 € de ahorro en un año a un solo cliente. Como el análisis es gratis, la cifra exacta de tu caso la sabes antes de decidir nada.",
   },
   {
     question: "¿Trabajáis para alguna compañía eléctrica?",
@@ -239,7 +239,7 @@ export default function Home() {
             {[
               { value: "+400", label: "Clientes en cartera" },
               { value: "40+", label: "Comercializadoras" },
-              { value: "180€", label: "Ahorro medio anual", highlight: true },
+              { value: "20.000€", label: "Récord de ahorro anual", highlight: true },
               { value: "+12", label: "Años de experiencia" },
             ].map((s) => (
               <div key={s.label} className="flex flex-col items-center py-6 md:py-0">
@@ -593,8 +593,8 @@ export default function Home() {
                       <span className="font-bold text-white">+400</span>
                     </div>
                     <div className="flex justify-between rounded-lg bg-white/10 p-3">
-                      <span className="text-sm text-white/60">Ahorro medio</span>
-                      <span className="font-bold text-[#f97316]">180€/año</span>
+                      <span className="text-sm text-white/60">Récord de ahorro</span>
+                      <span className="font-bold text-[#f97316]">20.000€/año</span>
                     </div>
                     <div className="flex justify-between rounded-lg bg-white/10 p-3">
                       <span className="text-sm text-white/60">Valoración en Google</span>

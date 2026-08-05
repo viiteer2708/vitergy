@@ -42,7 +42,7 @@ const tiposCliente = [
 
 const stats = [
   { value: "+400", label: "Clientes en cartera" },
-  { value: "180 €", label: "Ahorro medio/año" },
+  { value: "20.000 €", label: "Récord de ahorro anual" },
   { value: "+10", label: "Años de experiencia" },
   { value: "40+", label: "Compañías analizadas" },
 ];
@@ -119,7 +119,7 @@ export default function AsesoriaEnergeticaEspanaPage() {
             <ul className="mt-6 space-y-4">
               {[
                 "Más de 12 años de experiencia y más de 200 GWh gestionados en el mercado energético español",
-                "+400 clientes en cartera con un ahorro medio de 180 €/año",
+                "+400 clientes en cartera; hasta 20.000 € de ahorro anual conseguido a un solo cliente",
                 "Independencia total: no pertenecemos a ninguna comercializadora ni tenemos exclusiva con ninguna",
                 "Comparamos más de 40 compañías nacionales e independientes",
                 "Atención personalizada por teléfono, videollamada, WhatsApp y email",

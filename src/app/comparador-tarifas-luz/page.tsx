@@ -24,7 +24,7 @@ const faqs = [
   {
     question: "¿Cuánto puedo ahorrar cambiando de tarifa?",
     answer:
-      "El ahorro medio de nuestros clientes ronda los 180 € al año, pero depende de cada caso. Hogares con tarifas reguladas antiguas o potencias mal ajustadas pueden ahorrar incluso más. Te damos una cifra exacta antes de que tomes ninguna decisión.",
+      "Depende de cada caso: en un hogar suele ser de cientos de euros al año, y en negocios y grandes consumos la cifra escala — nuestro récord son 20.000 € de ahorro anual a un solo cliente. Te damos una cifra exacta antes de que tomes ninguna decisión.",
   },
 ];
 

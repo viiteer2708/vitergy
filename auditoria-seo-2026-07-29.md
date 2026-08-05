@@ -175,4 +175,6 @@ Con el dato real de Victor (**+400 clientes en cartera actualmente**) se sustitu
 | 5.000+ sistemas implementados (blog) | **+200 GWh gestionados** |
 | «no cobramos comisión de ninguna comercializadora» (×3, falso) | «no pertenecemos a ninguna comercializadora — no nos casamos con nadie» |
 
-Toda cifra pública del sitio sale ahora de un dato dado por Victor o de la ficha real de Google. La única heredada sin fuente documentada que queda es el «ahorro medio 180 €/año» — lleva en la web desde el origen; si algún día hay que defenderla, conviene anclarla igual.
+Toda cifra pública del sitio sale ahora de un dato dado por Victor o de la ficha real de Google.
+
+**Cierre del 5-ago (segunda pasada):** el «ahorro medio 180 €/año» —la última cifra heredada sin fuente— queda **eliminado del sitio** por decisión de Victor. En su lugar se publica el **récord: 20.000 € de ahorro anual conseguido a un solo cliente** (dato declarado por Victor; el cliente es la fundación del caso real, contando sus varios centros). Las dos cifras del caso conviven con roles distintos y así se presentan: **20.000 €** = máximo histórico conseguido (declarado), **12.533 €/año** = margen nuevo documentado en el análisis de julio de 2026 sobre dos de sus puntos de suministro (PDF, fuera de git). El bloque de caso real de `/grandes-consumos` y `/grandes-consumos/centros-medicos` cuenta ambas: el récord como titular y el análisis factura a factura como demostración de que el trabajo no se hace una vez y ya.

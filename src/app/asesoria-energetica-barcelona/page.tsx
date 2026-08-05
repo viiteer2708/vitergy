@@ -35,7 +35,7 @@ const municipios = [
 
 const stats = [
   { value: "+400", label: "Clientes en cartera" },
-  { value: "180 €", label: "Ahorro medio/año" },
+  { value: "20.000 €", label: "Récord de ahorro anual" },
   { value: "+12", label: "Años de experiencia" },
   { value: "40+", label: "Compañías analizadas" },
 ];

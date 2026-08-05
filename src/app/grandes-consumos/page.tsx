@@ -327,10 +327,10 @@ export default function GrandesConsumosPage() {
         </section>
 
         <CasoReal
-          cifra="12.533 €"
-          pie="de ahorro anual · 16,5 % de la factura"
-          titular="Lo que aparece cuando lees la factura entera"
-          texto="Una fundación con residencia y centro de día nos pidió revisar su contrato indexado. Sobre el papel estaba «a precio de mercado»; reproducidas sus ocho facturas periodo a periodo, el sobreprecio sobre el índice había crecido de 1,45 a 4,02 céntimos por kWh en cuatro meses, y los excedentes de sus placas se compensaban a 3 céntimos. Sin tocar potencias ni peajes —solo el precio de la energía y los excedentes—, el resultado fue un 16,5 % de ahorro: 12.533 € al año. Eso no lo ve un comparador. Lo ve quien reconstruye la factura periodo a periodo."
+          cifra="20.000 €"
+          pie="nuestro récord de ahorro anual, con un solo cliente"
+          titular="El cliente al que más le hemos ahorrado"
+          texto="Una fundación con varios centros —residencia y centro de día entre ellos— es nuestro récord: hasta 20.000 € de ahorro en un año. Y su caso demuestra que esto no se hace una vez y ya: en la revisión de julio de 2026 reprodujimos ocho facturas de dos de sus puntos de suministro, periodo a periodo, y afloró un nuevo margen de 12.533 € anuales — un sobreprecio del indexado que había crecido de 1,45 a 4,02 céntimos por kWh en cuatro meses y unos excedentes solares compensados a 3 céntimos cuando el mercado justificaba 10. Sin tocar potencias ni peajes. Eso no lo ve un comparador: lo ve quien lee la factura entera, cada mes."
         />
 
         <ProcesoGrandesConsumos />
