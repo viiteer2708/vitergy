@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title:
     "Asesoría Energética en España | Vitergy - Ahorra en tu Factura de Luz y Gas",
   description:
-    "Asesoría energética para empresas y particulares en toda España. Consultor independiente con más de 10 años de experiencia y +5.000 clientes ahorrando. Atención telefónica y presencial.",
+    "Asesoría energética para empresas y particulares en toda España. Consultor independiente con más de 12 años de experiencia y +400 clientes en cartera. Atención telefónica y presencial.",
   alternates: {
     canonical: "https://vitergy.es/asesoria-energetica-espana",
   },
@@ -41,7 +41,7 @@ const tiposCliente = [
 ];
 
 const stats = [
-  { value: "+5.000", label: "Clientes asesorados" },
+  { value: "+400", label: "Clientes en cartera" },
   { value: "180 €", label: "Ahorro medio/año" },
   { value: "+10", label: "Años de experiencia" },
   { value: "40+", label: "Compañías analizadas" },
@@ -105,8 +105,8 @@ export default function AsesoriaEnergeticaEspanaPage() {
             la potencia mal ajustada. En Vitergy ofrecemos asesoría energética
             independiente a clientes de toda España. Analizamos tu factura, comparamos
             más de 40 compañías y te proponemos cambios concretos para que pagues
-            lo justo. Sin vinculación con ninguna comercializadora y con más de 5.000
-            clientes asesorados.
+            lo justo. Sin vinculación con ninguna comercializadora —no nos casamos
+            con nadie— y con más de 400 clientes en cartera.
           </p>
         </section>
 
@@ -118,9 +118,9 @@ export default function AsesoriaEnergeticaEspanaPage() {
             </h2>
             <ul className="mt-6 space-y-4">
               {[
-                "Más de 10 años de experiencia en el mercado energético español",
-                "+5.000 clientes asesorados en toda España con un ahorro medio de 180 €/año",
-                "Independencia total: no cobramos comisión de ninguna comercializadora",
+                "Más de 12 años de experiencia y más de 200 GWh gestionados en el mercado energético español",
+                "+400 clientes en cartera con un ahorro medio de 180 €/año",
+                "Independencia total: no pertenecemos a ninguna comercializadora ni tenemos exclusiva con ninguna",
                 "Comparamos más de 40 compañías nacionales e independientes",
                 "Atención personalizada por teléfono, videollamada, WhatsApp y email",
                 "Análisis gratuito y sin compromiso, tanto para particulares como empresas",

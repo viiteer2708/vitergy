@@ -158,5 +158,21 @@ Los escenarios de cálculo siguen etiquetados como tales y separados visualmente
 
 1. ~~El NIF de la sociedad~~ ✅ **B22517494**, publicado en `/legal` y `/privacidad` el 29-jul. LSSI art. 10 completo.
 2. **Casos reales de los otros tres sectores** (gimnasio, lavandería, club de pádel). El de la fundación ya está desglosado; los otros tres tienen el bloque `casoReal` vacío.
-3. **Autorización de la fundación para nombrarla** (o confirmar si la propuesta se firmó — hoy la web habla del análisis, que es lo verificable, no de un ahorro ya cobrado).
-4. **Una decisión de posicionamiento:** su cargo en Mega Energía es la credencial más potente que existe para hablar con un gran consumidor —conoce la mesa desde el otro lado—, pero choca de frente con el mensaje de independencia sobre el que está construida toda la web. **No se ha usado.** Es una decisión suya, no técnica.
+3. ~~Autorización de la fundación para nombrarla~~ ✅ **Decidido el 5-ago:** se habla de «una fundación» sin nombrarla — exactamente como está publicado. Sigue abierto solo confirmar si la propuesta se firmó (hoy la web habla del análisis, que es lo verificable).
+4. ~~Decisión de posicionamiento~~ ✅ **Decidido el 5-ago: independencia total** — «no nos casamos con nadie», en palabras de Victor. La carta de Mega queda descartada; el mensaje de independencia pasa de implícito a bandera: FAQ de la home con «No.» directo, bloque de autoridad de grandes consumos renombrado a «Independencia total: no nos casamos con nadie», y las tres landings locales corregidas (el «no cobramos comisión de ninguna comercializadora», que era falso, pasa a «no pertenecemos a ninguna comercializadora», que es la verdad y es más fuerte).
+
+## Cifras ancladas — barrido del 5-ago
+
+Con el dato real de Victor (**+400 clientes en cartera actualmente**) se sustituyó en 13 sitios el «+5.000 clientes» que no estaba anclado en ninguna fuente, y de paso cayeron el resto de cifras inventadas de la misma familia:
+
+| Antes (sin fuente) | Ahora (anclado) |
+|---|---|
+| +5.000 clientes asesorados (13 apariciones) | **+400 clientes en cartera** |
+| 5.0 en Google · 5.0/5.0 satisfacción | **4,9 en Google** (la ficha real) |
+| +10 años de experiencia | **+12 años** |
+| 15.000 facturas analizadas (blog ×2) | **+200 GWh de consumo analizado** / +400 clientes |
+| 5.000 cambios gestionados (blog) | **12 años gestionando cambios** |
+| 5.000+ sistemas implementados (blog) | **+200 GWh gestionados** |
+| «no cobramos comisión de ninguna comercializadora» (×3, falso) | «no pertenecemos a ninguna comercializadora — no nos casamos con nadie» |
+
+Toda cifra pública del sitio sale ahora de un dato dado por Victor o de la ficha real de Google. La única heredada sin fuente documentada que queda es el «ahorro medio 180 €/año» — lleva en la web desde el origen; si algún día hay que defenderla, conviene anclarla igual.

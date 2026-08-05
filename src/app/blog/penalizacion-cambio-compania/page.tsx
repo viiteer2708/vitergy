@@ -134,7 +134,7 @@ export default function PenalizacionCambioCompaniaPage() {
             En esta guía te explicamos cuándo pueden cobrarte penalización,
             cómo calcularla, cómo reclamar si es abusiva y cuáles son tus
             derechos como consumidor. Todo con ejemplos prácticos y la
-            experiencia de más de 5.000 clientes asesorados en Vitergy.
+            experiencia de los más de 400 clientes en cartera de Vitergy.
           </p>
 
           {/* Sección 1: Legalidad de Penalizaciones */}

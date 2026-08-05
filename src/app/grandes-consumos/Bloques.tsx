@@ -67,8 +67,8 @@ export function ProcesoGrandesConsumos() {
 export const METRICAS = [
   { k: "+12 años", v: "en el sector energético" },
   { k: "+200 GWh", v: "de consumo gestionado" },
+  { k: "+400", v: "clientes en cartera" },
   { k: "+40", v: "comercializadoras comparadas" },
-  { k: "0 €", v: "coste del estudio" },
 ];
 
 const CREDENCIALES = [
@@ -77,8 +77,8 @@ const CREDENCIALES = [
     text: "Víctor Marrón lleva más de doce años en el sector energético y ha gestionado por encima de 200 GWh de consumo: el equivalente a lo que gastan en un año más de cincuenta mil hogares. Cuando te sientas a negociar con ese recorrido detrás, ya has visto antes el contrato que te ponen delante.",
   },
   {
-    title: "Independientes de verdad",
-    text: "No pertenecemos a ninguna comercializadora ni tenemos exclusiva con nadie. Comparamos más de cuarenta compañías y la recomendación es la que más te ahorra a ti, no la que más nos conviene a nosotros.",
+    title: "Independencia total: no nos casamos con nadie",
+    text: "No pertenecemos a ninguna comercializadora ni tenemos exclusiva con ninguna. Comparamos más de cuarenta compañías y la recomendación es la que más te ahorra a ti, no la que más nos conviene a nosotros. El día que eso deje de ser así, este negocio deja de tener sentido.",
   },
   {
     title: "Analizamos la curva, no la portada de la factura",

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://vitergy.es"),
   title: "Vitergy | Asesoría Energética en Molins de Rei · Ahorra en tu Factura",
   description:
-    "Asesor energético independiente en Molins de Rei. Analizamos tu factura de luz gratis y te ahorramos hasta 180€/año. +5.000 clientes. Sin permanencia.",
+    "Asesor energético independiente en Molins de Rei. Analizamos tu factura de luz gratis y te ahorramos hasta 180€/año. +400 clientes en cartera. Sin permanencia.",
   icons: {
     icon: [
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },

@@ -29,14 +29,14 @@ const timeline = [
   {
     year: "2026",
     title: "Apertura de oficina física en Molins de Rei",
-    text: "Abro la oficina de Vitergy en el Carrer de Ferran Agulló 6, un espacio donde atender presencialmente a quien lo prefiera. Más de 5.000 clientes asesorados y contando.",
+    text: "Abro la oficina de Vitergy en el Carrer de Ferran Agulló 6, un espacio donde atender presencialmente a quien lo prefiera. Más de 400 clientes en cartera y contando.",
   },
 ];
 
 const stats = [
-  { value: "+5.000", label: "Clientes asesorados" },
-  { value: "180 €", label: "Ahorro medio/año" },
-  { value: "+10", label: "Años de experiencia" },
+  { value: "+400", label: "Clientes en cartera" },
+  { value: "+200 GWh", label: "Consumo gestionado" },
+  { value: "+12", label: "Años de experiencia" },
   { value: "40+", label: "Compañías analizadas" },
 ];
 
@@ -81,9 +81,10 @@ export default function SobreMiPage() {
           <p>
             Aquel día decidí que iba a entender cómo funcionaba el mercado
             eléctrico — y que iba a ayudar a que nadie más pasara por lo mismo.
-            Desde entonces he ayudado a{" "}
-            <strong>más de 5.000 clientes</strong> a pagar menos en sus facturas
-            de luz y gas, tanto particulares como empresas de toda España.
+            Desde entonces he gestionado{" "}
+            <strong>más de 200 GWh de consumo</strong>, y hoy{" "}
+            <strong>más de 400 clientes</strong> —particulares y empresas de
+            toda España— confían su energía a Vitergy.
           </p>
           <p>
             Vitergy nació como un servicio de asesoría energética{" "}

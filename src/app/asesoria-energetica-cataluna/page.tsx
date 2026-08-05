@@ -40,9 +40,9 @@ const sectores = [
 ];
 
 const stats = [
-  { value: "+5.000", label: "Clientes asesorados" },
+  { value: "+400", label: "Clientes en cartera" },
   { value: "180 €", label: "Ahorro medio/año" },
-  { value: "+10", label: "Años de experiencia" },
+  { value: "+12", label: "Años de experiencia" },
   { value: "40+", label: "Compañías analizadas" },
 ];
 
@@ -60,7 +60,7 @@ const faqs = [
   {
     question: "¿Conocéis las particularidades del mercado energético en Cataluña?",
     answer:
-      "Sí. Llevamos más de 10 años operando en Cataluña y conocemos a fondo las distribuidoras que operan aquí (Endesa Distribución, principalmente), las bonificaciones del IBI por autoconsumo en cada municipio y las subvenciones autonómicas vigentes.",
+      "Sí. Llevamos más de 12 años operando en Cataluña y conocemos a fondo las distribuidoras que operan aquí (Endesa Distribución, principalmente), las bonificaciones del IBI por autoconsumo en cada municipio y las subvenciones autonómicas vigentes.",
   },
 ];
 
@@ -101,10 +101,10 @@ export default function AsesoriaEnergeticaCatalunaPage() {
             industriales de España, y también algunos de los precios energéticos más
             elevados. Ya seas un particular, un autónomo, una comunidad de vecinos o
             una empresa industrial, es muy probable que estés pagando más de lo
-            necesario en tu factura de luz y gas. En Vitergy llevamos más de 10 años
+            necesario en tu factura de luz y gas. En Vitergy llevamos más de 12 años
             asesorando a clientes en las cuatro provincias catalanas con un enfoque
-            100% independiente: no cobramos comisión de ninguna comercializadora y
-            nuestro único objetivo es que pagues lo justo.
+            100% independiente: no pertenecemos a ninguna comercializadora —no nos
+            casamos con nadie— y nuestro único objetivo es que pagues lo justo.
           </p>
         </section>
 

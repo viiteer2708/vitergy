@@ -34,9 +34,9 @@ const municipios = [
 ];
 
 const stats = [
-  { value: "+5.000", label: "Clientes asesorados" },
+  { value: "+400", label: "Clientes en cartera" },
   { value: "180 €", label: "Ahorro medio/año" },
-  { value: "+10", label: "Años de experiencia" },
+  { value: "+12", label: "Años de experiencia" },
   { value: "40+", label: "Compañías analizadas" },
 ];
 
@@ -95,7 +95,7 @@ export default function AsesoriaEnergeticaBarcelonaPage() {
             tanto por el volumen de hogares como por la densidad de comercios,
             restaurantes y pequeñas empresas. Y sin embargo, la mayoría de
             barceloneses sigue pagando más de lo necesario en sus facturas de luz y
-            gas. En Vitergy llevamos más de 10 años asesorando a particulares y
+            gas. En Vitergy llevamos más de 12 años asesorando a particulares y
             empresas de Barcelona y su área metropolitana desde nuestra oficina en
             Molins de Rei. Analizamos tu factura gratis, comparamos más de 40
             compañías y te conseguimos el mejor precio sin que tengas que hacer nada.
@@ -111,8 +111,8 @@ export default function AsesoriaEnergeticaBarcelonaPage() {
             <ul className="mt-6 space-y-4">
               {[
                 "Oficina física en Molins de Rei, a 20 minutos del centro de Barcelona",
-                "Más de 5.000 clientes asesorados en la provincia de Barcelona",
-                "100% independientes: no cobramos comisión de ninguna comercializadora",
+                "Más de 400 clientes en cartera, la mayoría en Barcelona y su área metropolitana",
+                "100% independientes: no pertenecemos a ninguna comercializadora — no nos casamos con nadie",
                 "Análisis gratuito y sin compromiso de tu factura de luz y gas",
                 "Atención presencial, telefónica y online según tu preferencia",
                 "Conocimiento profundo del mercado energético en Cataluña y sus particularidades",

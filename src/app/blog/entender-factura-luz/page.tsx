@@ -119,7 +119,7 @@ export default function EntenderFacturaLuzPage() {
             En esta guía desglosamos cada sección de tu factura eléctrica con
             ejemplos reales: desde el término de potencia hasta los impuestos,
             pasando por los peajes y los errores más comunes. Con la experiencia
-            de más de 15.000 facturas analizadas en Vitergy, te explicamos
+            de más de 200 GWh de consumo analizado en Vitergy, te explicamos
             exactamente qué pagas y por qué.
           </p>
 
@@ -1044,8 +1044,8 @@ export default function EntenderFacturaLuzPage() {
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-gray-600">
               En Vitergy analizamos tu factura eléctrica, detectamos errores y
-              te recomendamos la mejor tarifa para tu caso. Más de 15.000
-              facturas analizadas. Gratis y sin compromiso.
+              te recomendamos la mejor tarifa para tu caso. Más de 400 clientes
+              en cartera. Gratis y sin compromiso.
             </p>
             <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Link

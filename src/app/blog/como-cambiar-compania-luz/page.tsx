@@ -143,7 +143,7 @@ export default function ComoCambiarCompaniaLuzPage() {
             comercializadora eléctrica en 2026: qué necesitas, cuánto tarda,
             qué pasa con tu contrato actual y cómo asegurarte de que la nueva
             tarifa es realmente mejor. Todo sin tecnicismos y con la
-            experiencia de más de 5.000 cambios gestionados en Vitergy.
+            experiencia de más de 12 años gestionando cambios de compañía en Vitergy.
           </p>
 
           {/* Paso 1 */}

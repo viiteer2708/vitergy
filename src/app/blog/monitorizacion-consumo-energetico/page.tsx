@@ -1069,7 +1069,7 @@ export default function MonitorizacionConsumoEnergeticoPage() {
           <p className="text-sm italic text-gray-500">
             Artículo de marzo 2026. Precios de dispositivos y ahorros estimados
             a esa fecha. Vitergy: especialistas en monitorización energética y
-            eficiencia. 5.000+ sistemas implementados.
+            eficiencia, con más de 200 GWh de consumo gestionado.
           </p>
 
           {/* Links internos */}

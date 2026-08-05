@@ -100,7 +100,7 @@ const faqs = [
   {
     question: "¿Trabajáis para alguna compañía eléctrica?",
     answer:
-      "Comparamos más de 40 compañías y te recomendamos la que más te conviene a ti. Todo lo que cobramos de comisiones lo reinvertimos en dar un mejor servicio a nuestros clientes.",
+      "No. Somos independientes de verdad: no pertenecemos a ninguna comercializadora ni tenemos exclusiva con ninguna — no nos casamos con nadie. Cobramos comisión de la compañía cuando gestionamos el cambio, pero como comparamos más de 40, la única recomendación que nos sale a cuenta es la que más te ahorra a ti.",
   },
   {
     question: "¿Cuánto tarda el proceso?",
@@ -237,10 +237,10 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-2 divide-y divide-gray-100 text-center md:grid-cols-4 md:divide-x md:divide-y-0">
             {[
-              { value: "5.000+", label: "Clientes asesorados" },
+              { value: "+400", label: "Clientes en cartera" },
               { value: "40+", label: "Comercializadoras" },
               { value: "180€", label: "Ahorro medio anual", highlight: true },
-              { value: "10+", label: "Años de experiencia" },
+              { value: "+12", label: "Años de experiencia" },
             ].map((s) => (
               <div key={s.label} className="flex flex-col items-center py-6 md:py-0">
                 <span className={`mb-2 text-4xl font-bold ${s.highlight ? "text-[#f97316]" : "text-[#1f2942]"}`}>
@@ -572,7 +572,7 @@ export default function Home() {
                   <h3 className="text-lg font-bold text-white">Tu asesor dedicado</h3>
                   <p className="mt-1 text-sm font-semibold text-[#f97316]">Víctor Marrón</p>
                   <p className="mt-3 text-sm leading-relaxed text-white/60">
-                    Lleva desde 2015 ayudando a familias, negocios y comunidades a pagar menos en su factura de la luz. Más de 5.000 clientes confían en él.
+                    Lleva desde 2015 ayudando a familias, negocios y comunidades a pagar menos en su factura de la luz. Más de 400 clientes confían hoy su energía a Vitergy.
                   </p>
                   <div className="mt-4 flex items-center gap-1 text-[#f97316]">
                     {Array.from({ length: 5 }).map((_, i) => (
@@ -580,7 +580,7 @@ export default function Home() {
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>
                     ))}
-                    <span className="ml-1 text-xs text-white/40">5.0 en Google</span>
+                    <span className="ml-1 text-xs text-white/40">4,9 en Google</span>
                   </div>
                 </div>
               </div>
@@ -589,16 +589,16 @@ export default function Home() {
                 <div className="flex h-64 items-center justify-center bg-white/5 p-8">
                   <div className="w-full max-w-sm space-y-4">
                     <div className="flex justify-between rounded-lg bg-white/10 p-3">
-                      <span className="text-sm text-white/60">Clientes activos</span>
-                      <span className="font-bold text-white">5.000+</span>
+                      <span className="text-sm text-white/60">Clientes en cartera</span>
+                      <span className="font-bold text-white">+400</span>
                     </div>
                     <div className="flex justify-between rounded-lg bg-white/10 p-3">
                       <span className="text-sm text-white/60">Ahorro medio</span>
                       <span className="font-bold text-[#f97316]">180€/año</span>
                     </div>
                     <div className="flex justify-between rounded-lg bg-white/10 p-3">
-                      <span className="text-sm text-white/60">Satisfacción</span>
-                      <span className="font-bold text-green-400">5.0/5.0</span>
+                      <span className="text-sm text-white/60">Valoración en Google</span>
+                      <span className="font-bold text-green-400">4,9/5</span>
                     </div>
                   </div>
                 </div>
@@ -707,7 +707,7 @@ export default function Home() {
                   </svg>
                 ))}
               </div>
-              <p className="text-sm text-[#6b7280]">5.0 en Google Reviews</p>
+              <p className="text-sm text-[#6b7280]">4,9 en Google Reviews</p>
             </div>
           </div>
 
@@ -825,7 +825,7 @@ export default function Home() {
             "@type": "LocalBusiness",
             name: "Vitergy - Asesoría Energética",
             description:
-              "Asesoría energética independiente en Molins de Rei. Analizamos tu factura de luz y gas para conseguirte el mejor precio. +5.000 clientes.",
+              "Asesoría energética independiente en Molins de Rei. Analizamos tu factura de luz y gas para conseguirte el mejor precio. +400 clientes en cartera.",
             url: "https://vitergy.es",
             image: "https://vitergy.es/og.png",
             telephone: "+34633151083",

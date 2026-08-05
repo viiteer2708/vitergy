@@ -66,7 +66,7 @@ export default function ConsultoriaEnergeticaPage() {
             consultoría energética independiente analiza tu situación real —potencia
             contratada, tarifa, hábitos de consumo— y te propone cambios concretos
             para que pagues lo justo. Sin permanencia, sin letra pequeña y con un
-            análisis inicial completamente gratuito. Llevamos más de 10 años
+            análisis inicial completamente gratuito. Llevamos más de 12 años
             ayudando a particulares, autónomos y empresas de toda España a reducir
             sus costes energéticos.
           </p>
