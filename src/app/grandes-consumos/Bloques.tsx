@@ -200,6 +200,13 @@ export function CtaGrandesConsumos({
         >
           633 15 10 83
         </a>
+        . ¿Prefieres el correo? Envía tus facturas a{" "}
+        <a
+          href="mailto:info@vitergy.es?subject=Estudio%20energ%C3%A9tico%20para%20mi%20empresa"
+          className="font-semibold text-[#1f2942] underline decoration-[#f97316] underline-offset-4"
+        >
+          info@vitergy.es
+        </a>
       </p>
     </section>
   );

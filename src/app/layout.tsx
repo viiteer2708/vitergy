@@ -16,12 +16,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://vitergy.es"),
   title: "Vitergy | Asesoría Energética en Molins de Rei · Ahorra en tu Factura",
   description:
     "Asesor energético independiente en Molins de Rei. Analizamos tu factura de luz gratis y te ahorramos hasta 180€/año. +5.000 clientes. Sin permanencia.",
   icons: {
-    icon: "/logo-vitergy.png",
-    apple: "/logo-vitergy.png",
+    icon: [
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
     title: "Vitergy | Asesoría Energética en Molins de Rei",
@@ -31,6 +35,17 @@ export const metadata: Metadata = {
     siteName: "Vitergy",
     locale: "es_ES",
     type: "website",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Vitergy — Asesoría energética independiente en Molins de Rei",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
   },
   alternates: {
     canonical: "https://vitergy.es",

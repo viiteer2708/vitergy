@@ -125,15 +125,15 @@ export default function Home() {
       {/* ─── 1. HERO ─── */}
       <section className="bg-[#fefefe] px-6 pt-16 pb-12 md:pt-24 md:pb-20">
         <div className="mx-auto max-w-4xl text-center">
-          {/* Accent text */}
-          <p className="mb-6 text-sm font-semibold tracking-wide text-[#f97316]">
-            Más ahorro · Más eficiencia · Mayor control
-          </p>
+          {/* H1 con keyword+geo, estilado como eyebrow; el gancho visual va debajo */}
+          <h1 className="mb-6 text-sm font-semibold tracking-wide text-[#f97316]">
+            Asesoría Energética Independiente en Molins de Rei · Barcelona
+          </h1>
 
-          <h1 className="mx-auto max-w-4xl text-4xl font-bold leading-[1.08] tracking-tight text-[#1f2942] sm:text-5xl lg:text-7xl">
+          <p className="mx-auto max-w-4xl text-4xl font-bold leading-[1.08] tracking-tight text-[#1f2942] sm:text-5xl lg:text-7xl">
             A mi abuela la cambiaron de compañía eléctrica{" "}
             <span className="text-[#f97316]">7 veces en un solo año</span>
-          </h1>
+          </p>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#6b7280]">
             Y la pobre nunca se enteraba... Por eso abrí este negocio.
@@ -827,9 +827,15 @@ export default function Home() {
             description:
               "Asesoría energética independiente en Molins de Rei. Analizamos tu factura de luz y gas para conseguirte el mejor precio. +5.000 clientes.",
             url: "https://vitergy.es",
+            image: "https://vitergy.es/og.png",
             telephone: "+34633151083",
+            email: "info@vitergy.es",
+            sameAs: [
+              "https://www.google.com/maps?cid=18012363284776329308",
+            ],
             address: {
               "@type": "PostalAddress",
+              streetAddress: "Carrer de Ferran Agulló 6, local",
               addressLocality: "Molins de Rei",
               addressRegion: "Barcelona",
               postalCode: "08750",
@@ -844,6 +850,7 @@ export default function Home() {
               "@type": "Person",
               name: "Víctor Marrón",
               jobTitle: "Asesor energético",
+              url: "https://vitergy.es/sobre-mi",
               description:
                 "Más de 12 años en el sector energético y más de 200 GWh de consumo gestionado.",
             },

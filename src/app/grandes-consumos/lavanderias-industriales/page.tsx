@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     siteName: "Vitergy",
     locale: "es_ES",
     type: "article",
+    images: ["/og.png"],
   },
 };
 

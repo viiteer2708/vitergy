@@ -112,13 +112,15 @@ Es probable que 2015 venga de la trayectoria profesional de Víctor y no de la s
 | Orden | Acción | Impacto | Esfuerzo | Estado |
 |---|---|---|---|---|
 | 1 | Quitar el `aggregateRating` falso | ALTO (riesgo de penalización) | BAJO | ✅ hecho el 29-jul |
-| 2 | Publicar `/legal`, `/privacidad` y `/cookies` | ALTO (legal + 105 enlaces rotos) | MEDIO | ✅ hecho el 29-jul (falta el NIF) |
+| 2 | Publicar `/legal`, `/privacidad` y `/cookies` | ALTO (legal + 105 enlaces rotos) | MEDIO | ✅ hecho el 29-jul; NIF B22517494 añadido |
 | 3 | Unificar la fecha de fundación | MEDIO | BAJO | ✅ hecho el 29-jul |
 | 4 | Crear contenido para grandes consumos | ALTO | ALTO | ✅ hecho el 29-jul |
-| 5 | Imagen OG + `metadataBase` | MEDIO-ALTO (CTR en WhatsApp) | BAJO | ⏳ 1 h |
-| 6 | `sameAs` al GBP y autoría en el blog | MEDIO (E-E-A-T) | MEDIO | ⏳ 45 min (el `Person` ya está) |
-| 7 | Vía de contacto por email para B2B | MEDIO-ALTO (conversión) | MEDIO | ⏳ 3 h |
-| 8 | Favicon ligero y metadatos propios de la home | BAJO | BAJO | ⏳ 40 min |
+| 5 | Imagen OG + `metadataBase` | MEDIO-ALTO (CTR en WhatsApp) | BAJO | ✅ hecho el 5-ago — `og.png` 1200×630 generada desde el logo real (wordmark + mascota), `twitter:summary_large_image`, cubre también las páginas que heredan del layout |
+| 6 | `sameAs` al GBP y autoría en el blog | MEDIO (E-E-A-T) | MEDIO | ✅ hecho el 5-ago — `sameAs` a la ficha de Google (CID 18012363284776329308) + `streetAddress`/`email`/`image` en el LocalBusiness; la autoría del blog **ya existía** (los 10 posts llevan `Article.author` = Víctor Marrón con URL a /sobre-mi) |
+| 7 | Vía de contacto por email para B2B | MEDIO-ALTO (conversión) | MEDIO | ✅ resuelto por dos vías — la calculadora de /contacto (2-ago, otra sesión) ya captura leads por email vía Brevo, y el CTA de grandes consumos añade mailto directo a info@vitergy.es para el caso «te mando mis 12 facturas» |
+| 8 | Favicon ligero y metadatos propios de la home | BAJO | BAJO | ✅ hecho el 5-ago — favicon.ico multi-tamaño (15 KB) + icon-192/512 + apple-touch-icon desde la mascota, sustituyen al PNG de 306 KB |
+| 9 | H1 de la home con keyword+geo (P1 del 23-jul) | MEDIO-ALTO | BAJO | ✅ hecho el 5-ago — H1 = «Asesoría Energética Independiente en Molins de Rei · Barcelona» (posición eyebrow); el gancho de la abuela conserva el estilo grande como `<p>` |
+| 10 | Fechas reales en el sitemap (antes `new Date()` en cada deploy) | BAJO | BAJO | ✅ hecho el 5-ago — fechas fijas por grupo de contenido |
 
 ---
 
