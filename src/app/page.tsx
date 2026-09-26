@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+// Título, descripción y tarjeta al compartir vienen del layout; aquí solo la dirección oficial.
+export const metadata: Metadata = {
+  alternates: { canonical: "https://vitergy.es" },
+};
 
 const casosReales = [
   {
@@ -856,6 +862,7 @@ export default function Home() {
             ],
             founder: {
               "@type": "Person",
+              "@id": "https://vitergy.es/sobre-mi#victor-marron",
               name: "Víctor Marrón",
               jobTitle: "Asesor energético",
               url: "https://vitergy.es/sobre-mi",

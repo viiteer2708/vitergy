@@ -1,4 +1,8 @@
 import { MetadataRoute } from 'next'
+import { todosLosArticulos } from '@/lib/blog'
+
+// Se regenera cada hora: los artículos programados entran solos el día de su fecha.
+export const revalidate = 3600
 
 // Fechas de última modificación REAL del contenido, por grupo.
 // Antes era `new Date()` en todas: cada deploy marcaba las 38 URLs como
@@ -11,7 +15,9 @@ const F = {
   grandesConsumos: new Date('2026-09-26'), // 100% online + hola@
   legales: new Date('2026-09-26'),         // email de contacto hola@
   oficina: new Date('2026-09-26'),         // páginas que citaban la oficina (hoy 100% online)
+  blog: new Date('2026-09-26'),            // listado nuevo: temas y paginación
 }
+// Los artículos NO van aquí: cada uno trae su fecha (updatedAt o publishedAt) de src/lib/blog.ts.
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://vitergy.es'
@@ -48,14 +54,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'legal', 'privacidad', 'cookies',
   ].map((slug) => ({ url: `${baseUrl}/${slug}`, lastModified: F.legales, changeFrequency: 'yearly' as const, priority: 0.3 }))
 
-  const blogIndex = { url: `${baseUrl}/blog`, lastModified: F.base, changeFrequency: 'weekly' as const, priority: 0.7 }
+  // Solo lo publicado: los programados (fecha futura) entran el día que toca.
+  const blogPosts = todosLosArticulos().map((a) => ({
+    url: `${baseUrl}/blog/${a.slug}`,
+    lastModified: new Date(a.updatedAt ?? a.publishedAt),
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }))
 
-  const blogPosts = [
-    'como-calcular-consumo-electrico', 'como-cambiar-compania-luz', 'comparativa-tarifas-luz',
-    'entender-factura-luz', 'guia-autoconsumo-fotovoltaico', 'mejores-comercializadoras-espana',
-    'monitorizacion-consumo-energetico', 'optimizar-potencia-contratada',
-    'penalizacion-cambio-compania', 'pvpc-precio-voluntario',
-  ].map((slug) => ({ url: `${baseUrl}/blog/${slug}`, lastModified: F.base, changeFrequency: 'monthly' as const, priority: 0.6 }))
+  // El listado cambia cuando cambia su diseño o sale un artículo nuevo.
+  const ultimoCambioBlog = Math.max(F.blog.getTime(), ...blogPosts.map((p) => p.lastModified.getTime()))
+  const blogIndex = { url: `${baseUrl}/blog`, lastModified: new Date(ultimoCambioBlog), changeFrequency: 'weekly' as const, priority: 0.7 }
 
   return [...mainPages, ...grandesConsumos, ...servicePages, ...localPages, ...toolPages, blogIndex, ...blogPosts, ...legalPages]
 }

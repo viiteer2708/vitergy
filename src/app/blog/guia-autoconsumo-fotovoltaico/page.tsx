@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { metaCompartirTsx } from "@/lib/blog";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://vitergy.es/blog/guia-autoconsumo-fotovoltaico",
   },
+  ...metaCompartirTsx("guia-autoconsumo-fotovoltaico"),
 };
 
 const faqs = [

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { metaCompartirTsx } from "@/lib/blog";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://vitergy.es/blog/optimizar-potencia-contratada",
   },
+  ...metaCompartirTsx("optimizar-potencia-contratada"),
 };
 
 const faqs = [

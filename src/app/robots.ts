@@ -6,7 +6,8 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/_next/'],
+        // /_next/ NO se bloquea: son el CSS y el JS que Google necesita para ver la página.
+        disallow: ['/api/'],
       },
     ],
     sitemap: 'https://vitergy.es/sitemap.xml',

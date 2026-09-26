@@ -43,6 +43,7 @@ const stats = [
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": "https://vitergy.es/sobre-mi#victor-marron",
   name: "Víctor Marrón",
   jobTitle: "Asesor Energético",
   worksFor: {

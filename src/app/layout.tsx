@@ -47,10 +47,40 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
   },
-  alternates: {
-    canonical: "https://vitergy.es",
-  },
 };
+
+// Fichas invisibles para Google en todas las páginas: quién escribe (Person) y qué web es
+// (WebSite). Los artículos enlazan a esta misma Person por su @id.
+const jsonLdSitio = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://vitergy.es/#web",
+    name: "Vitergy",
+    url: "https://vitergy.es",
+    inLanguage: "es-ES",
+    description:
+      "Asesoría energética independiente: analizamos tu factura de luz y gas gratis y te conseguimos el mejor precio.",
+    publisher: {
+      "@type": "Organization",
+      name: "Vitergy",
+      url: "https://vitergy.es",
+      logo: "https://vitergy.es/icon-512.png",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://vitergy.es/sobre-mi#victor-marron",
+    name: "Víctor Marrón",
+    jobTitle: "Asesor energético",
+    url: "https://vitergy.es/sobre-mi",
+    image: "https://vitergy.es/victor.png",
+    description:
+      "Más de 12 años en el sector energético y más de 200 GWh de consumo gestionado.",
+    worksFor: { "@type": "Organization", name: "Vitergy", url: "https://vitergy.es" },
+  },
+];
 
 export default function RootLayout({
   children,
@@ -62,6 +92,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSitio) }}
+        />
         <Navbar />
         <main>{children}</main>
         <Footer />
