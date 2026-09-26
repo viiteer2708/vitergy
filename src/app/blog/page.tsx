@@ -1,90 +1,44 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { fechaLarga, SITIO, todosLosArticulos } from "@/lib/blog";
 
-export const metadata: Metadata = {
-  title: "Blog de Ahorro Energético | Guías y Consejos para Pagar Menos - Vitergy",
-  description:
-    "Guías prácticas, consejos de ahorro y análisis del mercado eléctrico. Todo lo que necesitas saber para pagar menos en tu factura de luz y gas.",
-  alternates: {
-    canonical: "https://vitergy.es/blog",
-  },
-};
+// Los artículos salen de src/lib/blog.ts (los 10 originales + los Markdown publicados).
+// Paginación por URL (/blog?page=2) para que Google llegue a todos: no hace scroll.
+const POR_PAGINA = 20;
 
-const articles = [
-  {
-    slug: "como-calcular-consumo-electrico",
-    title: "Cómo Calcular tu Consumo Eléctrico en kWh [Fórmulas + Ejemplos]",
-    description:
-      "Aprende a calcular el consumo eléctrico de tu hogar con fórmulas sencillas, ejemplos prácticos y tablas de consumo por electrodoméstico. Ahorra hasta un 30%.",
-    date: "2026-03-23",
-  },
-  {
-    slug: "pvpc-precio-voluntario",
-    title: "PVPC: Qué Es y Cómo Funciona el Precio Voluntario [Guía 2026]",
-    description:
-      "Todo sobre el PVPC: cómo se calcula, horarios, ventajas e inconvenientes, y cuándo te conviene frente a una tarifa de precio fijo. Comparativa detallada.",
-    date: "2026-03-23",
-  },
-  {
-    slug: "entender-factura-luz",
-    title: "Cómo Entender tu Factura de la Luz: Guía Completa con Ejemplos",
-    description:
-      "Desglosamos cada concepto de tu factura eléctrica: término de potencia, consumo, peajes, impuestos y cargos. Con ejemplo real de factura analizada.",
-    date: "2026-03-23",
-  },
-  {
-    slug: "mejores-comercializadoras-espana",
-    title: "Las Mejores Comercializadoras de Luz en España [Ranking 2026]",
-    description:
-      "Ranking actualizado de las mejores compañías eléctricas en España. Comparamos precios, atención al cliente, energía verde y condiciones de contrato.",
-    date: "2026-03-23",
-  },
-  {
-    slug: "penalizacion-cambio-compania",
-    title: "Penalización por Cambiar de Compañía Eléctrica: ¿Es Legal?",
-    description:
-      "¿Te cobran por cambiar de compañía de luz? Explicamos cuándo es legal, cuánto pueden cobrarte, cómo reclamar y cuándo compensa pagar la penalización.",
-    date: "2026-03-23",
-  },
-  {
-    slug: "optimizar-potencia-contratada",
-    title: "Cómo Optimizar la Potencia Contratada y Ahorrar en tu Factura",
-    description:
-      "Descubre si estás pagando de más por tu potencia contratada. Te enseñamos a calcular la potencia ideal y cómo cambiarla paso a paso.",
-    date: "2026-03-23",
-  },
-  {
-    slug: "monitorizacion-consumo-energetico",
-    title: "Monitorización del Consumo Energético: Guía para Empresas y Hogares",
-    description:
-      "Guía completa sobre monitorización energética: dispositivos, herramientas, implementación paso a paso y cómo interpretar los datos para ahorrar.",
-    date: "2026-03-23",
-  },
-  {
-    slug: "comparativa-tarifas-luz",
-    title: "Comparativa de Tarifas de Luz 2026: ¿Cuál es la Mejor para Ti?",
-    description:
-      "Comparamos PVPC vs precio fijo, con y sin discriminación horaria. Descubre qué tarifa se adapta mejor a tu perfil de consumo y cuánto puedes ahorrar.",
-    date: "2026-03-10",
-  },
-  {
-    slug: "como-cambiar-compania-luz",
-    title: "Cómo Cambiar de Compañía de Luz: Guía Paso a Paso 2026",
-    description:
-      "Todo lo que necesitas saber para cambiar de compañía eléctrica sin cortes, sin papeleo y sin coste. Plazos, documentos y qué hacer si tienes permanencia.",
-    date: "2026-03-08",
-  },
-  {
-    slug: "guia-autoconsumo-fotovoltaico",
-    title:
-      "Guía Completa de Autoconsumo Fotovoltaico 2026: Todo lo que Necesitas Saber",
-    description:
-      "Tipos de instalación, costes, subvenciones disponibles, amortización y cuándo merece la pena instalar baterías. La guía definitiva del autoconsumo solar.",
-    date: "2026-03-05",
-  },
-];
+const TITULO = "Blog de Ahorro Energético | Guías y Consejos para Pagar Menos - Vitergy";
+const DESCRIPCION =
+  "Guías prácticas, consejos de ahorro y análisis del mercado eléctrico. Todo lo que necesitas saber para pagar menos en tu factura de luz y gas.";
 
-export default function BlogPage() {
+type Props = { searchParams: Promise<{ page?: string | string[] }> };
+
+async function paginaPedida(searchParams: Props["searchParams"]): Promise<number> {
+  const { page } = await searchParams;
+  const n = Number(Array.isArray(page) ? page[0] : page);
+  return Number.isInteger(n) && n > 1 ? n : 1;
+}
+
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const pagina = await paginaPedida(searchParams);
+  if (pagina === 1) {
+    return { title: TITULO, description: DESCRIPCION, alternates: { canonical: `${SITIO}/blog` } };
+  }
+  return {
+    title: `Blog de Ahorro Energético (página ${pagina}) - Vitergy`,
+    description: DESCRIPCION,
+    alternates: { canonical: `${SITIO}/blog?page=${pagina}` },
+  };
+}
+
+export default async function BlogPage({ searchParams }: Props) {
+  const pagina = await paginaPedida(searchParams);
+  const todos = todosLosArticulos();
+  const totalPaginas = Math.max(1, Math.ceil(todos.length / POR_PAGINA));
+  if (pagina > totalPaginas) notFound();
+  const articulos = todos.slice((pagina - 1) * POR_PAGINA, pagina * POR_PAGINA);
+  const enlacePagina = (n: number) => (n === 1 ? "/blog" : `/blog?page=${n}`);
+
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
       {/* H1 */}
@@ -102,31 +56,62 @@ export default function BlogPage() {
 
       {/* Grid de artículos */}
       <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {articles.map((article) => (
+        {articulos.map((article) => (
           <Link
             key={article.slug}
             href={`/blog/${article.slug}`}
-            className="group rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition hover:border-[#f97316] hover:shadow-md"
+            className="group flex flex-col rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition hover:border-[#f97316] hover:shadow-md"
           >
-            <time className="text-xs font-medium text-gray-400">
-              {new Date(article.date).toLocaleDateString("es-ES", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
+            <time dateTime={article.publishedAt} className="text-xs font-medium text-gray-400">
+              {fechaLarga(article.publishedAt)}
             </time>
             <h2 className="mt-2 text-lg font-bold leading-snug text-gray-900 group-hover:text-[#f97316]">
               {article.title}
             </h2>
-            <p className="mt-2 text-sm leading-6 text-gray-600">
-              {article.description}
-            </p>
-            <span className="mt-4 inline-block text-sm font-semibold text-[#f97316]">
+            <p className="mt-2 text-sm leading-6 text-gray-600">{article.description}</p>
+            {article.tags.length > 0 && (
+              <span className="mt-4 flex flex-wrap gap-2">
+                {article.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full bg-[#fff7ed] px-2.5 py-0.5 text-xs font-medium text-orange-700"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </span>
+            )}
+            <span className="mt-auto pt-4 text-sm font-semibold text-[#f97316]">
               Leer artículo →
             </span>
           </Link>
         ))}
       </div>
+
+      {totalPaginas > 1 && (
+        <nav
+          aria-label="Páginas del blog"
+          className="mt-12 flex items-center justify-between gap-4 text-sm font-semibold"
+        >
+          {pagina > 1 ? (
+            <Link href={enlacePagina(pagina - 1)} className="text-[#f97316] hover:underline">
+              ← Más recientes
+            </Link>
+          ) : (
+            <span />
+          )}
+          <span className="font-medium text-gray-500">
+            Página {pagina} de {totalPaginas}
+          </span>
+          {pagina < totalPaginas ? (
+            <Link href={enlacePagina(pagina + 1)} className="text-[#f97316] hover:underline">
+              Anteriores →
+            </Link>
+          ) : (
+            <span />
+          )}
+        </nav>
+      )}
     </div>
   );
 }
