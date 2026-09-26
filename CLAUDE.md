@@ -90,6 +90,7 @@ Principios de Karpathy aplicados a este repo:
 Especialistas que se activan solos según lo que se pida (viven en `.claude/skills/`):
 
 - `blog-seo` — el blog (artículos en Markdown, programados por fecha) y el SEO técnico de la web (sitemap, robots, canonical, tarjetas al compartir, fichas JSON-LD, Search Console).
+- `arquitecto` — al terminar una función nueva (o cuando Victor pregunte qué mejorar o qué conectar), escanea lo montado y propone de 1 a 3 conexiones entre piezas que valgan dinero o tiempo; lo que no se haga en el momento va a `mejoras.md` (raíz del repo). En este repo lo montado está en `docs/` y en este `CLAUDE.md`. Copiada tal cual de Gnew (26-sep-2026).
 
 ## Conocimiento (Segundo Cerebro)
 
