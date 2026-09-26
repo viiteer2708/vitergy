@@ -69,6 +69,22 @@ falta `title` o `description`, fecha que no es `AAAA-MM-DD`, o dirección ya usa
   (autor = la `Person` del layout por su `@id`).
 - **Sitemap**: entra solo, con `updatedAt` o `publishedAt` como fecha.
 
+## Dónde más aparece el blog
+
+Conexiones propuestas por el arquitecto y montadas el 26-sep-2026 (ver `mejoras.md`):
+
+- **Portada**: sección «Del blog» de [src/app/page.tsx](../src/app/page.tsx) con los 3 artículos
+  más recientes, antes de la llamada final. La portada se regenera cada hora (`revalidate = 3600`)
+  para que los programados salgan también ahí el día que toca.
+- **Chat de IA**: [src/app/api/chat/route.ts](../src/app/api/chat/route.ts) (`instrucciones()`)
+  añade en cada conversación la lista de artículos publicados (título + enlace) y la regla de
+  recomendar como mucho uno, solo si responde a la duda. `FUERA_DEL_CHAT` deja fuera el ranking
+  de comercializadoras, porque la regla 1 del chat prohíbe dar rankings. La burbuja
+  ([src/components/ChatWidget.tsx](../src/components/ChatWidget.tsx), `ConEnlaces`) convierte las
+  direcciones de vitergy.es en enlaces internos: al pulsarlos no se recarga la página y la
+  conversación sigue abierta. Si algún día hay decenas de artículos, filtrar la lista por temas para
+  no engordar cada petición a Gemini.
+
 ## La capa SEO de toda la web
 
 | Pieza | Dónde | Notas |

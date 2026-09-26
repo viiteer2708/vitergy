@@ -6,7 +6,7 @@ Guía para trabajar en **Vitergy**. Léela antes de tocar código.
 
 Landing/web de marca para **Vitergy** — asesoría energética independiente de Víctor Marrón, **100% online** (sin oficina física desde el 26-sep-2026); Molins de Rei sigue siendo la zona objetivo del SEO local (ver trampa 5). El objetivo del sitio es **captar clientes vía SEO** y empujarlos a contacto (WhatsApp / calculadora de ahorro). Es una web de marketing **estática** con herramientas dinámicas (precio de la luz hoy/mañana, calculadora de ahorro en `/contacto`) y un chat de soporte con IA. No hay base de datos ni autenticación; el backend son 3 API routes: el chat (`/api/chat`) y las dos de la calculadora (`/api/factura/analizar`, `/api/factura/estudio`).
 
-Dominio en producción: `https://vitergy.es` · Desplegado en **Vercel**.
+Dominio en producción: `https://vitergy.es` · Desplegado en **Vercel** · `www.vitergy.es` redirige (308) a `vitergy.es` desde el 26-sep-2026 (antes daba error: apuntaba a un servidor antiguo). DNS en Hostinger: `@` A y `www` CNAME a Vercel; correo (MX/SPF/DKIM) en Hostinger.
 
 ## Stack
 
@@ -59,6 +59,7 @@ Burbuja flotante ([src/components/ChatWidget.tsx](src/components/ChatWidget.tsx)
 - **La clave de la API (`GEMINI_API_KEY`) SOLO existe en el servidor**: env var en Vercel y en `.env.local` (gitignored). Jamás en código, jamás con prefijo `NEXT_PUBLIC_` — el repo es público.
 - El system prompt, el modelo y `generationConfig` se fijan **en el servidor** (route.ts); nunca aceptar esos campos del cliente. El system prompt está anclado en el wiki (independencia, "análisis gratis, si no ahorro no cobro", nada de rankings de compañías ni cifras inventadas) — si cambias el mensaje de negocio, coteja con `wiki/projects/vitergy.md`.
 - Protecciones en la route: tope de longitud, historial capado, rate limit best-effort por IP, check de Origin y mensajes de error amables (429 = cuota gratis agotada, se resetea a medianoche hora del Pacífico).
+- **Conoce el blog**: en cada petición recibe la lista de artículos publicados y puede recomendar uno; la burbuja pinta los enlaces a vitergy.es como enlaces internos (ver [docs/blog.md](docs/blog.md)).
 - Sin `GEMINI_API_KEY` configurada el chat responde 503 con un mensaje que redirige a WhatsApp — la web nunca se rompe por esto.
 
 ## Sistema de diseño

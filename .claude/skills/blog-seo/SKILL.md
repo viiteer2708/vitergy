@@ -27,6 +27,12 @@ duplicados»; JSON-LD = «una ficha invisible que le dice a Google quién escrib
 - **SEO**: `src/app/sitemap.ts` (grupos `F` + artículos automáticos) · `src/app/robots.ts` ·
   `src/app/layout.tsx` (OG/Twitter base + JSON-LD `WebSite` y `Person` con `@id`
   `https://vitergy.es/sobre-mi#victor-marron`) · canonical propia en cada `page.tsx`.
+- **Dónde más sale**: la portada (sección «Del blog», 3 últimos, se regenera cada hora) y el
+  chat de IA (`instrucciones()` en `src/app/api/chat/route.ts` le pasa la lista; `FUERA_DEL_CHAT`
+  excluye artículos, hoy el ranking de comercializadoras; `ConEnlaces` en
+  `src/components/ChatWidget.tsx` pinta los enlaces). Un artículo nuevo entra en los dos solo.
+- **Mejoras pendientes** de esta pieza: `mejoras.md` (p. ej. publicar cada artículo en la ficha de
+  Google Maps).
 - **Sin tablas ni base de datos.** El contenido vive en el repo, versionado.
 - **Decisiones que la marcaron**: los 10 originales no se migran (indexados); el layout ya no
   impone canonical (antes ponía la portada a todas); robots no bloquea `/_next/`; columna de
@@ -82,6 +88,7 @@ duplicados»; JSON-LD = «una ficha invisible que le dice a Google quién escrib
 ## Regla de oro
 
 **Cada vez que se toque el código de esta función (blog, `src/lib/blog.ts`,
-`src/lib/markdown.ts`, `.prosa`, sitemap, robots, metadatos o JSON-LD), esta skill y
+`src/lib/markdown.ts`, `.prosa`, sitemap, robots, metadatos, JSON-LD, la sección «Del blog» de
+la portada o la parte del blog en el chat), esta skill y
 `docs/blog.md` se actualizan EN LA MISMA SESIÓN**, para seguir describiendo la pieza tal como es.
 Una skill desactualizada es peor que ninguna.
