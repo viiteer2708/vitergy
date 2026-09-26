@@ -674,7 +674,7 @@ export default function CalculadoraAhorro() {
         <p className="text-xs leading-5 text-gray-500">
           Responsable: Por encima del techo del cielo, S.L. Finalidad: elaborar tu
           estudio energético y enviártelo; comunicaciones comerciales solo si
-          marcas la casilla opcional. Derechos en info@vitergy.es. Más
+          marcas la casilla opcional. Derechos en hola@vitergy.es. Más
           información en la política de privacidad.
         </p>
       </form>

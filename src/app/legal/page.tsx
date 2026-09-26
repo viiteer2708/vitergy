@@ -14,7 +14,7 @@ export default function AvisoLegalPage() {
     { label: "Titular", value: TITULAR.razonSocial },
     { label: "Nombre comercial", value: TITULAR.marca },
     ...(TITULAR.nif ? [{ label: "NIF", value: TITULAR.nif }] : []),
-    { label: "Domicilio", value: TITULAR.domicilio },
+    { label: "Domicilio social", value: TITULAR.domicilio },
     {
       label: "Correo electrónico",
       value: (

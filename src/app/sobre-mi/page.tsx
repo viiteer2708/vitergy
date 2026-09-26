@@ -28,8 +28,8 @@ const timeline = [
   },
   {
     year: "2026",
-    title: "Apertura de oficina física en Molins de Rei",
-    text: "Abro la oficina de Vitergy en el Carrer de Ferran Agulló 6, un espacio donde atender presencialmente a quien lo prefiera. Más de 400 clientes en cartera y contando.",
+    title: "Apertura de oficina física en Badalona",
+    text: "Abro la oficina de Vitergy en la Calle Energía 10 de Badalona, un espacio donde atender presencialmente a quien lo prefiera. Más de 400 clientes en cartera y contando.",
   },
 ];
 

@@ -50,7 +50,7 @@ const faqs = [
   {
     question: "¿Dais servicio en toda Cataluña o solo en Barcelona?",
     answer:
-      "Damos servicio en las cuatro provincias de Cataluña: Barcelona, Girona, Lleida y Tarragona. La atención puede ser presencial en nuestra oficina de Molins de Rei, o a distancia por teléfono, videollamada o email para clientes de cualquier punto de Catalunya.",
+      "Damos servicio en las cuatro provincias de Cataluña: Barcelona, Girona, Lleida y Tarragona. La atención puede ser presencial en nuestra oficina de Badalona, o a distancia por teléfono, videollamada o email para clientes de cualquier punto de Catalunya.",
   },
   {
     question: "¿Qué tipo de empresas asesoráis en Cataluña?",
@@ -118,7 +118,7 @@ export default function AsesoriaEnergeticaCatalunaPage() {
               {[
                 "Más de 10 años de experiencia en el mercado energético catalán",
                 "Conocimiento de distribuidoras, subvenciones y bonificaciones locales",
-                "Atención presencial en Molins de Rei y a distancia en toda Catalunya",
+                "Atención presencial en Badalona y a distancia en toda Catalunya",
                 "Independencia total: comparamos más de 40 comercializadoras",
                 "Asesoramiento adaptado a cada sector: industria, hostelería, comercio, hogares",
                 "Análisis gratuito y sin compromiso de tu factura de luz y gas",

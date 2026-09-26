@@ -4,7 +4,7 @@ import CalculadoraAhorro from "./CalculadoraAhorro";
 export const metadata: Metadata = {
   title: "Contacto | Asesoría Energética Gratuita en Molins de Rei - Vitergy",
   description:
-    "Contacta con Vitergy para tu asesoría energética gratuita. Oficina en Molins de Rei, teléfono, WhatsApp y formulario. Respuesta en menos de 2 horas.",
+    "Contacta con Vitergy para tu asesoría energética gratuita. Oficina en Badalona, teléfono, WhatsApp y formulario. Respuesta en menos de 2 horas.",
   alternates: {
     canonical: "https://vitergy.es/contacto",
   },
@@ -18,26 +18,34 @@ const jsonLd = {
     "Asesoría energética independiente en Molins de Rei. Análisis de facturas, cambio de compañía, autoconsumo solar.",
   url: "https://vitergy.es",
   telephone: "+34633151083",
-  email: "info@vitergy.es",
+  email: "hola@vitergy.es",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Carrer de Ferran Agulló 6, LOCAL",
-    addressLocality: "Molins de Rei",
-    postalCode: "08750",
+    streetAddress: "Calle Energía 10",
+    addressLocality: "Badalona",
+    postalCode: "08915",
     addressRegion: "Barcelona",
     addressCountry: "ES",
   },
   geo: {
     "@type": "GeoCoordinates",
-    latitude: 41.4139,
-    longitude: 2.0158,
+    latitude: 41.4613,
+    longitude: 2.2545,
   },
-  openingHoursSpecification: {
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    opens: "09:00",
-    closes: "18:00",
-  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday"],
+      opens: "09:00",
+      closes: "17:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Friday"],
+      opens: "09:00",
+      closes: "14:00",
+    },
+  ],
   priceRange: "Consulta gratuita",
 };
 
@@ -83,9 +91,9 @@ export default function ContactoPage() {
                       Oficina
                     </p>
                     <p className="mt-0.5 text-sm text-gray-600">
-                      Carrer de Ferran Agulló 6, LOCAL
+                      Calle Energía 10
                       <br />
-                      08750 Molins de Rei, Barcelona
+                      08915 Badalona, Barcelona
                     </p>
                   </div>
                 </div>
@@ -120,10 +128,10 @@ export default function ContactoPage() {
                   <div>
                     <p className="text-sm font-semibold text-gray-900">Email</p>
                     <a
-                      href="mailto:info@vitergy.es"
+                      href="mailto:hola@vitergy.es"
                       className="mt-0.5 block text-sm text-[#f97316] hover:underline"
                     >
-                      info@vitergy.es
+                      hola@vitergy.es
                     </a>
                   </div>
                 </div>
@@ -140,7 +148,9 @@ export default function ContactoPage() {
                       Horario
                     </p>
                     <p className="mt-0.5 text-sm text-gray-600">
-                      Lunes a Viernes, 9:00 — 18:00
+                      Lunes a jueves, 9:00 — 17:00
+                      <br />
+                      Viernes, 9:00 — 14:00
                     </p>
                   </div>
                 </div>
@@ -163,8 +173,8 @@ export default function ContactoPage() {
             {/* Google Maps */}
             <div className="overflow-hidden rounded-2xl border border-gray-100 shadow-sm">
               <iframe
-                title="Ubicación de Vitergy en Molins de Rei"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2994.5!2d2.0136!3d41.4139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a49d2c1c1a5b87%3A0x0!2sCarrer+de+Ferran+Agull%C3%B3+6%2C+08750+Molins+de+Rei!5e0!3m2!1ses!2ses!4v1700000000000!5m2!1ses!2ses"
+                title="Ubicación de la oficina de Vitergy en Badalona"
+                src="https://www.google.com/maps?q=Carrer+de+l%27Energia+10%2C+08915+Badalona&hl=es&z=16&output=embed"
                 width="100%"
                 height="300"
                 style={{ border: 0 }}

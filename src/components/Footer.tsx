@@ -48,16 +48,16 @@ export default function Footer() {
               Asesor energético independiente en Molins de Rei.
             </p>
             <div className="mt-4 space-y-1 text-sm">
-              <p>Carrer de Ferran Agulló 6, LOCAL</p>
-              <p>08750 Molins de Rei</p>
+              <p>Calle Energía 10</p>
+              <p>08915 Badalona</p>
               <p>
                 <a href="tel:+34633151083" className="transition hover:text-[#1f2942]">
                   633 15 10 83
                 </a>
               </p>
               <p>
-                <a href="mailto:info@vitergy.es" className="transition hover:text-[#1f2942]">
-                  info@vitergy.es
+                <a href="mailto:hola@vitergy.es" className="transition hover:text-[#1f2942]">
+                  hola@vitergy.es
                 </a>
               </p>
             </div>

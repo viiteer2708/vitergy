@@ -21,7 +21,7 @@ export default function PrivacidadPage() {
             { label: "Responsable", value: TITULAR.razonSocial },
             { label: "Nombre comercial", value: TITULAR.marca },
             ...(TITULAR.nif ? [{ label: "NIF", value: TITULAR.nif }] : []),
-            { label: "Domicilio", value: TITULAR.domicilio },
+            { label: "Domicilio social", value: TITULAR.domicilio },
             {
               label: "Contacto",
               value: (

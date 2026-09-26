@@ -6,10 +6,11 @@ import { MetadataRoute } from 'next'
 // Actualiza la fecha del grupo cuando toques su contenido.
 const F = {
   base: new Date('2026-07-05'),            // creación del sitio actual
-  home: new Date('2026-08-05'),            // H1 con keyword + schema
-  contacto: new Date('2026-08-02'),        // calculadora de ahorro v2
-  grandesConsumos: new Date('2026-08-05'), // caso real + og:image
-  legales: new Date('2026-07-29'),         // publicación de las 3 páginas
+  home: new Date('2026-09-26'),            // oficina en Badalona + horario en el schema
+  contacto: new Date('2026-09-26'),        // oficina en Badalona, hola@ y horario nuevo
+  grandesConsumos: new Date('2026-09-26'), // oficina en Badalona + hola@
+  legales: new Date('2026-09-26'),         // email de contacto hola@
+  oficina: new Date('2026-09-26'),         // resto de páginas que citan la oficina (Badalona)
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -19,14 +20,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: baseUrl, lastModified: F.home, changeFrequency: 'weekly' as const, priority: 1.0 },
     { url: `${baseUrl}/consultoria-energetica`, lastModified: F.base, changeFrequency: 'monthly' as const, priority: 0.9 },
     { url: `${baseUrl}/contacto`, lastModified: F.contacto, changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/sobre-mi`, lastModified: F.base, changeFrequency: 'monthly' as const, priority: 0.7 },
+    { url: `${baseUrl}/sobre-mi`, lastModified: F.oficina, changeFrequency: 'monthly' as const, priority: 0.7 },
   ]
 
   const servicePages = [
     'estudio-factura-electrica', 'cambiar-compania-luz', 'comparador-tarifas-luz',
     'autoconsumo-fotovoltaico', 'instalacion-baterias', 'optimizacion-potencia',
     'penalizaciones-electricas', 'mantenimiento-electrico', 'monitorizacion-consumo',
-  ].map((slug) => ({ url: `${baseUrl}/${slug}`, lastModified: F.base, changeFrequency: 'monthly' as const, priority: 0.8 }))
+  ].map((slug) => ({ url: `${baseUrl}/${slug}`, lastModified: slug === 'mantenimiento-electrico' ? F.oficina : F.base, changeFrequency: 'monthly' as const, priority: 0.8 }))
 
   const grandesConsumos = [
     { url: `${baseUrl}/grandes-consumos`, lastModified: F.grandesConsumos, changeFrequency: 'monthly' as const, priority: 0.9 },
@@ -37,7 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const localPages = [
     'asesoria-energetica-barcelona', 'asesoria-energetica-cataluna', 'asesoria-energetica-espana',
-  ].map((slug) => ({ url: `${baseUrl}/${slug}`, lastModified: F.base, changeFrequency: 'monthly' as const, priority: 0.8 }))
+  ].map((slug) => ({ url: `${baseUrl}/${slug}`, lastModified: F.oficina, changeFrequency: 'monthly' as const, priority: 0.8 }))
 
   const toolPages = [
     'calculadora-consumo-electrico', 'precio-luz-hoy', 'precio-luz-manana',

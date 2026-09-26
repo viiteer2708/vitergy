@@ -25,7 +25,7 @@ const faqs = [
   {
     question: "¿Dais servicio fuera de Molins de Rei?",
     answer:
-      "Sí. Aunque nuestra oficina está en Molins de Rei, damos servicio de mantenimiento eléctrico en toda la comarca del Baix Llobregat y alrededores: Sant Feliu, Sant Joan Despí, Cornellà, Sant Vicenç dels Horts, Pallejà, Sant Andreu de la Barca y más.",
+      "Sí. Además de Molins de Rei, damos servicio de mantenimiento eléctrico en toda la comarca del Baix Llobregat y alrededores: Sant Feliu, Sant Joan Despí, Cornellà, Sant Vicenç dels Horts, Pallejà, Sant Andreu de la Barca y más.",
   },
 ];
 

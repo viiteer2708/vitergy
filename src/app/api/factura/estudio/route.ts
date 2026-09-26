@@ -127,7 +127,7 @@ export async function POST(request: Request) {
 
     // Aviso a Víctor con el detalle completo (correo interno).
     try {
-      const destino = process.env.LEAD_TO_EMAIL ?? "info@vitergy.es";
+      const destino = process.env.LEAD_TO_EMAIL ?? "hola@vitergy.es";
       const remitente = process.env.BREVO_SENDER_EMAIL;
       if (remitente) {
         const filas: string[] = [

@@ -37,10 +37,10 @@ function jsonLdDe(sector: Sector) {
         telephone: "+34633151083",
         address: {
           "@type": "PostalAddress",
-          streetAddress: "Carrer de Ferran Agulló 6, local",
-          addressLocality: "Molins de Rei",
+          streetAddress: "Calle Energía 10",
+          addressLocality: "Badalona",
           addressRegion: "Barcelona",
-          postalCode: "08750",
+          postalCode: "08915",
           addressCountry: "ES",
         },
       },

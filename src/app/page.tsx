@@ -794,7 +794,7 @@ export default function Home() {
             </Link>
           </div>
           <p className="mt-8 text-sm text-[#6b7280]">
-            Molins de Rei · 633 15 10 83 · WhatsApp disponible
+            Badalona · 633 15 10 83 · WhatsApp disponible
           </p>
         </div>
       </section>
@@ -829,23 +829,37 @@ export default function Home() {
             url: "https://vitergy.es",
             image: "https://vitergy.es/og.png",
             telephone: "+34633151083",
-            email: "info@vitergy.es",
+            email: "hola@vitergy.es",
             sameAs: [
               "https://www.google.com/maps?cid=18012363284776329308",
             ],
             address: {
               "@type": "PostalAddress",
-              streetAddress: "Carrer de Ferran Agulló 6, local",
-              addressLocality: "Molins de Rei",
+              streetAddress: "Calle Energía 10",
+              addressLocality: "Badalona",
               addressRegion: "Barcelona",
-              postalCode: "08750",
+              postalCode: "08915",
               addressCountry: "ES",
             },
             geo: {
               "@type": "GeoCoordinates",
-              latitude: "41.4133",
-              longitude: "2.0147",
+              latitude: "41.4613",
+              longitude: "2.2545",
             },
+            openingHoursSpecification: [
+              {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday"],
+                opens: "09:00",
+                closes: "17:00",
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: ["Friday"],
+                opens: "09:00",
+                closes: "14:00",
+              },
+            ],
             founder: {
               "@type": "Person",
               name: "Víctor Marrón",

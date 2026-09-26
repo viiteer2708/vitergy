@@ -49,7 +49,7 @@ const stats = [
 
 const faqs = [
   {
-    question: "¿Cómo podéis atender a clientes de toda España desde Molins de Rei?",
+    question: "¿Cómo podéis atender a clientes de toda España desde Badalona?",
     answer:
       "El mercado eléctrico en España es el mismo en todas las comunidades autónomas. Analizamos tu factura de forma digital, por lo que podemos asesorarte con la misma eficacia vivas en Madrid, Sevilla, Valencia o cualquier otro punto. Te atendemos por teléfono, videollamada, WhatsApp o email.",
   },
