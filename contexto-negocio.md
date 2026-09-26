@@ -5,7 +5,7 @@
 
 ## 1. Identidad del negocio (NAP)
 - **Nombre exacto (GBP):** Vitergy — Asesoría Energética  ⚠️ confirmar que coincide literalmente con la ficha de Google
-- **Dirección (oficina, desde 26-sep-2026):** Calle Energía 10 · 08915 Badalona (Barcelona)
+- **Dirección pública:** ninguna — negocio 100% online (Victor, 26-sep-2026). En la ficha de Google: zona de servicio con la dirección oculta.
 - **Domicilio social de la S.L. (solo páginas legales):** Carrer de Ferran Agulló 6, local · 08750 Molins de Rei (Barcelona)
 - **Horario:** lunes a jueves 9:00–17:00 · viernes 9:00–14:00
 - **Teléfono:** 633 15 10 83 (+34633151083) — mismo en web, WhatsApp y schema ✅
@@ -24,8 +24,8 @@
   factura, cambio de compañía, optimización de potencia, autoconsumo fotovoltaico, instalación
   de baterías, monitorización de consumo, penalizaciones eléctricas.
 - **Servicio estrella:** análisis de factura → ahorro ("si no te ahorro, no cobro").
-- **Zona de servicio:** Molins de Rei · Barcelona · Cataluña · España (SAB + local).
-- **Local con clientes o a domicilio:** oficina física en Badalona + servicio remoto (Molins de Rei sigue como zona objetivo del SEO).
+- **Zona de servicio:** Molins de Rei · Barcelona · Cataluña · España (SAB, sin local).
+- **Local con clientes o a domicilio:** ninguno: 100% online (teléfono, WhatsApp, videollamada, email). Molins de Rei sigue como zona objetivo del SEO.
 
 ## 4. Cliente y propuesta de valor
 - **Cliente ideal:** familias, negocios de barrio y comunidades de vecinos que pagan de más.

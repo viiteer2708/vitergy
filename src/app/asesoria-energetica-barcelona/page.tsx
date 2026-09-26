@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Asesoría Energética en Barcelona | Vitergy - Ahorra en tu Factura de Luz",
   description:
-    "Asesor energético independiente en Barcelona y área metropolitana. Análisis gratuito de tu factura de luz y gas. Oficina física en Badalona, atención en toda Barcelona.",
+    "Asesor energético independiente en Barcelona y área metropolitana. Análisis gratuito de tu factura de luz y gas. Atención 100% online en toda Barcelona.",
   alternates: {
     canonical: "https://vitergy.es/asesoria-energetica-barcelona",
   },
@@ -44,7 +44,7 @@ const faqs = [
   {
     question: "¿Tenéis oficina física en Barcelona?",
     answer:
-      "Nuestra oficina está en Badalona (Calle Energía 10), a pocos minutos del centro de Barcelona. Atendemos presencialmente con cita previa y también de forma online o telefónica para clientes de toda la provincia de Barcelona y área metropolitana.",
+      "No. Vitergy trabaja 100% online: analizamos tu factura a distancia y te atendemos por teléfono, WhatsApp, videollamada o email en toda la provincia de Barcelona y su área metropolitana, sin que tengas que desplazarte.",
   },
   {
     question: "¿Cuánto cuesta la asesoría energética en Barcelona?",
@@ -96,8 +96,8 @@ export default function AsesoriaEnergeticaBarcelonaPage() {
             restaurantes y pequeñas empresas. Y sin embargo, la mayoría de
             barceloneses sigue pagando más de lo necesario en sus facturas de luz y
             gas. En Vitergy llevamos más de 12 años asesorando a particulares y
-            empresas de Barcelona y su área metropolitana, hoy desde nuestra
-            oficina en Badalona. Analizamos tu factura gratis, comparamos más de 40
+            empresas de Barcelona y su área metropolitana, hoy 100%
+            online. Analizamos tu factura gratis, comparamos más de 40
             compañías y te conseguimos el mejor precio sin que tengas que hacer nada.
           </p>
         </section>
@@ -110,11 +110,11 @@ export default function AsesoriaEnergeticaBarcelonaPage() {
             </h2>
             <ul className="mt-6 space-y-4">
               {[
-                "Oficina física en Badalona, a pocos minutos del centro de Barcelona",
+                "100% online: no tienes que desplazarte a ninguna oficina",
                 "Más de 400 clientes en cartera, la mayoría en Barcelona y su área metropolitana",
                 "100% independientes: no pertenecemos a ninguna comercializadora — no nos casamos con nadie",
                 "Análisis gratuito y sin compromiso de tu factura de luz y gas",
-                "Atención presencial, telefónica y online según tu preferencia",
+                "Atención por teléfono, WhatsApp, videollamada o email, según tu preferencia",
                 "Conocimiento profundo del mercado energético en Cataluña y sus particularidades",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">

@@ -48,8 +48,7 @@ export default function Footer() {
               Asesor energético independiente en Molins de Rei.
             </p>
             <div className="mt-4 space-y-1 text-sm">
-              <p>Calle Energía 10</p>
-              <p>08915 Badalona</p>
+              <p>Atención 100% online en toda España</p>
               <p>
                 <a href="tel:+34633151083" className="transition hover:text-[#1f2942]">
                   633 15 10 83

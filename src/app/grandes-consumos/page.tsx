@@ -70,7 +70,7 @@ const faqs = [
   {
     question: "¿Trabajáis con empresas de fuera de Barcelona?",
     answer:
-      "Sí. La oficina está en Badalona y atendemos presencialmente el Baix Llobregat y el área de Barcelona, pero el análisis de curva y la negociación se hacen igual de bien a distancia, y trabajamos con empresas de toda España. Si tienes varias sedes en provincias distintas, mejor todavía: se negocian juntas.",
+      "Sí. Somos una asesoría 100% online: el análisis de curva y la negociación se hacen igual de bien a distancia, y trabajamos con empresas de toda España. Si tienes varias sedes en provincias distintas, mejor todavía: se negocian juntas.",
   },
   {
     question: "Tenemos varios puntos de suministro. ¿Se pueden negociar juntos?",
@@ -116,10 +116,8 @@ const jsonLd = [
       telephone: "+34633151083",
       address: {
         "@type": "PostalAddress",
-        streetAddress: "Calle Energía 10",
-        addressLocality: "Badalona",
+        addressLocality: "Molins de Rei",
         addressRegion: "Barcelona",
-        postalCode: "08915",
         addressCountry: "ES",
       },
     },

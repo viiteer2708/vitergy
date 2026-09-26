@@ -794,7 +794,7 @@ export default function Home() {
             </Link>
           </div>
           <p className="mt-8 text-sm text-[#6b7280]">
-            Badalona · 633 15 10 83 · WhatsApp disponible
+            100% online · 633 15 10 83 · WhatsApp disponible
           </p>
         </div>
       </section>
@@ -833,18 +833,12 @@ export default function Home() {
             sameAs: [
               "https://www.google.com/maps?cid=18012363284776329308",
             ],
+            // 100% online: sin calle ni geo; solo el municipio del domicilio social (zona SEO).
             address: {
               "@type": "PostalAddress",
-              streetAddress: "Calle Energía 10",
-              addressLocality: "Badalona",
+              addressLocality: "Molins de Rei",
               addressRegion: "Barcelona",
-              postalCode: "08915",
               addressCountry: "ES",
-            },
-            geo: {
-              "@type": "GeoCoordinates",
-              latitude: "41.4613",
-              longitude: "2.2545",
             },
             openingHoursSpecification: [
               {

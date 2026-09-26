@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title:
     "Asesoría Energética en España | Vitergy - Ahorra en tu Factura de Luz y Gas",
   description:
-    "Asesoría energética para empresas y particulares en toda España. Consultor independiente con más de 12 años de experiencia y +400 clientes en cartera. Atención telefónica y presencial.",
+    "Asesoría energética para empresas y particulares en toda España. Consultor independiente con más de 12 años de experiencia y +400 clientes en cartera. Atención telefónica y online.",
   alternates: {
     canonical: "https://vitergy.es/asesoria-energetica-espana",
   },
@@ -49,7 +49,7 @@ const stats = [
 
 const faqs = [
   {
-    question: "¿Cómo podéis atender a clientes de toda España desde Badalona?",
+    question: "¿Cómo podéis atender a clientes de toda España?",
     answer:
       "El mercado eléctrico en España es el mismo en todas las comunidades autónomas. Analizamos tu factura de forma digital, por lo que podemos asesorarte con la misma eficacia vivas en Madrid, Sevilla, Valencia o cualquier otro punto. Te atendemos por teléfono, videollamada, WhatsApp o email.",
   },

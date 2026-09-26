@@ -28,8 +28,8 @@ const timeline = [
   },
   {
     year: "2026",
-    title: "Apertura de oficina física en Badalona",
-    text: "Abro la oficina de Vitergy en la Calle Energía 10 de Badalona, un espacio donde atender presencialmente a quien lo prefiera. Más de 400 clientes en cartera y contando.",
+    title: "Asesoría 100% online",
+    text: "Vitergy funciona 100% online: analizo cada factura a distancia y atiendo por teléfono, WhatsApp, videollamada o email, estés donde estés. Más de 400 clientes en cartera y contando.",
   },
 ];
 

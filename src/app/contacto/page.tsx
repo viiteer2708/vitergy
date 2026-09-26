@@ -4,7 +4,7 @@ import CalculadoraAhorro from "./CalculadoraAhorro";
 export const metadata: Metadata = {
   title: "Contacto | Asesoría Energética Gratuita en Molins de Rei - Vitergy",
   description:
-    "Contacta con Vitergy para tu asesoría energética gratuita. Oficina en Badalona, teléfono, WhatsApp y formulario. Respuesta en menos de 2 horas.",
+    "Contacta con Vitergy para tu asesoría energética gratuita. Atención 100% online: teléfono, WhatsApp y formulario. Respuesta en menos de 2 horas.",
   alternates: {
     canonical: "https://vitergy.es/contacto",
   },
@@ -19,18 +19,12 @@ const jsonLd = {
   url: "https://vitergy.es",
   telephone: "+34633151083",
   email: "hola@vitergy.es",
+  // 100% online: sin calle ni geo; solo el municipio del domicilio social (zona SEO).
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Calle Energía 10",
-    addressLocality: "Badalona",
-    postalCode: "08915",
+    addressLocality: "Molins de Rei",
     addressRegion: "Barcelona",
     addressCountry: "ES",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 41.4613,
-    longitude: 2.2545,
   },
   openingHoursSpecification: [
     {
@@ -78,22 +72,19 @@ export default function ContactoPage() {
               </h2>
 
               <div className="mt-5 space-y-5">
-                {/* Address */}
+                {/* Online */}
                 <div className="flex gap-3">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#fff5f0] text-[#f97316]">
                     <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
                     </svg>
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-gray-900">
-                      Oficina
+                      Atención 100% online
                     </p>
                     <p className="mt-0.5 text-sm text-gray-600">
-                      Calle Energía 10
-                      <br />
-                      08915 Badalona, Barcelona
+                      Por teléfono, WhatsApp, videollamada o email, en toda España
                     </p>
                   </div>
                 </div>
@@ -169,20 +160,6 @@ export default function ContactoPage() {
               </svg>
               Escríbenos por WhatsApp
             </a>
-
-            {/* Google Maps */}
-            <div className="overflow-hidden rounded-2xl border border-gray-100 shadow-sm">
-              <iframe
-                title="Ubicación de la oficina de Vitergy en Badalona"
-                src="https://www.google.com/maps?q=Carrer+de+l%27Energia+10%2C+08915+Badalona&hl=es&z=16&output=embed"
-                width="100%"
-                height="300"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
           </div>
 
           {/* ── Right: Calculadora de ahorro ── */}

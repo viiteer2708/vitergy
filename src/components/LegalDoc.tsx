@@ -5,8 +5,8 @@ export const TITULAR = {
   razonSocial: "Por encima del techo del cielo, S.L.",
   marca: "Vitergy",
   nif: "B22517494",
-  // Domicilio SOCIAL inscrito (confirmado por Victor, 26-sep-2026). No es la oficina,
-  // que está en Calle Energía 10, 08915 Badalona (pie y /contacto): no unificarlos.
+  // Domicilio SOCIAL inscrito (confirmado por Victor, 26-sep-2026). Solo va aquí porque lo
+  // exige la LSSI: Vitergy es 100% online y no publica dirección física en el resto de la web.
   domicilio: "Carrer de Ferran Agulló 6, local · 08750 Molins de Rei (Barcelona)",
   email: "hola@vitergy.es",
   telefono: "633 15 10 83",

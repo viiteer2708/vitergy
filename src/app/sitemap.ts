@@ -6,11 +6,11 @@ import { MetadataRoute } from 'next'
 // Actualiza la fecha del grupo cuando toques su contenido.
 const F = {
   base: new Date('2026-07-05'),            // creación del sitio actual
-  home: new Date('2026-09-26'),            // oficina en Badalona + horario en el schema
-  contacto: new Date('2026-09-26'),        // oficina en Badalona, hola@ y horario nuevo
-  grandesConsumos: new Date('2026-09-26'), // oficina en Badalona + hola@
+  home: new Date('2026-09-26'),            // 100% online (sin dirección) + horario en el schema
+  contacto: new Date('2026-09-26'),        // 100% online (sin dirección ni mapa), hola@ y horario
+  grandesConsumos: new Date('2026-09-26'), // 100% online + hola@
   legales: new Date('2026-09-26'),         // email de contacto hola@
-  oficina: new Date('2026-09-26'),         // resto de páginas que citan la oficina (Badalona)
+  oficina: new Date('2026-09-26'),         // páginas que citaban la oficina (hoy 100% online)
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
