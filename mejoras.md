@@ -16,6 +16,14 @@ borran**: el historial cuenta cómo ha evolucionado la web. Las descartadas no s
   el permiso `business.manage`). Después se reutiliza `scripts_seo/gbp_post.py` del repo
   `luxury-travel`, que ya publica en la ficha de Horizonte (cola de publicaciones + botón con UTM).
 - **Conecta:** blog ↔ ficha de Google Maps.
+- **Estado (26-sep-2026):** Victor dio su permiso, pero **el bloqueo es de Google**: para publicar
+  por programa en una ficha, Google tiene que aprobar el acceso de la aplicación a la API de
+  publicaciones (`localPosts`, cuota 0 hasta la aprobación). Se pidió para Horizonte en agosto y
+  sigue sin aprobarse; allí funciona el plan B (cada lunes, `/root/avisos/gbp-post-lunes.sh` manda
+  a Victor por Telegram el texto listo para pegar). **Plan B en vitergy mientras tanto:** al
+  publicar un artículo, Claude prepara la publicación (texto sin precios ni teléfonos, de 1.500
+  caracteres como mucho, con el botón «Más información» al artículo) y Victor la pega en la ficha.
+  El primero se entregó el 26-sep. Si Google aprueba el acceso, se automatiza con `gbp_post.py`.
 
 ## Hechas
 
