@@ -36,7 +36,7 @@ Todo cuelga de `src/app/` (App Router). Cada ruta = una carpeta con `page.tsx`. 
 | Grandes consumos (B2B) | `grandes-consumos` (pilar) + `/gimnasios`, `/lavanderias-industriales`, `/clubs-de-padel`, `/centros-medicos` | 5 |
 | Landing local (SEO) | `asesoria-energetica-barcelona`, `-cataluna`, `-espana` | 3 |
 | Herramientas | `calculadora-consumo-electrico`, `precio-luz-hoy`, `precio-luz-manana` | 3 |
-| Blog | `blog/` (índice) + 10 artículos en subcarpetas | 11 |
+| Blog | `blog/` (listado) + 10 artículos originales en subcarpetas + artículos Markdown de `src/content/blog/` servidos por `blog/[slug]` | 11+ |
 | Institucional | `page.tsx` (home), `sobre-mi`, `contacto`, `consultoria-energetica` | 4 |
 
 - **Layout global** ([src/app/layout.tsx](src/app/layout.tsx)): monta `<Navbar/>`, `<Footer/>`, el **botón flotante de WhatsApp** (nº `633151083`, esquina inferior derecha), el **chat de soporte con IA** (`<ChatWidget/>`, esquina inferior izquierda) y los metadatos SEO base / OpenGraph. `lang="es"`.
@@ -44,7 +44,7 @@ Todo cuelga de `src/app/` (App Router). Cada ruta = una carpeta con `page.tsx`. 
 - **Componentes específicos de ruta**: conviven junto a su `page.tsx` (p. ej. `contacto/ContactoForm.tsx`, `calculadora-consumo-electrico/Calculadora.tsx`, `precio-luz-hoy/PrecioLuzHoyWidget.tsx`). **Este es el patrón a seguir** para UI de una sola página.
 - **Excepción — `grandes-consumos/`**: las cuatro landings sectoriales comparten plantilla, así que el contenido vive en [sectores.ts](src/app/grandes-consumos/sectores.ts) (un objeto `Sector` por sector) y se renderiza con `SectorLanding.tsx`; los bloques comunes con la pilar están en `Bloques.tsx`. Para añadir un sector nuevo: entrada en `sectores.ts` + carpeta con `page.tsx` de 20 líneas + alta en `sitemap.ts`, `Navbar.tsx` y `Footer.tsx`.
 - **Lógica compartida**: en [src/lib/](src/lib/) (p. ej. `precios-luz.ts`). Si una lógica la usan ≥2 rutas, va aquí, no duplicada inline.
-- **SEO**: [src/app/sitemap.ts](src/app/sitemap.ts) (30 URLs, generadas por listas de slugs) y [src/app/robots.ts](src/app/robots.ts). Si añades una ruta indexable, **añádela también al sitemap**.
+- **SEO**: ver [docs/blog.md](docs/blog.md). [src/app/sitemap.ts](src/app/sitemap.ts) (páginas fijas por grupos de fecha + artículos del blog automáticos) y [src/app/robots.ts](src/app/robots.ts). Si añades una ruta indexable, **añádela también al sitemap** y dale su propia `alternates.canonical` (el layout ya no pone una global).
 
 ## Datos de precio de la luz
 
@@ -84,6 +84,12 @@ Principios de Karpathy aplicados a este repo:
 - **Simplicidad primero.** Es una web de marketing, no una app. Nada de abstracciones, "configurabilidad" ni state management que no se haya pedido. El patrón vigente es: página + componentes de ruta locales.
 - **Cambios quirúrgicos.** Toca solo lo que pide la tarea. Respeta el estilo existente aunque lo harías distinto. Si ves código muerto o sin usar, **menciónalo, no lo borres** salvo que te lo pidan.
 - **Criterio de hecho verificable.** Tras un cambio, deja claro cómo comprobarlo: `npm run build` sin errores, `npm run lint` limpio, y la ruta afectada renderiza en `npm run dev`. Para cambios de SEO, confirma que `sitemap.ts` sigue coherente.
+
+## Skills del proyecto
+
+Especialistas que se activan solos según lo que se pida (viven en `.claude/skills/`):
+
+- `blog-seo` — el blog (artículos en Markdown, programados por fecha) y el SEO técnico de la web (sitemap, robots, canonical, tarjetas al compartir, fichas JSON-LD, Search Console).
 
 ## Conocimiento (Segundo Cerebro)
 
