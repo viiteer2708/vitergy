@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { fechaLarga, todosLosArticulos } from "@/lib/blog";
 
 // Título, descripción y tarjeta al compartir vienen del layout; aquí solo la dirección oficial.
 export const metadata: Metadata = {
   alternates: { canonical: "https://vitergy.es" },
 };
+
+// Se regenera cada hora para que «Del blog» enseñe los artículos programados el día que salen.
+export const revalidate = 3600;
 
 const casosReales = [
   {
@@ -126,6 +130,8 @@ const faqs = [
 ];
 
 export default function Home() {
+  const ultimosArticulos = todosLosArticulos().slice(0, 3);
+
   return (
     <>
       {/* ─── 1. HERO ─── */}
@@ -781,7 +787,46 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── 8. CTA FINAL ─── */}
+      {/* ─── 8. DEL BLOG: los 3 últimos artículos (src/lib/blog.ts) ─── */}
+      <section className="bg-[#f9fafb] px-6 py-24 md:py-32">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-16 text-center">
+            <p className="mb-4 text-sm font-semibold tracking-wide text-[#f97316]">
+              Del blog
+            </p>
+            <h2 className="text-3xl font-bold tracking-tight text-[#1f2942] md:text-5xl">
+              Guías para pagar menos en tu factura
+            </h2>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {ultimosArticulos.map((a) => (
+              <Link
+                key={a.slug}
+                href={`/blog/${a.slug}`}
+                className="group flex flex-col rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition hover:border-[#f97316] hover:shadow-md"
+              >
+                <time dateTime={a.publishedAt} className="text-xs font-medium text-[#6b7280]">
+                  {fechaLarga(a.publishedAt)}
+                </time>
+                <h3 className="mt-3 text-lg font-bold leading-snug text-[#1f2942] group-hover:text-[#f97316]">
+                  {a.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-[#6b7280]">{a.description}</p>
+                <span className="mt-auto pt-6 text-sm font-semibold text-[#f97316]">
+                  Leer artículo →
+                </span>
+              </Link>
+            ))}
+          </div>
+          <p className="mt-12 text-center">
+            <Link href="/blog" className="font-semibold text-[#f97316] hover:underline">
+              Ver todos los artículos →
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      {/* ─── 9. CTA FINAL ─── */}
       <section className="bg-[#fff7ed] px-6 py-24 md:py-32">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl font-bold tracking-tight text-[#1f2942] md:text-5xl">

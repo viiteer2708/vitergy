@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { SITIO, todosLosArticulos } from "@/lib/blog";
 
 // Única API route del sitio: proxy del chat de soporte hacia la API de Gemini.
 // La clave vive SOLO aquí (process.env.GEMINI_API_KEY) — el navegador nunca la ve.
@@ -31,6 +32,22 @@ REGLAS INNEGOCIABLES
 
 OBJETIVO
 Resuelve la duda de verdad y, cuando encaje con naturalidad, invita al siguiente paso: enviar la factura por WhatsApp al 633 15 10 83 (hay botón de WhatsApp en esta misma web) para el estudio gratuito. Sin presión.`;
+
+// El chat conoce los artículos publicados del blog y puede recomendar uno (docs/blog.md).
+// Fuera el ranking de comercializadoras: la regla 1 prohíbe dar rankings.
+const FUERA_DEL_CHAT = new Set(["mejores-comercializadoras-espana"]);
+
+function instrucciones(): string {
+  const articulos = todosLosArticulos()
+    .filter((a) => !FUERA_DEL_CHAT.has(a.slug))
+    .map((a) => `- ${a.title}: ${SITIO}/blog/${a.slug}`)
+    .join("\n");
+  return `${SYSTEM_PROMPT}
+
+ARTÍCULOS DEL BLOG
+Si la duda la responde de verdad uno de estos artículos, recomiéndalo al final de tu respuesta con su enlace copiado tal cual: la dirección completa, sin formato Markdown y sin inventar otras. Como mucho uno por respuesta, y solo si encaja.
+${articulos}`;
+}
 
 // Freno best-effort por IP: cada instancia serverless tiene su propia memoria,
 // así que no es una garantía dura — la protección de fondo es la cuota diaria
@@ -143,7 +160,7 @@ export async function POST(request: Request) {
           "x-goog-api-key": apiKey,
         },
         body: JSON.stringify({
-          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          system_instruction: { parts: [{ text: instrucciones() }] },
           contents,
           generationConfig: { temperature: 0.4, maxOutputTokens: 1024 },
         }),

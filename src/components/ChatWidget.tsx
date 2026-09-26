@@ -1,8 +1,36 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 type Message = { role: "user" | "model"; text: string };
+
+// Enlaces a vitergy.es en las respuestas del asistente (p. ej. un artículo del blog), con o sin
+// formato [texto](url). Van con <Link> para navegar sin recargar: el chat sigue abierto.
+const ENLACE =
+  /\[([^\]]+)\]\((https:\/\/vitergy\.es[^\s)]*)\)|(https:\/\/vitergy\.es\/[^\s)]*[^\s).,;:!?»"'])/g;
+
+function ConEnlaces({ texto }: { texto: string }) {
+  const partes: React.ReactNode[] = [];
+  let ultimo = 0;
+  for (const m of texto.matchAll(ENLACE)) {
+    const inicio = m.index ?? 0;
+    const url = m[2] ?? m[3];
+    partes.push(texto.slice(ultimo, inicio));
+    partes.push(
+      <Link
+        key={inicio}
+        href={url.replace(/^https:\/\/vitergy\.es/, "") || "/"}
+        className="break-all font-semibold text-[#f97316] underline underline-offset-2"
+      >
+        {m[1] ?? url.replace(/^https:\/\//, "")}
+      </Link>,
+    );
+    ultimo = inicio + m[0].length;
+  }
+  partes.push(texto.slice(ultimo));
+  return <>{partes}</>;
+}
 
 const GREETING: Message = {
   role: "model",
@@ -101,7 +129,7 @@ export default function ChatWidget() {
                     : "w-fit max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-bl-sm bg-gray-100 px-4 py-2.5 text-sm text-[#1f2942]"
                 }
               >
-                {m.text}
+                {m.role === "model" ? <ConEnlaces texto={m.text} /> : m.text}
               </div>
             ))}
             {loading && (
