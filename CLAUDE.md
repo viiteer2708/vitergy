@@ -42,7 +42,7 @@ Todo cuelga de `src/app/` (App Router). Cada ruta = una carpeta con `page.tsx`. 
 
 - **Layout global** ([src/app/layout.tsx](src/app/layout.tsx)): monta `<Navbar/>`, `<Footer/>`, el **botón flotante de WhatsApp** (nº `633151083`, esquina inferior derecha), el **chat de soporte con IA** (`<ChatWidget/>`, esquina inferior izquierda) y los metadatos SEO base / OpenGraph. `lang="es"`. Todo eso va envuelto en `<MarcoWeb>`, que lo **esconde en las rutas `/test-…`** (tests a pantalla completa).
 - **Componentes compartidos**: `Navbar`, `Footer` y `ChatWidget` en [src/components/](src/components/) (montados en el layout).
-- **Componentes específicos de ruta**: conviven junto a su `page.tsx` (p. ej. `contacto/ContactoForm.tsx`, `calculadora-consumo-electrico/Calculadora.tsx`, `precio-luz-hoy/PrecioLuzHoyWidget.tsx`). **Este es el patrón a seguir** para UI de una sola página.
+- **Componentes específicos de ruta**: conviven junto a su `page.tsx` (p. ej. `contacto/CalculadoraAhorro.tsx`, `calculadora-consumo-electrico/Calculadora.tsx`, `precio-luz-hoy/PrecioLuzHoyWidget.tsx`). **Este es el patrón a seguir** para UI de una sola página.
 - **Excepción — `grandes-consumos/`**: las cuatro landings sectoriales comparten plantilla, así que el contenido vive en [sectores.ts](src/app/grandes-consumos/sectores.ts) (un objeto `Sector` por sector) y se renderiza con `SectorLanding.tsx`; los bloques comunes con la pilar están en `Bloques.tsx`. Para añadir un sector nuevo: entrada en `sectores.ts` + carpeta con `page.tsx` de 20 líneas + alta en `sitemap.ts`, `Navbar.tsx` y `Footer.tsx`.
 - **Lógica compartida**: en [src/lib/](src/lib/) (p. ej. `precios-luz.ts`). Si una lógica la usan ≥2 rutas, va aquí, no duplicada inline.
 - **SEO**: ver [docs/blog.md](docs/blog.md). [src/app/sitemap.ts](src/app/sitemap.ts) (páginas fijas por grupos de fecha + artículos del blog automáticos) y [src/app/robots.ts](src/app/robots.ts). Si añades una ruta indexable, **añádela también al sitemap** y dale su propia `alternates.canonical` (el layout ya no pone una global).
@@ -55,7 +55,7 @@ Toda la lógica vive en [src/lib/precios-luz.ts](src/lib/precios-luz.ts) — **f
 
 ## Chat de soporte con IA
 
-Burbuja flotante ([src/components/ChatWidget.tsx](src/components/ChatWidget.tsx), esquina inferior **izquierda** — la derecha es de WhatsApp) que habla con la única API route del sitio, [src/app/api/chat/route.ts](src/app/api/chat/route.ts): un proxy hacia la **API de Gemini** (free tier de Google AI Studio, modelo `gemini-3.5-flash-lite`, cambiable con la env var `GEMINI_MODEL`).
+Burbuja flotante ([src/components/ChatWidget.tsx](src/components/ChatWidget.tsx), esquina inferior **izquierda** — la derecha es de WhatsApp) que habla con su API route, [src/app/api/chat/route.ts](src/app/api/chat/route.ts): un proxy hacia la **API de Gemini** (free tier de Google AI Studio, modelo `gemini-3.5-flash-lite`, cambiable con la env var `GEMINI_MODEL`).
 
 - **La clave de la API (`GEMINI_API_KEY`) SOLO existe en el servidor**: env var en Vercel y en `.env.local` (gitignored). Jamás en código, jamás con prefijo `NEXT_PUBLIC_` — el repo es público.
 - El system prompt, el modelo y `generationConfig` se fijan **en el servidor** (route.ts); nunca aceptar esos campos del cliente. El system prompt está anclado en el wiki (independencia, "análisis gratis, si no ahorro no cobro", nada de rankings de compañías ni cifras inventadas) — si cambias el mensaje de negocio, coteja con `wiki/projects/vitergy.md`.
