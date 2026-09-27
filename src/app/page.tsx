@@ -159,6 +159,16 @@ export default function Home() {
             >
               Analizar mi factura gratis
             </Link>
+            {/* Para quien no tiene la factura a mano: el test (docs/tests-interactivos.md) */}
+            <Link
+              href="/test-factura-luz"
+              className="text-sm text-[#6b7280] transition hover:text-[#1f2942]"
+            >
+              ¿Sin la factura a mano?{" "}
+              <span className="font-semibold text-[#1f2942] underline underline-offset-4">
+                Haz el test de 4 minutos
+              </span>
+            </Link>
             <Link
               href="#como-funciona"
               className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#f97316] transition hover:underline"

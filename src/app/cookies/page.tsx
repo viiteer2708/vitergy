@@ -13,7 +13,7 @@ export default function CookiesPage() {
   return (
     <LegalDoc
       titulo="Política de cookies"
-      entradilla="La versión corta: esta web no te instala cookies de análisis, de publicidad ni de perfilado. Ninguna. Aquí tienes la versión larga, con lo que sí ocurre cuando navegas."
+      entradilla="La versión corta: esta web no te instala cookies de análisis, de publicidad ni de perfilado. Ninguna. Solo una cookie técnica, y solo si tú verificas tu email en el test. Aquí tienes la versión larga."
     >
       <Apartado titulo="1. Qué es una cookie">
         <p>
@@ -27,19 +27,41 @@ export default function CookiesPage() {
       <Apartado titulo="2. Qué cookies usa vitergy.es">
         <div className="rounded-2xl border border-orange-100 bg-[#fff7ed] p-6">
           <p className="font-semibold text-[#1f2942]">
-            Actualmente, ninguna cookie propia.
+            Solo cookies técnicas, y solo si tú las pides.
           </p>
           <p className="mt-2 text-sm leading-6">
-            Este sitio es una web estática: no tiene área privada, no requiere
-            registro y no instala cookies de sesión, de análisis, de publicidad ni
-            de perfilado. No usamos Google Analytics, ni píxeles de redes
-            sociales, ni herramientas de mapas de calor o grabación de sesiones.
+            Navegar por la web no instala ninguna cookie. No usamos Google
+            Analytics, ni píxeles de redes sociales, ni herramientas de mapas de
+            calor o grabación de sesiones.
           </p>
           <p className="mt-2 text-sm leading-6">
-            Por ese motivo no verás un banner de consentimiento al entrar: no hay
-            nada que consentir. La normativa solo exige pedir consentimiento para
-            cookies que no sean estrictamente necesarias, y aquí no se instala
-            ninguna.
+            La única excepción es el{" "}
+            <Link
+              href="/test-factura-luz"
+              className="font-semibold text-[#f97316] underline underline-offset-4"
+            >
+              test de la factura de la luz
+            </Link>
+            : si al terminarlo pides un código para guardar tu resultado, se
+            instalan estas dos cookies técnicas, propias y necesarias para el
+            servicio que nos pides:
+          </p>
+          <ul className="mt-2 ml-5 list-disc space-y-1 text-sm leading-6">
+            <li>
+              <strong>vitergy_codigo</strong>: une tu navegador con el código que
+              te acabamos de enviar. Dura 15 minutos.
+            </li>
+            <li>
+              <strong>vitergy_sesion</strong>: te mantiene identificado una vez
+              verificado tu email, para guardar y enseñarte tu resultado sin
+              volver a pedirte el código. Dura un año; se borra si pulsas
+              «¿No eres tú? Salir».
+            </li>
+          </ul>
+          <p className="mt-2 text-sm leading-6">
+            Por eso no verás un banner de consentimiento al entrar: la normativa
+            (art. 22.2 de la LSSI) solo exige pedirlo para cookies que no sean
+            estrictamente necesarias, y aquí no se instala ninguna de ese tipo.
           </p>
         </div>
       </Apartado>

@@ -14,7 +14,7 @@ export const TITULAR = {
   dominio: "vitergy.es",
 };
 
-export const ACTUALIZADO = "26 de septiembre de 2026";
+export const ACTUALIZADO = "27 de septiembre de 2026";
 
 export function LegalDoc({
   titulo,

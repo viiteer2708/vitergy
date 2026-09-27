@@ -17,6 +17,7 @@ const servicios = [
 ];
 
 const herramientas = [
+  { label: "🔎 Test: ¿pagas la luz de más?", href: "/test-factura-luz" },
   { label: "⚡ Precio de la Luz Hoy", href: "/precio-luz-hoy" },
   { label: "📅 Precio de la Luz Mañana", href: "/precio-luz-manana" },
   { label: "🧮 Calculadora de Consumo", href: "/calculadora-consumo-electrico" },

@@ -10,12 +10,13 @@ export const revalidate = 3600
 // Actualiza la fecha del grupo cuando toques su contenido.
 const F = {
   base: new Date('2026-07-05'),            // creación del sitio actual
-  home: new Date('2026-09-26'),            // 100% online (sin dirección) + horario en el schema
+  home: new Date('2026-09-27'),            // enlace al test de la factura en la cabecera
   contacto: new Date('2026-09-26'),        // 100% online (sin dirección ni mapa), hola@ y horario
   grandesConsumos: new Date('2026-09-26'), // 100% online + hola@
-  legales: new Date('2026-09-26'),         // email de contacto hola@
+  legales: new Date('2026-09-27'),         // test de la factura: datos, cookie de sesión y Supabase
   oficina: new Date('2026-09-26'),         // páginas que citaban la oficina (hoy 100% online)
   blog: new Date('2026-09-26'),            // listado nuevo: temas y paginación
+  test: new Date('2026-09-27'),            // /test-factura-luz (lanzamiento)
 }
 // Los artículos NO van aquí: cada uno trae su fecha (updatedAt o publishedAt) de src/lib/blog.ts.
 
@@ -50,6 +51,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'calculadora-consumo-electrico', 'precio-luz-hoy', 'precio-luz-manana',
   ].map((slug) => ({ url: `${baseUrl}/${slug}`, lastModified: F.base, changeFrequency: 'daily' as const, priority: 0.7 }))
 
+  const testPages = [
+    { url: `${baseUrl}/test-factura-luz`, lastModified: F.test, changeFrequency: 'monthly' as const, priority: 0.7 },
+  ]
+
   const legalPages = [
     'legal', 'privacidad', 'cookies',
   ].map((slug) => ({ url: `${baseUrl}/${slug}`, lastModified: F.legales, changeFrequency: 'yearly' as const, priority: 0.3 }))
@@ -66,5 +71,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const ultimoCambioBlog = Math.max(F.blog.getTime(), ...blogPosts.map((p) => p.lastModified.getTime()))
   const blogIndex = { url: `${baseUrl}/blog`, lastModified: new Date(ultimoCambioBlog), changeFrequency: 'weekly' as const, priority: 0.7 }
 
-  return [...mainPages, ...grandesConsumos, ...servicePages, ...localPages, ...toolPages, blogIndex, ...blogPosts, ...legalPages]
+  return [...mainPages, ...grandesConsumos, ...servicePages, ...localPages, ...toolPages, ...testPages, blogIndex, ...blogPosts, ...legalPages]
 }

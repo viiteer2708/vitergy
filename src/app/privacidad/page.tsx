@@ -87,6 +87,25 @@ export default function PrivacidadPage() {
           El email que nos dejas para recibir el estudio se guarda en nuestra
           herramienta de email (Brevo) junto con esos datos técnicos.
         </p>
+        <p className="rounded-2xl border border-orange-100 bg-[#fff7ed] p-5 text-sm leading-6">
+          <strong className="text-[#1f2942]">
+            Sobre el{" "}
+            <Link
+              href="/test-factura-luz"
+              className="font-semibold text-[#f97316] underline underline-offset-4"
+            >
+              test de la factura de la luz
+            </Link>
+            :
+          </strong>{" "}
+          para ver y guardar tu resultado te pedimos el email y te enviamos un
+          código de 6 cifras. Guardamos tu email, tus respuestas y tu perfil en
+          nuestra base de datos (Supabase, con servidores en la Unión Europea),
+          para enseñártelo cuando vuelvas. Del código solo guardamos una huella
+          cifrada, nunca el código. Solo te escribimos con consejos si marcas la
+          casilla opcional; en ese caso tu email entra también en nuestra lista de
+          Brevo.
+        </p>
       </Apartado>
 
       <Apartado titulo="3. Para qué los usamos y con qué base legal">
@@ -96,6 +115,10 @@ export default function PrivacidadPage() {
               label: "Atender tu consulta y elaborar el estudio energético",
               value:
                 "Aplicación de medidas precontractuales a petición tuya (art. 6.1.b RGPD).",
+            },
+            {
+              label: "Enviarte el código del test y guardar y mostrarte tu resultado",
+              value: "Tu petición al usar el test (art. 6.1.b RGPD).",
             },
             {
               label: "Solicitar ofertas a comercializadoras en tu nombre",
@@ -147,8 +170,10 @@ export default function PrivacidadPage() {
           <li>
             <strong>Proveedores tecnológicos</strong> que actúan como encargados
             del tratamiento: alojamiento del sitio web (Vercel Inc.), servicio de
-            correo electrónico, y la plataforma de email donde guardamos tu email
-            y los datos técnicos de tu estudio (Brevo).
+            correo electrónico, la plataforma de email donde guardamos tu email
+            y los datos técnicos de tu estudio (Brevo), y la base de datos donde
+            guardamos tu resultado del test (Supabase, servidores en la Unión
+            Europea).
           </li>
           <li>
             <strong>Google (API de Gemini)</strong>, para dos funciones de la
@@ -181,6 +206,11 @@ export default function PrivacidadPage() {
             <strong>Datos de clientes:</strong> mientras dure la relación y,
             después, durante los plazos de prescripción legal (con carácter
             general, seis años en materia mercantil y cuatro en materia fiscal).
+          </li>
+          <li>
+            <strong>Tu acceso y tu resultado del test:</strong> se borran solos
+            cuando pasa un año sin que entres, o antes si nos lo pides. Los
+            códigos que te enviamos se borran a los dos días.
           </li>
           <li>
             <strong>Datos tratados con tu consentimiento:</strong> hasta que lo
