@@ -53,10 +53,13 @@ Lección del curso «Test interactivo con resultados». Doc: [docs/tests-interac
   API pública, solo por funciones que usa el servidor. SQL en `db/001_acceso_y_tests.sql`.
 - **Acceso con código por email**: montado aquí como pieza compartida (la lección del login solo
   se había hecho en Gnew, que no admite gente de fuera). Doc: [docs/acceso-con-codigo.md](docs/acceso-con-codigo.md).
-- **Remitente**: `Vitergy <hola@vitergy.es>` (elección de Victor). Exige dar de alta vitergy.es en
-  Brevo: dominio creado en Brevo el 27-sep-2026; los 2 registros del DNS quedaron a la espera de
-  reconectar el conector de Hostinger (su clave había caducado).
-- **Login funcionando en producción**: pendiente de verificar.
+- **Remitente**: `Vitergy <hola@vitergy.es>` (elección de Victor). vitergy.es dado de alta y
+  autenticado en Brevo el 27-sep-2026 (2 TXT en Hostinger: DKIM `mail._domainkey` + `brevo-code`),
+  tras reconectar Victor el conector de Hostinger, cuya clave había caducado.
+- **Login funcionando en producción: 27-sep-2026.** Probado de punta a punta con un alias de
+  Victor: el código llega en segundos a la bandeja de entrada, se guarda el resultado, la casilla
+  de consejos da de alta en `suscriptores` y en la lista 488, y con sesión no se vuelve a pedir el
+  email. Los datos de prueba se borraron.
 - **Suscriptores**: solo quien marca la casilla opcional de consejos (tabla `vitergy.suscriptores`
   + lista 488 de Brevo), igual que la calculadora. La lección metía a todo el que verifica.
 - **Sin página `/login`, modal ni middleware**: no hay zonas privadas todavía; el formulario vive

@@ -78,13 +78,11 @@ migraciones de DPC, y es idempotente. Si se cambia, se añade `db/002_….sql` y
 
 - **Todo sale por la API HTTPS de Brevo, jamás por SMTP** (regla de la lección). Remitente
   `Vitergy <hola@vitergy.es>`. Etiqueta en Brevo: `codigo-acceso`.
-- **Estado del dominio en Brevo**: vitergy.es se dio de alta en Brevo el 27-sep-2026. Para que
-  el remitente se vea como `hola@vitergy.es` faltan 2 registros TXT en el DNS de Hostinger: DKIM
-  en `mail._domainkey` y el `brevo-code` en la raíz (los valores exactos los da Brevo:
-  `GET /v3/senders/domains/vitergy.es/configuration`), y luego `authenticate`. **Mientras
-  tanto el correo llega igual** (probado: bandeja de entrada, no spam), pero Brevo cambia el
-  remitente por `hola@1885574.brevosend.com`. No hay que tocar código: al autenticar, sale solo
-  con vitergy.es.
+- **vitergy.es autenticado en Brevo el 27-sep-2026**: 2 registros TXT añadidos en el DNS de
+  Hostinger (DKIM en `mail._domainkey` y `brevo-code` en la raíz, sin tocar SPF, MX ni los de
+  Google). Comprobado en producción: el código llega de `hola@vitergy.es` a la bandeja de entrada.
+  Si algún día Brevo lo desautentica, el correo sigue llegando pero con remitente
+  `hola@1885574.brevosend.com`: se arregla revisando esos 2 registros y pulsando «autenticar».
 - **Pruebas en local sin enviar correos**: `ACCESO_CODIGO_EN_CONSOLA=1 npx next dev -p 3007 -H
   127.0.0.1` → el código sale en la consola. En producción esa variable se ignora siempre.
 - **Nunca probar con emails de personas reales** (ley de Victor, 14-sep-2026): solo sus alias

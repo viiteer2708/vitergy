@@ -6,6 +6,36 @@ borran**: el historial cuenta cómo ha evolucionado la web. Las descartadas no s
 
 ## Pendientes
 
+### Del test a la calculadora sin volver a escribir el email
+- **Fecha:** 27-sep-2026 (escaneo tras montar el test de la factura)
+- **Qué:** quien termina el test y pulsa «Sube tu factura» llega a la calculadora con su email ya
+  puesto, y el aviso del estudio que llega a hola@vitergy.es incluye su perfil del test (p. ej.
+  «👻 Potencia Fantasma, potencia 85/100»).
+- **Para qué:** menos pasos, más estudios terminados; y Victor sabe por dónde empezar antes de
+  llamar.
+- **Tamaño:** mediana (toca la calculadora, que ya funciona: probarla a fondo). La sesión del test
+  ya sabe quién es (`/api/auth/me`) y su resultado (`vitergy_test_resultado`).
+- **Conecta:** test ↔ calculadora ↔ aviso de leads.
+
+### Que el chat y el blog lleven al test
+- **Fecha:** 27-sep-2026 (escaneo tras montar el test de la factura)
+- **Qué:** si alguien pregunta al chat «¿estoy pagando mucho?», el chat le propone el test; y al
+  final de cada artículo sale una caja «¿Pagas la luz de más? Test de 4 minutos».
+- **Para qué:** el test solo capta emails si la gente llega a él, y el blog y el chat son puertas
+  por las que ya entra gente.
+- **Tamaño:** pequeña (`instrucciones()` de `src/app/api/chat/route.ts` y la llamada final de
+  `src/app/blog/[slug]/page.tsx` y de los 10 artículos originales).
+- **Conecta:** chat y blog ↔ test.
+
+### Publicar el test en la ficha de Google Maps
+- **Fecha:** 27-sep-2026 (escaneo tras montar el test de la factura)
+- **Qué:** una publicación en la ficha («¿Pagas la luz de más? Descúbrelo en 4 minutos») con el
+  botón al test. Claude prepara el texto (sin precios ni teléfonos) y Victor la pega, igual que con
+  los artículos (la publicación automática sigue bloqueada por Google, ver la de abajo).
+- **Para qué:** la ficha es lo que más clientes trae y una publicación nueva la mantiene activa.
+- **Tamaño:** pequeña (5 minutos de Victor).
+- **Conecta:** ficha de Google Maps ↔ test.
+
 ### Cada artículo nuevo, publicado también en la ficha de Google Maps de Vitergy
 - **Fecha:** 26-sep-2026 (escaneo tras montar el blog)
 - **Qué:** al publicar un artículo, sale una publicación en la ficha de Google de Vitergy con su
