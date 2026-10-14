@@ -18,14 +18,54 @@ function cabeceras(): Record<string, string> | null {
   return { "api-key": apiKey, "content-type": "application/json", accept: "application/json" };
 }
 
-/** Correo transaccional. Devuelve si Brevo lo aceptó; el motivo del fallo va al log. */
+/**
+ * ALTAVOZ (14-oct-2026): Brevo se quedó sin créditos el 7-oct y contestaba 201 SIN enviar (Victor lo da de baja).
+ * Con `ALTAVOZ_AVISOS_KEY` (clave «vitergy» de Altavoz, permiso `avisos:enviar`) el correo sale por
+ * `POST {ALTAVOZ_URL}/api/v1/avisos` (Amazon SES). El remitente lo pone la clave en Altavoz: «Vitergy» hola@vitergy.es
+ * (dominio vitergy.es verificado en Amazon el 14-oct). Sin la clave, Brevo como antes.
+ */
+async function enviarPorAltavoz(
+  clave: string,
+  correo: { para: string; asunto: string; html: string; texto?: string; etiqueta: string; responderA?: string },
+): Promise<boolean> {
+  const base = (process.env.ALTAVOZ_URL || "https://altavoz.gruponewenergy.es").replace(/\/+$/, "");
+  try {
+    const res = await fetch(`${base}/api/v1/avisos`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${clave}`, "content-type": "application/json" },
+      body: JSON.stringify({
+        marca: "GNEW",
+        para: correo.para,
+        asunto: correo.asunto,
+        html: correo.html,
+        ...(correo.texto ? { texto: correo.texto } : {}),
+        etiqueta: correo.etiqueta,
+        ...(correo.responderA ? { responder_a: correo.responderA } : {}),
+      }),
+      signal: AbortSignal.timeout(10_000),
+    });
+    if (!res.ok) {
+      console.error("[altavoz] /api/v1/avisos respondió", res.status, (await res.text()).slice(0, 300));
+    }
+    return res.ok;
+  } catch (error) {
+    console.error("[altavoz] Error enviando", correo.etiqueta, error);
+    return false;
+  }
+}
+
+/** Correo transaccional. Devuelve si Altavoz (o, sin su clave, Brevo) lo aceptó; el motivo del fallo va al log. */
 export async function enviarEmail(correo: {
   para: string;
   asunto: string;
   html: string;
-  texto: string;
+  texto?: string;
   etiqueta: string;
+  /** A quién se contesta (una dirección). */
+  responderA?: string;
 }): Promise<boolean> {
+  const clave = (process.env.ALTAVOZ_AVISOS_KEY ?? "").trim();
+  if (clave) return enviarPorAltavoz(clave, correo);
   const headers = cabeceras();
   if (!headers) {
     console.error("[brevo] Falta BREVO_API_KEY: no sale el correo", correo.etiqueta);
@@ -40,7 +80,8 @@ export async function enviarEmail(correo: {
         to: [{ email: correo.para }],
         subject: correo.asunto,
         htmlContent: correo.html,
-        textContent: correo.texto,
+        ...(correo.texto ? { textContent: correo.texto } : {}),
+        ...(correo.responderA ? { replyTo: { email: correo.responderA } } : {}),
         tags: [correo.etiqueta],
       }),
       signal: AbortSignal.timeout(10_000),

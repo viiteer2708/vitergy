@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { enviarEmail } from "@/lib/brevo";
 import { crearRateLimiter, origenPermitido, ipDe } from "@/lib/api-guardas";
 import { calcularEstudio, validarDatosFactura, type Estudio } from "@/lib/estudio-ahorro";
 
@@ -94,18 +95,21 @@ export async function POST(request: Request) {
   // 2) Captura del lead: aviso interno SIEMPRE; alta en Brevo solo con
   //    consentimiento de marketing.
   const apiKey = process.env.BREVO_API_KEY;
+  // Desde el 14-oct-2026 el aviso del lead sale por Altavoz (`enviarEmail` de lib/brevo.ts con ALTAVOZ_AVISOS_KEY):
+  // Brevo, sin créditos desde el 7-oct, contestaba 201 y no lo mandaba. El alta en la lista 488 sigue en Brevo.
+  const conAltavoz = Boolean((process.env.ALTAVOZ_AVISOS_KEY ?? "").trim());
   let leadCapturado = false;
 
-  if (!apiKey) {
-    console.error("[estudio] Falta BREVO_API_KEY — lead en riesgo:", email);
+  if (!apiKey && !conAltavoz) {
+    console.error("[estudio] Falta ALTAVOZ_AVISOS_KEY y BREVO_API_KEY — lead en riesgo:", email);
   } else {
     const headers = {
-      "api-key": apiKey,
+      "api-key": apiKey ?? "",
       "content-type": "application/json",
       accept: "application/json",
     };
 
-    if (consienteMarketing) {
+    if (consienteMarketing && apiKey) {
       const listId = Number(process.env.BREVO_LIST_ID ?? LISTA_VITERGY);
       // updateEnabled: si el contacto ya existe, lo añade a la lista en vez
       // de fallar con "contact already exist". Si el atributo NOMBRE no
@@ -129,7 +133,7 @@ export async function POST(request: Request) {
     try {
       const destino = process.env.LEAD_TO_EMAIL ?? "hola@vitergy.es";
       const remitente = process.env.BREVO_SENDER_EMAIL;
-      if (remitente) {
+      if (remitente || conAltavoz) {
         const filas: string[] = [
           fila("Email", email),
           nombre ? fila("Nombre", escapeHtml(nombre)) : "",
@@ -176,22 +180,30 @@ export async function POST(request: Request) {
             ? `⚠️ Lead calculadora SIN cálculo (${datos.peaje}, estudio a mano): ${email}`
             : `🧮 Lead calculadora (${datos.peaje}): ${email} — ${estudio?.oferta.compania ?? "?"} ${estudio?.oferta.nombre ?? ""}, ahorro est. ${estudio?.ahorroAnualEur ?? "?"} €/año`;
 
-        const aviso = await fetch(`${BREVO_API}/smtp/email`, {
-          method: "POST",
-          headers,
-          body: JSON.stringify({
-            sender: { name: "Calculadora Vitergy", email: remitente },
-            to: [{ email: destino }],
-            replyTo: { email },
-            subject: asunto,
-            htmlContent: `<h3>Nuevo lead de la calculadora de ahorro (vitergy.es/contacto)</h3><table border="1" cellpadding="6" cellspacing="0">${filas.filter(Boolean).join("")}</table><p>El usuario ${tipo === "ok" ? "ha visto en pantalla la oferta y su ahorro estimado" : "NO ha visto cifra (falló el cálculo): estudio a mano cuanto antes"}.</p>`,
-          }),
-          signal: AbortSignal.timeout(10_000),
-        });
-        if (aviso.ok) {
-          leadCapturado = true;
+        const htmlAviso = `<h3>Nuevo lead de la calculadora de ahorro (vitergy.es/contacto)</h3><table border="1" cellpadding="6" cellspacing="0">${filas.filter(Boolean).join("")}</table><p>El usuario ${tipo === "ok" ? "ha visto en pantalla la oferta y su ahorro estimado" : "NO ha visto cifra (falló el cálculo): estudio a mano cuanto antes"}.</p>`;
+        if (conAltavoz) {
+          // Responder al aviso le contesta directamente al lead.
+          if (await enviarEmail({ para: destino, asunto, html: htmlAviso, etiqueta: "vitergy-lead", responderA: email })) {
+            leadCapturado = true;
+          }
         } else {
-          console.error("[estudio] Brevo /smtp/email respondió", aviso.status, await aviso.text());
+          const aviso = await fetch(`${BREVO_API}/smtp/email`, {
+            method: "POST",
+            headers,
+            body: JSON.stringify({
+              sender: { name: "Calculadora Vitergy", email: remitente },
+              to: [{ email: destino }],
+              replyTo: { email },
+              subject: asunto,
+              htmlContent: htmlAviso,
+            }),
+            signal: AbortSignal.timeout(10_000),
+          });
+          if (aviso.ok) {
+            leadCapturado = true;
+          } else {
+            console.error("[estudio] Brevo /smtp/email respondió", aviso.status, await aviso.text());
+          }
         }
       } else {
         console.error("[estudio] Falta BREVO_SENDER_EMAIL — sin aviso de lead");

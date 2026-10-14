@@ -80,6 +80,15 @@ Tokens en `@theme` de [globals.css](src/app/globals.css). Úsalos, no hardcodees
 6. **La base de datos de la web vive DENTRO de la de DPC**, en el esquema `vitergy` (decisión de Victor, 27-sep-2026: 0 €). Se entra solo por las funciones `public.vitergy_*` con la llave de servidor; el SQL está en `db/` y se aplica a mano, **nunca** con las migraciones numeradas de DPC. No toques tablas de DPC desde aquí.
 7. **Lint de React estricto** (`eslint-plugin-react-hooks` 7): prohíbe cambiar estado directamente dentro de un `useEffect`, leer `ref.current` al pintar y llamar a `Date.now()` al pintar. Cambia el estado en eventos, temporizadores o respuestas de `fetch`.
 
+## 📮 Correo por Altavoz (14-oct-2026)
+Brevo se quedó sin créditos el 7-oct-2026 y contestaba 201 SIN enviar (Victor lo da de baja): el código de acceso y el
+**aviso de cada lead de la calculadora** se perdían en silencio. `enviarEmail` (`src/lib/brevo.ts`) manda por **Altavoz**
+(`POST /api/v1/avisos`) si está `ALTAVOZ_AVISOS_KEY` (clave «vitergy», copia en `/root/.altavoz-api-vitergy.key`); el
+remitente lo pone la clave: «Vitergy» `hola@vitergy.es` (dominio **vitergy.es dado de alta y verificado en Amazon** el
+14-oct, 5 DNS en Hostinger). El aviso del lead (`/api/factura/estudio`) también va por ahí, con «responder a» = el lead.
+**Sigue en Brevo** el alta en la lista 488 «VITERGY» (casilla de novedades): la API de Altavoz no admite consentimientos de
+publicidad y esa lista está archivada en Altavoz desde el 2-oct (decisión pendiente de Victor). Sin la clave, todo Brevo.
+
 ## Cómo trabajar aquí (guía de comportamiento)
 
 Principios de Karpathy aplicados a este repo:
