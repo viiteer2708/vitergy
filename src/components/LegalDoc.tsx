@@ -15,14 +15,19 @@ export const TITULAR = {
 };
 
 export const ACTUALIZADO = "27 de septiembre de 2026";
+// La política de privacidad se actualizó con el embudo de la factura (guardar la factura, DNI/CIF/IBAN, nuevos
+// proveedores). Se pasa por separado para no mover la fecha de /legal ni de /cookies, que no han cambiado.
+export const ACTUALIZADO_PRIVACIDAD = "17 de octubre de 2026";
 
 export function LegalDoc({
   titulo,
   entradilla,
+  actualizado = ACTUALIZADO,
   children,
 }: {
   titulo: string;
   entradilla: string;
+  actualizado?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -43,7 +48,7 @@ export function LegalDoc({
       </h1>
       <p className="mt-4 text-lg leading-relaxed text-[#6b7280]">{entradilla}</p>
       <p className="mt-4 text-sm text-[#6b7280]">
-        Última actualización: {ACTUALIZADO}
+        Última actualización: {actualizado}
       </p>
 
       <div className="mt-10 space-y-10">{children}</div>

@@ -26,7 +26,7 @@ function cabeceras(): Record<string, string> | null {
  */
 async function enviarPorAltavoz(
   clave: string,
-  correo: { para: string; asunto: string; html: string; texto?: string; etiqueta: string; responderA?: string },
+  correo: Correo,
 ): Promise<boolean> {
   const base = (process.env.ALTAVOZ_URL || "https://altavoz.gruponewenergy.es").replace(/\/+$/, "");
   try {
@@ -41,8 +41,11 @@ async function enviarPorAltavoz(
         ...(correo.texto ? { texto: correo.texto } : {}),
         etiqueta: correo.etiqueta,
         ...(correo.responderA ? { responder_a: correo.responderA } : {}),
+        // Altavoz: hasta 10 ficheros y 3.000.000 bytes reales entre todos; el tipo sale de la extensión del nombre.
+        ...(correo.adjuntos?.length ? { adjuntos: correo.adjuntos } : {}),
       }),
-      signal: AbortSignal.timeout(10_000),
+      // Con adjuntos la petición pesa hasta ~4 MB: 10 s se quedan cortos.
+      signal: AbortSignal.timeout(correo.adjuntos?.length ? 25_000 : 10_000),
     });
     if (!res.ok) {
       console.error("[altavoz] /api/v1/avisos respondió", res.status, (await res.text()).slice(0, 300));
@@ -54,8 +57,13 @@ async function enviarPorAltavoz(
   }
 }
 
-/** Correo transaccional. Devuelve si Altavoz (o, sin su clave, Brevo) lo aceptó; el motivo del fallo va al log. */
-export async function enviarEmail(correo: {
+/** Un fichero adjunto: el nombre CON extensión (pdf, jpg, png, webp, heic, heif…) y el contenido en base64. */
+export interface Adjunto {
+  nombre: string;
+  contenido: string;
+}
+
+export interface Correo {
   para: string;
   asunto: string;
   html: string;
@@ -63,7 +71,12 @@ export async function enviarEmail(correo: {
   etiqueta: string;
   /** A quién se contesta (una dirección). */
   responderA?: string;
-}): Promise<boolean> {
+  /** Ficheros adjuntos. Altavoz admite hasta 10 y 3.000.000 bytes reales entre todos. */
+  adjuntos?: Adjunto[];
+}
+
+/** Correo transaccional. Devuelve si Altavoz (o, sin su clave, Brevo) lo aceptó; el motivo del fallo va al log. */
+export async function enviarEmail(correo: Correo): Promise<boolean> {
   const clave = (process.env.ALTAVOZ_AVISOS_KEY ?? "").trim();
   if (clave) return enviarPorAltavoz(clave, correo);
   const headers = cabeceras();
@@ -82,9 +95,12 @@ export async function enviarEmail(correo: {
         htmlContent: correo.html,
         ...(correo.texto ? { textContent: correo.texto } : {}),
         ...(correo.responderA ? { replyTo: { email: correo.responderA } } : {}),
+        ...(correo.adjuntos?.length
+          ? { attachment: correo.adjuntos.map((a) => ({ name: a.nombre, content: a.contenido })) }
+          : {}),
         tags: [correo.etiqueta],
       }),
-      signal: AbortSignal.timeout(10_000),
+      signal: AbortSignal.timeout(correo.adjuntos?.length ? 25_000 : 10_000),
     });
     if (!res.ok) {
       console.error("[brevo] /smtp/email respondió", res.status, (await res.text()).slice(0, 300));

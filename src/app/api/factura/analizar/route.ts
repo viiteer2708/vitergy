@@ -1,14 +1,29 @@
 import { NextResponse } from "next/server";
-import { crearRateLimiter, origenPermitido, ipDe } from "@/lib/api-guardas";
+import { crearRateLimiter, origenPermitido, ipDe, senueloDelata } from "@/lib/api-guardas";
+import {
+  aperturaSospechosa,
+  comprobarTurnstile,
+  cuotasDeLectura,
+} from "@/lib/antiabuso";
+import { tipoDeFacturaBase64 } from "@/lib/expediente/archivo";
 
 // Paso 1 de la calculadora de ahorro: el usuario sube su factura (foto o PDF)
 // y Gemini extrae SOLO los datos técnicos necesarios para comparar — de hogar
 // (2.0TD) o de empresa (3.0TD/6.1TD/6.2TD, hasta 6 periodos). Privacidad por
 // diseño: el esquema de salida no contiene CUPS, ni nombre, ni dirección, ni
 // IBAN — no se piden y por tanto no se procesan ni almacenan. El archivo se
-// procesa en memoria y se descarta: aquí no se guarda nada.
+// procesa en memoria y se descarta: ESTA ruta no guarda nada. (La factura solo
+// se guarda más tarde, en /api/factura/lead, si la persona decide dejar sus
+// datos para que Víctor le gestione el ahorro.)
 //
 // La clave (GEMINI_API_KEY, la misma del chat) SOLO existe en el servidor.
+//
+// FRENO ANTIABUSO (T2 del embudo de la factura, 17-oct-2026): la lectura con Gemini es lo único que cuesta (su cuota
+// gratuita diaria es de todos los visitantes), y ya no pide el email por delante. Antes de llegar a Gemini la petición
+// pasa, de la más barata a la más cara: señuelo → tiempo mínimo → cabecera REAL del fichero → Cloudflare Turnstile
+// verificado en el servidor → cuotas en la base de datos (por IP y global). Todo falla CERRADO: si falta algo de lo
+// necesario, el lector responde «no disponible» y la calculadora sigue funcionando tecleando los datos a mano.
+// Detalle de cada capa: src/lib/antiabuso.ts.
 
 export const maxDuration = 60;
 
@@ -16,19 +31,6 @@ export const maxDuration = 60;
 // principal se agota (ambos en free tier de Google AI Studio).
 const MODELO = process.env.GEMINI_MODEL_FACTURA ?? "gemini-3.5-flash";
 const MODELO_FALLBACK = "gemini-3.5-flash-lite";
-
-// Límite de Vercel: 4,5 MB por request. Base64 infla ~33% → tope de caracteres
-// base64 que deja margen para el resto del JSON (~3,1 MB de archivo real).
-const MAX_BASE64_CHARS = 4_200_000;
-
-const MIMES_PERMITIDOS = new Set([
-  "application/pdf",
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-  "image/heic",
-  "image/heif",
-]);
 
 const PROMPT_EXTRACCION = `Analiza este documento. Debería ser una factura de electricidad española (de una comercializadora como Iberdrola, Endesa, Naturgy, Repsol, etc.), de un hogar (tarifa 2.0TD, 1-2 potencias y hasta 3 periodos de consumo) o de una empresa (3.0TD/6.1TD/6.2TD, hasta 6 potencias y 6 periodos).
 
@@ -87,6 +89,27 @@ const isRateLimited = crearRateLimiter(4);
 
 const ERROR_GENERICO =
   "No hemos podido leer tu factura ahora mismo. Puedes introducir los datos a mano abajo, o enviárnosla por WhatsApp al 633 15 10 83 y te hacemos el estudio igual.";
+
+// `manual: true` le dice al navegador que lleve a la persona directamente a teclear los datos.
+const LECTOR_NO_DISPONIBLE =
+  "El lector de facturas no está disponible ahora mismo. Teclea los datos de tu factura (es 1 minuto) y calculamos igual, o envíanosla por WhatsApp al 633 15 10 83.";
+
+// Lo que ve un bot que rellena el señuelo: parece que la IA contestó «esto no es una factura». No cuesta nada.
+const DATOS_SENUELO = {
+  fechaInicio: null,
+  fechaFin: null,
+  esFactura: false,
+  comercializadora: null,
+  peaje: null,
+  potenciasKw: [],
+  consumoKwh: null,
+  consumosKwh: [],
+  dias: null,
+  importeTotalEur: null,
+  alquilerContadorEur: null,
+  zona: "peninsula",
+  observaciones: "No parece una factura de luz.",
+};
 
 async function llamarGemini(
   apiKey: string,
@@ -161,7 +184,8 @@ export async function POST(request: Request) {
     );
   }
 
-  if (isRateLimited(ipDe(request))) {
+  const ip = ipDe(request);
+  if (isRateLimited(ip)) {
     return NextResponse.json(
       { error: "Has subido varios archivos seguidos. Espera un minuto y vuelve a intentarlo." },
       { status: 429 }
@@ -171,18 +195,28 @@ export async function POST(request: Request) {
   const body = (await request.json().catch(() => null)) as {
     fileBase64?: unknown;
     mimeType?: unknown;
+    turnstile?: unknown; // token de Cloudflare Turnstile, de un solo uso
+    web?: unknown; // señuelo: los humanos no lo ven; los bots lo rellenan
+    msAbierta?: unknown; // ms desde que se abrió la calculadora (señal blanda: la manda el navegador)
   } | null;
 
-  const base64 = body?.fileBase64;
-  const mimeType = body?.mimeType;
-  if (
-    typeof base64 !== "string" ||
-    base64.length === 0 ||
-    base64.length > MAX_BASE64_CHARS ||
-    !/^[A-Za-z0-9+/=]+$/.test(base64.slice(0, 1000)) ||
-    typeof mimeType !== "string" ||
-    !MIMES_PERMITIDOS.has(mimeType)
-  ) {
+  // 1) Señuelo → respuesta plausible, sin gastar nada.
+  if (senueloDelata(body?.web)) {
+    return NextResponse.json({ datos: DATOS_SENUELO });
+  }
+
+  // 2) Tiempo mínimo desde que se abrió la página.
+  if (aperturaSospechosa(body?.msAbierta)) {
+    return NextResponse.json(
+      { error: "Un momento: recarga la página e inténtalo de nuevo, o teclea los datos a mano." },
+      { status: 429, headers: { "Retry-After": "2" } }
+    );
+  }
+
+  // 3) Forma del archivo y CABECERA REAL (PDF o foto de verdad, y que cuadre con lo que dice el navegador).
+  //    Desde aquí se usa el tipo REAL, no el declarado.
+  const mimeType = tipoDeFacturaBase64(body?.fileBase64, body?.mimeType);
+  if (!mimeType) {
     return NextResponse.json(
       {
         error:
@@ -191,7 +225,50 @@ export async function POST(request: Request) {
       { status: 400 }
     );
   }
+  const base64 = body!.fileBase64 as string; // ya validado arriba
 
+  // 4) Turnstile, verificado en el servidor. Falla cerrado.
+  const turnstile = await comprobarTurnstile(body?.turnstile, ip);
+  if (turnstile === "rechazado") {
+    return NextResponse.json(
+      {
+        error:
+          "No hemos podido comprobar que eres una persona. Recarga la página e inténtalo de nuevo, o teclea los datos a mano.",
+      },
+      { status: 403 }
+    );
+  }
+  if (turnstile === "no_disponible") {
+    return NextResponse.json({ error: LECTOR_NO_DISPONIBLE, manual: true }, { status: 503 });
+  }
+
+  // 5) Cuotas en la base de datos: por IP (6/h y 20/día) y global (400/día). Falla cerrado.
+  const cuota = await cuotasDeLectura(ip);
+  if (cuota.estado === "no_disponible") {
+    return NextResponse.json({ error: LECTOR_NO_DISPONIBLE, manual: true }, { status: 503 });
+  }
+  if (cuota.estado === "ip") {
+    return NextResponse.json(
+      {
+        error:
+          "Has subido varias facturas en poco tiempo. Teclea los datos de tu factura (es 1 minuto) o vuelve a intentarlo más tarde.",
+        manual: true,
+      },
+      { status: 429, headers: { "Retry-After": String(cuota.esperaSeg) } }
+    );
+  }
+  if (cuota.estado === "global") {
+    return NextResponse.json(
+      {
+        error:
+          "El lector de facturas ha llegado a su límite de hoy. Teclea los datos de tu factura (es 1 minuto) y calculamos igual.",
+        manual: true,
+      },
+      { status: 429 }
+    );
+  }
+
+  // 6) Gemini.
   try {
     let res = await llamarGemini(apiKey, MODELO, mimeType, base64);
     if (res.status === 429 || res.status >= 500) {
