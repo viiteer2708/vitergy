@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import ResenasGoogle from "@/components/ResenasGoogle";
 import { fechaLarga, todosLosArticulos } from "@/lib/blog";
 
 // Título, descripción y tarjeta al compartir vienen del layout; aquí solo la dirección oficial.
@@ -75,24 +76,6 @@ const pasos = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
       </svg>
     ),
-  },
-];
-
-const reviews = [
-  {
-    text: "Victor lleva ayudándonos desde 2015. Siempre disponible, siempre con soluciones. Sabe MUY bien lo que hace.",
-    name: "GRUPO NEW ENERGY",
-    detail: "Cliente desde 2015",
-  },
-  {
-    text: "Antes pagaba 85€ al mes, ahora pago 62€. Son 23€ menos cada mes sin cambiar nada en casa. Solo con el cambio que me recomendó Víctor.",
-    name: "Carmen",
-    detail: "Clienta desde 2022",
-  },
-  {
-    text: "La mejor asesoría energética. Conozco al dueño y ya estoy ahorrando antes de la apertura. Totalmente recomendable.",
-    name: "Rubén Camacho",
-    detail: "Cliente verificado",
   },
 ];
 
@@ -664,17 +647,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── 5. CASOS REALES ─── */}
+      {/* ─── 5. EJEMPLOS TÍPICOS DE AHORRO ─── */}
       <section id="casos-reales" className="bg-white px-6 py-24">
         <div className="mx-auto max-w-6xl">
           <div className="mb-16 text-center">
             <p className="mb-4 text-sm font-semibold tracking-wide text-[#f97316]">
-              Casos reales
+              Ejemplos típicos
             </p>
             <h2 className="text-3xl font-bold tracking-tight text-[#1f2942] md:text-5xl">
-              Esto no lo decimos nosotros.
-              <br />
-              Lo dicen las facturas.
+              Así se nota en una factura.
             </h2>
           </div>
 
@@ -711,58 +692,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── 6. TESTIMONIOS ─── */}
-      <section className="bg-[#f9fafb] px-6 py-24 md:py-32">
-        <div className="mx-auto max-w-6xl">
-          <div className="mb-16 text-center">
-            <p className="mb-4 text-sm font-semibold tracking-wide text-[#f97316]">
-              Google Reviews
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight text-[#1f2942] md:text-5xl">
-              Clientes que ya ahorran con Vitergy
-            </h2>
-            <div className="mt-4 flex items-center justify-center gap-2">
-              <div className="flex gap-0.5 text-[#f97316]">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <svg key={i} className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="text-sm text-[#6b7280]">4,9 en Google Reviews</p>
-            </div>
-          </div>
-
-          <div className="grid gap-6 sm:grid-cols-3">
-            {reviews.map((r) => (
-              <div
-                key={r.name}
-                className="flex flex-col rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md"
-              >
-                <div className="flex gap-0.5 text-[#f97316]">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <svg key={i} className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="mt-5 flex-1 text-sm leading-relaxed text-[#6b7280]">
-                  &ldquo;{r.text}&rdquo;
-                </p>
-                <div className="mt-6 flex items-center justify-between border-t border-gray-100 pt-5">
-                  <div>
-                    <p className="text-sm font-bold text-[#1f2942]">{r.name}</p>
-                    <p className="text-xs text-[#6b7280]">{r.detail}</p>
-                  </div>
-                  <span className="rounded-full bg-[#f97316]/10 px-3 py-1 text-[10px] font-medium text-[#f97316]">
-                    Google
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ─── 6. RESEÑAS REALES DE GOOGLE (se leen de la ficha una vez al día; sin datos, no se pinta) ─── */}
+      <ResenasGoogle />
 
       {/* ─── 7. FAQ ─── */}
       <section className="bg-white px-6 py-24 md:py-32">
@@ -892,7 +823,7 @@ export default function Home() {
             telephone: "+34633151083",
             email: "hola@vitergy.es",
             sameAs: [
-              "https://www.google.com/maps?cid=18012363284776329308",
+              "https://maps.google.com/?cid=16432159178541978262",
             ],
             // 100% online: sin calle ni geo; solo el municipio del domicilio social (zona SEO).
             address: {
