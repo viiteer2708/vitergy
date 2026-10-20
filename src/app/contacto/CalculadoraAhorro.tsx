@@ -270,15 +270,32 @@ export default function CalculadoraAhorro() {
       const d: Extraido = data.datos;
       setExtraido(d);
       setFactura(archivo);
-      setForm({
+      const f: DatosForm = {
         importeTotalEur: aTextoES(d.importeTotalEur),
         consumoKwh: aTextoES(d.consumoKwh),
         potenciaP1Kw: aTextoES(d.potenciasKw[0]),
         dias: d.dias?.toString() ?? "30",
         peaje: d.peaje ?? "2.0TD",
         zona: d.zona,
-      });
-      setPaso("confirmar");
+      };
+      setForm(f);
+      // Sin pantalla de «comprueba tus datos» (Victor, 20-oct-2026: crea fricción). Si la factura se leyó entera y cuadra
+      // con los rangos, se calcula ya (la pantalla de «leyendo» sigue mientras) y el resultado lleva «Corregir los datos».
+      // Si falta algo o no parece una factura de luz, al formulario, como antes.
+      const completa =
+        d.esFactura && d.importeTotalEur != null && d.consumoKwh != null && d.potenciasKw.length > 0 && d.dias != null;
+      const listos = completa ? prepararDatos(f, d) : null;
+      if (!listos || "error" in listos) {
+        setPaso("confirmar");
+        return;
+      }
+      if (listos.peaje !== f.peaje) setForm({ ...f, peaje: listos.peaje });
+      try {
+        await pedirEstudio(listos.datos);
+      } catch (err) {
+        setError(err instanceof ErrorUsuario ? err.message : ERROR_RED);
+        setPaso("confirmar");
+      }
     } catch (e) {
       setError(e instanceof ErrorUsuario ? e.message : ERROR_RED);
       setPaso("subir");
@@ -294,9 +311,9 @@ export default function CalculadoraAhorro() {
   }
 
   /** Potencias que se enviarán: P1 del formulario + resto de las leídas. */
-  function potenciasEfectivas(pot: number): number[] {
-    if (extraido && extraido.potenciasKw.length > 0) {
-      return [pot, ...extraido.potenciasKw.slice(1)];
+  function potenciasEfectivas(pot: number, ex: Extraido | null = extraido): number[] {
+    if (ex && ex.potenciasKw.length > 0) {
+      return [pot, ...ex.potenciasKw.slice(1)];
     }
     return [pot];
   }
@@ -306,80 +323,85 @@ export default function CalculadoraAhorro() {
    * quedan obsoletos: se anulan para no mandar datos incoherentes (el servidor además coteja que el desglose cuadre
    * con el total).
    */
-  function construirDatos(peaje: Peaje): DatosEnvio {
-    const con = parseNumES(form.consumoKwh, true);
-    const pot = parseNumES(form.potenciaP1Kw);
-    const dia = parseInt(form.dias, 10);
+  function construirDatos(peaje: Peaje, f: DatosForm, ex: Extraido | null): DatosEnvio {
+    const con = parseNumES(f.consumoKwh, true);
+    const pot = parseNumES(f.potenciaP1Kw);
+    const dia = parseInt(f.dias, 10);
     const cerca = (a: number, b: number) => Math.abs(a - b) < 0.001;
-    const consumoEditado = extraido?.consumoKwh != null && !cerca(con, extraido.consumoKwh);
-    const diasEditados = extraido?.dias != null && dia !== extraido.dias;
+    const consumoEditado = ex?.consumoKwh != null && !cerca(con, ex.consumoKwh);
+    const diasEditados = ex?.dias != null && dia !== ex.dias;
     return {
-      importeTotalEur: parseNumES(form.importeTotalEur, true),
+      importeTotalEur: parseNumES(f.importeTotalEur, true),
       consumoKwh: con,
-      consumosKwh: consumoEditado ? null : (extraido?.consumosKwh ?? null),
-      potenciasKw: potenciasEfectivas(pot),
+      consumosKwh: consumoEditado ? null : (ex?.consumosKwh ?? null),
+      potenciasKw: potenciasEfectivas(pot, ex),
       dias: dia,
       peaje,
-      zona: form.zona,
+      zona: f.zona,
       // Días corregidos → las fechas y el alquiler leídos son de OTRO
       // periodo: fuera (el servidor tiene fallbacks declarados).
-      fechaInicio: diasEditados ? null : (extraido?.fechaInicio ?? null),
-      fechaFin: diasEditados ? null : (extraido?.fechaFin ?? null),
-      alquilerContadorEur: diasEditados ? null : (extraido?.alquilerContadorEur ?? null),
+      fechaInicio: diasEditados ? null : (ex?.fechaInicio ?? null),
+      fechaFin: diasEditados ? null : (ex?.fechaFin ?? null),
+      alquilerContadorEur: diasEditados ? null : (ex?.alquilerContadorEur ?? null),
     };
   }
 
   // Espejo de los rangos del servidor (validarDatosFactura), en SU MISMO
   // orden: primero reclasificar el peaje con la potencia máxima, después
-  // validar con los rangos del peaje resultante. Si todo cuadra, calcula el
-  // ahorro al momento: ya NO se pide el email por delante.
+  // validar con los rangos del peaje resultante. Devuelve la frase del error
+  // para el usuario o los datos listos para enviar.
+  function prepararDatos(
+    f: DatosForm,
+    ex: Extraido | null
+  ): { error: string } | { datos: DatosEnvio; peaje: Peaje } {
+    const imp = parseNumES(f.importeTotalEur, true);
+    const con = parseNumES(f.consumoKwh, true);
+    const pot = parseNumES(f.potenciaP1Kw);
+    const dia = parseInt(f.dias, 10);
+    if (!(pot >= 0.1 && pot <= 20000)) return { error: "Revisa la potencia contratada en kW (ej.: 4,6)." };
+    let peaje = f.peaje;
+    const potMax = Math.max(...potenciasEfectivas(pot, ex));
+    // 2.0TD no existe por encima de 15 kW → es un suministro de empresa.
+    if (peaje === "2.0TD" && potMax > 15) peaje = "3.0TD";
+    const esHogar = peaje === "2.0TD";
+    if (!(imp >= 5 && imp <= (esHogar ? 5000 : 500000))) {
+      return { error: "Revisa el importe total de la factura (ej.: 85,50)." };
+    }
+    if (!(con >= 10 && con <= (esHogar ? 20000 : 5000000))) {
+      return { error: "Revisa el consumo en kWh del periodo (ej.: 290)." };
+    }
+    if (!(dia >= 5 && dia <= 95)) return { error: "Los días facturados deben estar entre 5 y 95." };
+    return { datos: construirDatos(peaje, f, ex), peaje };
+  }
+
+  /** Calcula el ahorro al momento (ya NO se pide el email por delante). Lanza ErrorUsuario con la frase para el usuario. */
+  async function pedirEstudio(datos: DatosEnvio) {
+    setDatosEnvio(datos);
+    const res = await fetch("/api/factura/estudio", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ datos, web: honeypot }),
+    });
+    const data = await res.json().catch(() => null);
+    if (!res.ok || !data?.tipo) {
+      throw new ErrorUsuario(data?.error ?? "No se pudo calcular el ahorro. " + ERROR_RED);
+    }
+    setCalculo(data);
+    setPaso("resultado");
+  }
+
   async function calcularAhorro(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    const imp = parseNumES(form.importeTotalEur, true);
-    const con = parseNumES(form.consumoKwh, true);
-    const pot = parseNumES(form.potenciaP1Kw);
-    const dia = parseInt(form.dias, 10);
-    if (!(pot >= 0.1 && pot <= 20000)) {
-      setError("Revisa la potencia contratada en kW (ej.: 4,6).");
+    const listos = prepararDatos(form, extraido);
+    if ("error" in listos) {
+      setError(listos.error);
       return;
     }
-    let peaje = form.peaje;
-    const potMax = Math.max(...potenciasEfectivas(pot));
-    if (peaje === "2.0TD" && potMax > 15) {
-      // 2.0TD no existe por encima de 15 kW → es un suministro de empresa.
-      peaje = "3.0TD";
-      setForm({ ...form, peaje });
-    }
-    const esHogar = peaje === "2.0TD";
-    if (!(imp >= 5 && imp <= (esHogar ? 5000 : 500000))) {
-      setError("Revisa el importe total de la factura (ej.: 85,50).");
-      return;
-    }
-    if (!(con >= 10 && con <= (esHogar ? 20000 : 5000000))) {
-      setError("Revisa el consumo en kWh del periodo (ej.: 290).");
-      return;
-    }
-    if (!(dia >= 5 && dia <= 95)) {
-      setError("Los días facturados deben estar entre 5 y 95.");
-      return;
-    }
-
-    const datos = construirDatos(peaje);
-    setDatosEnvio(datos);
+    if (listos.peaje !== form.peaje) setForm({ ...form, peaje: listos.peaje });
     setPaso("calculando");
     try {
-      const res = await fetch("/api/factura/estudio", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ datos, web: honeypot }),
-      });
-      const data = await res.json().catch(() => null);
-      if (!res.ok || !data?.tipo) {
-        throw new ErrorUsuario(data?.error ?? "No se pudo calcular el ahorro. " + ERROR_RED);
-      }
-      setCalculo(data);
-      setPaso("resultado");
+      await pedirEstudio(listos.datos);
     } catch (err) {
       setError(err instanceof ErrorUsuario ? err.message : ERROR_RED);
       setPaso("confirmar");
@@ -480,7 +502,7 @@ export default function CalculadoraAhorro() {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
                 </svg>
-                <p className="text-sm font-semibold text-gray-900">Leyendo tu factura…</p>
+                <p className="text-sm font-semibold text-gray-900">Leyendo tu factura y comparando ofertas…</p>
                 <p className="text-xs text-gray-500">
                   Extraemos solo consumo, potencia e importe. Ni tu CUPS ni tus datos
                   personales: no los necesitamos.
