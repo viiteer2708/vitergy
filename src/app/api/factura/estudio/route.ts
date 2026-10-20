@@ -12,9 +12,9 @@ import { huellaIp, secreto } from "@/lib/expediente/secreto";
 // cifra es lo primero y los datos de contacto se piden DESPUÉS (/api/factura/lead), cuando la persona pulsa
 // «Quiero empezar a ahorrar».
 //
-// Por eso la respuesta va RECORTADA: solo las cifras y el tipo de oferta (fija/indexada). La marca de la oferta ganadora
-// (compañía + nombre) NO sale de aquí (decisión de Victor, D1): solo la devuelve /api/factura/lead una vez dejados los
-// datos. El dictamen de selección (CLEAR/NET dentro del 3 %, si no la mejor absoluta) sigue en src/lib/estudio-ahorro.ts.
+// La respuesta va RECORTADA: solo las cifras y el tipo de oferta (fija/indexada). La compañía y el producto de la oferta
+// ganadora NUNCA salen hacia el navegador (regla de Victor, 20-oct-2026): solo van en el aviso a hola@. La selección
+// (NET FIJO y GANA, gana el mayor ahorro) está en src/lib/estudio-ahorro.ts.
 //
 // Aquí no se guarda nada ni se manda ningún correo: es un cálculo sin datos personales. Frenos: señuelo, freno en memoria
 // por IP y 10 por hora por IP en la base de datos (si la BD no responde, esta cuota se salta: el cálculo no cuesta nada y

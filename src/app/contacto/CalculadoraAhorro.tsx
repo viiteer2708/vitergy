@@ -2,19 +2,20 @@
 
 import { useEffect, useRef, useState } from "react";
 import TurnstileWidget, { type ManejadorTurnstile } from "@/components/TurnstileWidget";
-import type { EstudioConOferta, EstudioPublico } from "@/lib/expediente/publico";
+import type { EstudioPublico } from "@/lib/expediente/publico";
 
 // Calculadora interactiva de ahorro — sustituye al antiguo formulario de contacto, para hogares (2.0TD) Y empresas
 // (3.0TD/6.1TD/6.2TD). Embudo de la factura (17-oct-2026, decisión de Victor):
 //
 //   subir factura → confirmar datos → RESULTADO (sin pedir NADA) → «Quiero empezar a ahorrar» →
-//   nombre + email + móvil (y en ese momento se guarda la factura) → la oferta con su marca + «Víctor te contacta».
+//   nombre + email + móvil (y en ese momento sale el aviso a hola@ con la factura) → su ahorro + «Víctor te contacta».
 //
 // Reglas que no se tocan:
 // - El usuario SIEMPRE confirma los datos antes de calcular (la IA puede leer mal) y el resultado se presenta como
 //   estimación retrospectiva («habrías pagado»), nunca como promesa.
-// - La MARCA de la oferta ganadora no se nombra hasta que la persona deja sus datos (el servidor ni siquiera la manda
-//   antes: /api/factura/estudio devuelve solo cifras y el tipo fija/indexada). Nunca se enseña un ranking.
+// - La COMPAÑÍA y el producto de la oferta ganadora NUNCA se enseñan (regla de Victor, 20-oct-2026: se le dicen al
+//   cliente cuando firma). El servidor ni siquiera los manda: /api/factura/estudio y /api/factura/lead devuelven solo
+//   cifras y el tipo fija/indexada. Nunca se enseña un ranking.
 // - La web nunca enseña mensajes técnicos: todo error es una frase en llano con una salida (teclear a mano / WhatsApp).
 // - La factura se queda en la memoria de este navegador desde que se lee; solo viaja de nuevo, al servidor, cuando la
 //   persona pulsa enviar sus datos. Si teclea los datos a mano, no hay factura y el aviso lo dice.
@@ -97,7 +98,7 @@ interface RespuestaEstudio {
 /** Lo que devuelve el servidor al dejar los datos: ya con la oferta y su marca. */
 interface RespuestaLead {
   tipo: "ok" | "sin_calculo";
-  estudio?: EstudioConOferta;
+  estudio?: EstudioPublico;
 }
 
 const eur0 = (n: number) => n.toLocaleString("es-ES", { maximumFractionDigits: 0 });
@@ -385,7 +386,7 @@ export default function CalculadoraAhorro() {
     }
   }
 
-  // «Quiero empezar a ahorrar»: aquí se guardan los datos de contacto y la factura, y se enseña la oferta con su marca.
+  // «Quiero empezar a ahorrar»: aquí sale el aviso a hola@ con los datos de contacto y la factura.
   async function enviarDatos(e: React.FormEvent) {
     e.preventDefault();
     if (!datosEnvio) return;
@@ -802,7 +803,7 @@ export default function CalculadoraAhorro() {
             Quiero empezar a ahorrar
           </button>
           <p className="text-xs text-gray-500">
-            En el siguiente paso te decimos qué oferta es y Víctor se encarga del cambio.
+            Déjanos tus datos: Víctor te explica la oferta y se encarga del cambio.
           </p>
           {corregir}
         </div>
@@ -860,8 +861,8 @@ export default function CalculadoraAhorro() {
     const textos = {
       ahorro: {
         titulo: "Último paso: dinos cómo contactarte",
-        sub: "Te enseñamos la oferta concreta y Víctor te contacta en menos de 24 horas laborables para gestionarte el cambio, sin coste.",
-        boton: "Enviar y ver mi oferta",
+        sub: "Víctor te contacta en menos de 24 horas laborables, te explica la oferta y te gestiona el cambio, sin coste.",
+        boton: "Enviar mis datos",
       },
       sin_ahorro: {
         titulo: "Que Víctor le eche un segundo vistazo",
@@ -985,11 +986,11 @@ export default function CalculadoraAhorro() {
     );
   }
 
-  // ─────────────────── Paso final: la oferta con su marca y «Víctor te contacta» ───────────────────
+  // ─────────────────── Paso final: su ahorro y «Víctor te contacta» (sin compañía) ───────────────────
   const est = final?.tipo === "ok" ? final.estudio : undefined;
   const waTexto = encodeURIComponent(
     est?.hayAhorro
-      ? `Hola Víctor, acabo de usar la calculadora de vitergy.es: mi mejor oferta es ${est.oferta.compania} ${est.oferta.nombre} (${est.oferta.tipo}), ahorro estimado de ${eur0(est.ahorroAnualEur)} €/año. Quiero que me gestiones el cambio gratis.`
+      ? `Hola Víctor, acabo de usar la calculadora de vitergy.es: me sale un ahorro estimado de ${eur0(est.ahorroAnualEur)} €/año. Quiero que me gestiones el cambio gratis.`
       : `Hola Víctor, acabo de dejar mis datos en la calculadora de vitergy.es.`
   );
 
@@ -998,17 +999,17 @@ export default function CalculadoraAhorro() {
       {est && est.hayAhorro ? (
         <>
           <p className="text-sm font-semibold uppercase tracking-wide text-gray-500">
-            Tu mejor oferta hoy
+            Tu ahorro estimado
           </p>
           <div className="rounded-xl border border-orange-200 bg-white p-4 text-left shadow-sm">
             <p className="text-lg font-bold text-gray-900">
-              {est.oferta.compania} · {est.oferta.nombre}
+              ~{eur0(est.ahorroAnualEur)} €/año
               <span className="ml-2 rounded-full bg-[#fff7ed] px-2 py-0.5 text-xs font-semibold text-[#f97316]">
-                {est.oferta.tipo === "indexada" ? "indexada" : "precio fijo"}
+                {est.ofertaTipo === "indexada" ? "indexada" : "precio fijo"}
               </span>
             </p>
             <p className="mt-1 text-sm text-gray-700">
-              Con ella, esta factura te habría costado{" "}
+              Con la mejor oferta que hemos encontrado, esta factura te habría costado{" "}
               <strong>~{eur2(est.costeMejorOfertaEur)} €</strong> en lugar de{" "}
               <strong>{importeComoDinero(form.importeTotalEur)} €</strong> — un{" "}
               <strong>{Math.round(est.ahorroPct * 100)}% menos</strong>, unos{" "}
@@ -1016,9 +1017,9 @@ export default function CalculadoraAhorro() {
             </p>
           </div>
           <p className="text-sm text-gray-700">
-            <strong>Víctor te contacta en menos de 24 horas laborables</strong> para
-            gestionarte el cambio, sin coste y sin cortes de luz. Si no hay ahorro
-            real, no se cobra.
+            <strong>Víctor te contacta en menos de 24 horas laborables</strong>, te
+            explica la oferta y te gestiona el cambio, sin coste y sin cortes de
+            luz. Si no hay ahorro real, no se cobra.
           </p>
         </>
       ) : est ? (

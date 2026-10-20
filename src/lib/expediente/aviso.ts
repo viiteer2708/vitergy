@@ -103,7 +103,7 @@ export async function enviarAvisoLead(d: DatosAviso): Promise<boolean> {
     filas.push(
       fila(
         "OFERTA GANADORA",
-        `${escapeHtml(e.oferta.compania)} · ${escapeHtml(e.oferta.nombre)} (${e.oferta.tipo})${e.prioridadAplicada ? " — por prioridad de marca" : " — mejor absoluta"}`
+        `${escapeHtml(e.oferta.compania)} · ${escapeHtml(e.oferta.nombre)} (${e.oferta.tipo}) — la de mayor ahorro de NET FIJO y GANA. El cliente NO sabe la compañía: díselo al firmar`
       ),
       fila("Coste estimado", `${eur(e.costeMejorOfertaEur)} € el periodo`),
       fila("Ahorro estimado", `${eur(e.ahorroAnualEur)} €/año (${Math.round(e.ahorroPct * 100)}%)`),
@@ -115,7 +115,7 @@ export async function enviarAvisoLead(d: DatosAviso): Promise<boolean> {
   const estado = !d.estudio
     ? "NO ha visto ninguna cifra (falló el cálculo): estudio a mano cuanto antes."
     : d.estudio.hayAhorro
-      ? "Ha visto en pantalla su ahorro estimado y ahora la oferta con su marca."
+      ? "Ha visto en pantalla su ahorro estimado, SIN la compañía ni el producto."
       : "Se le dijo que su tarifa ya está bien optimizada y pide un segundo vistazo gratis.";
   const html =
     `<h3>Nuevo lead de la calculadora de ahorro (vitergy.es/contacto)</h3>` +

@@ -3,20 +3,21 @@
 // ============================================================
 //
 // Compara la factura del usuario (hogar 2.0TD o empresa 3.0TD/6.1TD/6.2TD)
-// contra el catálogo COMPLETO de luz de la plataforma DPC del grupo: ofertas
-// FIJAS e INDEXADAS, leídas en SERVIDOR vía PostgREST con credenciales que
-// SOLO existen como variables de entorno (DPC_SUPABASE_URL /
-// DPC_SUPABASE_SERVICE_ROLE_KEY — jamás en el código: este repo es público).
+// contra las ofertas de luz de la plataforma DPC del grupo, leídas en SERVIDOR
+// vía PostgREST con credenciales que SOLO existen como variables de entorno
+// (DPC_SUPABASE_URL / DPC_SUPABASE_SERVICE_ROLE_KEY — jamás en el código: este
+// repo es público).
 //
 // Es una RÉPLICA SIMPLIFICADA del motor sagrado de DPC
 // (dpc-comparador/src/lib/calculations/). El resultado SIEMPRE se presenta
 // como estimación retrospectiva ("habrías pagado"), nunca como promesa.
 //
-// REGLA DE NEGOCIO (dictamen de Victor, 2-ago-2026): al cliente se le enseña
-// LA OFERTA GANADORA (compañía + nombre), nunca un ranking. La selección
-// prioriza los productos del grupo — CLEAR (MEGA), NET y KLEEN, en ese
-// orden — cuando su mejor oferta queda dentro de una tolerancia pequeña del
-// mejor precio absoluto del catálogo; si no, gana el mejor precio absoluto.
+// REGLA DE NEGOCIO (Victor, 20-oct-2026; sustituye al dictamen del 2-ago):
+// solo se compara con las ofertas de las campañas de Vitergy — NET FIJO (las
+// 9 fijas «FIJO …») y GANA (ONLINE y TRAMOS, solo 2.0TD), con los precios
+// cargados en DPC (GANA = su API) — y gana SIEMPRE la de mayor ahorro. La
+// compañía y el producto NUNCA llegan al navegador (se le dicen al cliente
+// cuando firma); solo van en el aviso interno a hola@ (ver expediente/publico.ts).
 //
 // FÓRMULAS (paridad con DPC, verificada contra sus golden tests):
 // - FIJO:     energía_p = (base_p + extra/1000) solo si base_p > 0.
@@ -69,7 +70,6 @@ export interface Estudio {
   fechaPrecios: string;
   hayAhorro: boolean;
   oferta: OfertaGanadora;
-  prioridadAplicada: boolean; // ganó un producto del grupo dentro de tolerancia
 }
 
 // Impuestos estructurales vigentes (ver cabecera).
@@ -95,10 +95,13 @@ const SSAA_FALLBACK = 0.0163;
 const UMBRAL_AHORRO_PCT = 0.03;
 const UMBRAL_AHORRO_ANUAL_EUR = 30;
 
-// Prioridad de producto del grupo (dictamen Victor 2-ago-2026): si la mejor
-// oferta CLEAR/NET/KLEEN queda a menos de esta tolerancia del mejor precio
-// absoluto, se ofrece esa. 3% mantiene el "siempre la mejor" con margen mínimo.
-const TOLERANCIA_PRIORIDAD = 0.03;
+// Las ofertas de las campañas de Vitergy (Victor, 20-oct-2026): NET FIJO y GANA.
+// Las indexadas de NET se llaman «INDEX …», así que el prefijo «FIJO» las deja fuera.
+function esOfertaVitergy(compania: string, nombre: string): boolean {
+  const c = compania.toUpperCase().trim();
+  const n = nombre.toUpperCase().trim();
+  return (c === "NET" && n.startsWith("FIJO")) || c === "GANA";
+}
 
 // Reparto del consumo cuando la factura solo trae el total: hogar 2.0TD con
 // perfil estándar; empresa, uniforme entre los 6 periodos (aproximación
@@ -544,19 +547,9 @@ function costeIndexada(
   return aplicarImpuestos(costPotencia + costEnergia, servicio, alquiler, datos.zona, potMax);
 }
 
-// Prioridad de producto del grupo: CLEAR (MEGA) > NET > KLEEN.
-function tierPrioridad(c: Candidata): number {
-  const compania = c.oferta.compania.toUpperCase();
-  const nombre = c.oferta.nombre.toUpperCase().trim();
-  if (compania === "MEGA" && (nombre === "CLEAR" || nombre.startsWith("CLEAR "))) return 0;
-  if (compania === "NET") return 1;
-  if (compania === "KLEEN") return 2;
-  return 3;
-}
-
 /**
- * Calcula el estudio: mejor oferta (fija o indexada) del catálogo frente a la
- * factura real, con prioridad CLEAR > NET > KLEEN dentro de tolerancia.
+ * Calcula el estudio: la oferta de NET FIJO o GANA con MAYOR AHORRO frente a la
+ * factura real.
  * Lanza si no hay credenciales, si DPC no responde o si no hay ofertas.
  */
 export async function calcularEstudio(datos: DatosFactura): Promise<Estudio> {
@@ -578,6 +571,7 @@ export async function calcularEstudio(datos: DatosFactura): Promise<Estudio> {
   const candidatas: Candidata[] = [];
 
   for (const fila of fijas) {
+    if (!esOfertaVitergy(fila.offers.companies.name, fila.offers.name)) continue;
     const total = costeFija(fila, datos, potencias, consumos, ssaaMes, alquiler);
     if (total !== null && total > 0) {
       candidatas.push({
@@ -593,6 +587,7 @@ export async function calcularEstudio(datos: DatosFactura): Promise<Estudio> {
 
   if (baseIdx) {
     for (const fila of indexadas) {
+      if (!esOfertaVitergy(fila.offers.companies.name, fila.offers.name)) continue;
       const total = costeIndexada(fila, datos, potencias, consumos, desgloseReal, baseIdx, alquiler);
       if (total !== null && total > 0) {
         candidatas.push({
@@ -611,21 +606,9 @@ export async function calcularEstudio(datos: DatosFactura): Promise<Estudio> {
     throw new Error(`Sin ofertas calculables para ${datos.peaje} en ${datos.zona}`);
   }
 
+  // Gana siempre el mayor ahorro (= el menor coste), sin prioridad de marca.
   candidatas.sort((a, b) => a.total - b.total);
-  const mejorAbsoluta = candidatas[0];
-
-  // Prioridad de marca del grupo dentro de tolerancia sobre el mejor absoluto.
-  let ganadora = mejorAbsoluta;
-  let prioridadAplicada = false;
-  const techo = mejorAbsoluta.total * (1 + TOLERANCIA_PRIORIDAD);
-  for (const tier of [0, 1, 2]) {
-    const mejorDelTier = candidatas.find((c) => tierPrioridad(c) === tier);
-    if (mejorDelTier && mejorDelTier.total <= techo) {
-      ganadora = mejorDelTier;
-      prioridadAplicada = tierPrioridad(mejorAbsoluta) !== tier;
-      break;
-    }
-  }
+  const ganadora = candidatas[0];
 
   const ahorroPeriodo = datos.importeTotalEur - ganadora.total;
   const ahorroAnual = (ahorroPeriodo / datos.dias) * 365;
@@ -645,7 +628,6 @@ export async function calcularEstudio(datos: DatosFactura): Promise<Estudio> {
     hayAhorro:
       ahorroPeriodo > 0 && ahorroPct >= UMBRAL_AHORRO_PCT && ahorroAnual >= UMBRAL_AHORRO_ANUAL_EUR,
     oferta: ganadora.oferta,
-    prioridadAplicada,
   };
 }
 

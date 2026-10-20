@@ -8,12 +8,12 @@ import { tipoDeFacturaBase64, type TipoArchivo } from "@/lib/expediente/archivo"
 import { enviarAvisoLead } from "@/lib/expediente/aviso";
 import { normalizarEmailContacto, normalizarMovil, normalizarNombre, textoLimpio } from "@/lib/expediente/datos";
 import { descripcionSegura } from "@/lib/expediente/log";
-import { estudioConOferta } from "@/lib/expediente/publico";
+import { estudioPublico } from "@/lib/expediente/publico";
 import { huellaEmail, huellaIp } from "@/lib/expediente/secreto";
 
 // Paso 3 de la calculadora: «Quiero empezar a ahorrar». La persona deja nombre, email y móvil; sale el aviso a
-// hola@vitergy.es con su factura ADJUNTA (la que el navegador tenía en memoria desde que la subió) y se le devuelve la
-// oferta CON su marca (la marca no se nombraba hasta ahora).
+// hola@vitergy.es con su factura ADJUNTA (la que el navegador tenía en memoria desde que la subió) y se le devuelve su
+// ahorro SIN la compañía ni el producto (regla de Victor, 20-oct-2026: se le dicen al firmar; el aviso sí los lleva).
 //
 // Principios:
 // - El servidor RECALCULA el estudio a partir de los datos de la factura: jamás se acepta una cifra ni una oferta que
@@ -198,8 +198,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: ERROR_ENVIO }, { status: 502 });
   }
   if (estudio) {
-    // Aquí SÍ va la oferta con su marca (D1): la persona ya ha dejado sus datos.
-    return NextResponse.json({ tipo: "ok", estudio: estudioConOferta(estudio) });
+    // Sin compañía ni producto (regla de Victor, 20-oct): esos solo van en el aviso a hola@.
+    return NextResponse.json({ tipo: "ok", estudio: estudioPublico(estudio) });
   }
   return NextResponse.json({ tipo: "sin_calculo" });
 }

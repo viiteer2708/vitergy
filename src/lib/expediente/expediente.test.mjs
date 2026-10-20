@@ -171,7 +171,7 @@ test("normalizarNombre y textoLimpio", () => {
 
 // ───────────────────────── Estudio público (sin marca) ─────────────────────────
 
-test("estudioPublico NO deja salir la marca, el nombre de la oferta ni la prioridad de marca", () => {
+test("estudioPublico NO deja salir la compañía ni el nombre de la oferta", () => {
   const estudio = {
     costeMejorOfertaEur: 61.2,
     ahorroPeriodoEur: 24.3,
@@ -182,12 +182,11 @@ test("estudioPublico NO deja salir la marca, el nombre de la oferta ni la priori
     fechaPrecios: "2026-10-17",
     hayAhorro: true,
     oferta: { compania: "MARCA-SECRETA", nombre: "OFERTA-SECRETA", tipo: "fija" },
-    prioridadAplicada: true,
   };
   const publico = estudioPublico(estudio);
   const json = JSON.stringify(publico);
   assert.ok(!json.includes("MARCA-SECRETA") && !json.includes("OFERTA-SECRETA"), json);
-  assert.ok(!json.includes("prioridad") && !json.includes("compania") && !json.includes("precioMedio"), json);
+  assert.ok(!json.includes("compania") && !json.includes("precioMedio"), json);
   assert.deepEqual(Object.keys(publico).sort(), [
     "ahorroAnualEur", "ahorroPct", "ahorroPeriodoEur", "costeMejorOfertaEur", "fechaPrecios", "hayAhorro", "ofertaTipo", "ofertasComparadas",
   ]);
