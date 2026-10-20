@@ -15,8 +15,9 @@ export const TITULAR = {
 };
 
 export const ACTUALIZADO = "27 de septiembre de 2026";
-// La política de privacidad se actualizó con el embudo de la factura (guardar la factura, nuevos proveedores; el
-// DNI/CIF/IBAN de la vía rápida se añadirá con la tanda T3). Se pasa por separado para no mover la fecha de /legal ni de /cookies, que no han cambiado.
+// La política de privacidad se actualizó con el embudo de la factura (el aviso con la factura adjunta, nuevos
+// proveedores; nada de clientes en la base de datos, decisión de Victor 20-oct; el DNI/CIF/IBAN de la vía rápida se
+// añadirá con la tanda T3). Se pasa por separado para no mover la fecha de /legal ni de /cookies, que no han cambiado.
 export const ACTUALIZADO_PRIVACIDAD = "20 de octubre de 2026";
 
 export function LegalDoc({

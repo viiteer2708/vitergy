@@ -57,9 +57,9 @@ export default function PrivacidadPage() {
           </li>
           <li>
             <strong>Datos técnicos de seguridad:</strong> una huella cifrada de tu
-            dirección IP (nunca la IP en claro), para contar cuántas veces se usa
-            la calculadora de ahorro y frenar abusos. Se borra a los 2 días; si nos
-            dejas tus datos, se conserva junto a tu ficha.
+            dirección IP y, si nos dejas tus datos, de tu email (nunca en claro),
+            para contar cuántas veces se usa la calculadora de ahorro y frenar
+            abusos. Se borra a los 2 días.
           </li>
           <li>
             <strong>Mensajes del chat de la web:</strong> lo que escribes en el
@@ -88,7 +88,7 @@ export default function PrivacidadPage() {
           Gemini) para leerla. De ella extraemos únicamente datos técnicos
           (consumo, potencia contratada, días e importe): <strong>no extraemos
           tu nombre, dirección, CUPS ni IBAN</strong>. Ves tu ahorro sin darnos
-          ningún dato personal y, hasta ese momento, no guardamos el archivo.
+          ningún dato personal y no guardamos el archivo.
           Ten en cuenta que usamos el nivel gratuito del servicio de Google, y
           Google puede utilizar el contenido enviado para mejorar sus productos;
           si lo prefieres, tapa u oculta tus datos personales en la foto antes
@@ -99,17 +99,17 @@ export default function PrivacidadPage() {
             Si decides empezar a ahorrar:
           </strong>{" "}
           cuando pulsas «Quiero empezar a ahorrar» y nos dejas tu nombre, email y
-          móvil, <strong>guardamos tu factura</strong> junto con tus datos de
-          contacto y con el estudio que hemos calculado, en un almacén privado de
-          acceso restringido con servidores en la Unión Europea (Supabase), para
-          que Víctor pueda gestionarte el cambio. Tu factura se borra a los 90
-          días si no llega a haber contrato, y tu ficha de contacto al cabo de un
-          año. Para evitar abusos, el lector de facturas y el formulario donde nos
+          móvil, nos llega un aviso interno con esos datos, el estudio que hemos
+          calculado y <strong>tu factura adjunta</strong>, para que Víctor pueda
+          gestionarte el cambio. <strong>No guardamos tu factura ni tus datos en
+          ninguna base de datos</strong>: solo quedan en ese correo, en nuestro
+          buzón, durante el plazo de conservación de las consultas (apartado 5).
+          Para evitar abusos, el lector de facturas y el formulario donde nos
           dejas tus datos se protegen con el servicio antispam Cloudflare
           Turnstile (Cloudflare, Inc.), que se carga cuando empiezas a subir una
-          factura o a enviarnos tus datos. El aviso interno con tu solicitud (y tu
-          factura adjunta) llega a nuestro buzón hola@vitergy.es por la
-          plataforma de envío de Grupo New Energy, Altavoz, que usa Amazon SES.
+          factura o a enviarnos tus datos. El aviso llega a nuestro buzón
+          hola@vitergy.es por la plataforma de envío de Grupo New Energy,
+          Altavoz, que usa Amazon SES.
         </p>
         <p className="rounded-2xl border border-orange-100 bg-[#fff7ed] p-5 text-sm leading-6">
           <strong className="text-[#1f2942]">
@@ -213,9 +213,9 @@ export default function PrivacidadPage() {
             del tratamiento: alojamiento del sitio web (Vercel Inc.); correo
             electrónico transaccional, que enviamos con la plataforma Altavoz de
             Grupo New Energy sobre Amazon SES (Amazon Web Services); la base de
-            datos y el almacén privado de documentos donde guardamos tu ficha y
-            tu factura, y tu resultado del test (Supabase,
-            servidores en la Unión Europea); el servicio antispam Cloudflare
+            datos donde guardamos tu resultado del test y los contadores
+            antiabuso de la calculadora (Supabase, servidores en la Unión
+            Europea); el servicio antispam Cloudflare
             Turnstile (Cloudflare, Inc.); y, solo si marcas la casilla de
             consejos del test, la plataforma de email Brevo.
           </li>
@@ -226,8 +226,8 @@ export default function PrivacidadPage() {
             Google puede utilizar el contenido enviado para mejorar sus
             productos. Google solo recibe tu factura (para leerla) y lo que
             escribas en el chat. Nosotros no
-            almacenamos tus conversaciones del chat, y tu factura solo la
-            guardamos si decides dejarnos tus datos (ver más arriba). Si lo
+            almacenamos tus conversaciones del chat, y tu factura solo nos llega
+            por correo si decides dejarnos tus datos (ver más arriba). Si lo
             prefieres, oculta tus datos personales en la foto de la factura y no
             escribas datos personales en el chat.
           </li>
@@ -246,14 +246,10 @@ export default function PrivacidadPage() {
       <Apartado titulo="5. Cuánto tiempo los conservamos">
         <ul className="ml-5 list-disc space-y-2">
           <li>
-            <strong>Consultas que no terminan en contrato</strong> (incluida tu
-            ficha de la calculadora: nombre, email, móvil y estudio): hasta un
-            año desde el último contacto, salvo que nos pidas antes la supresión.
-          </li>
-          <li>
-            <strong>Tu factura:</strong> 90 días desde que nos la dejas si no
-            llega a haber contrato. Si lo hay, se conserva mientras dure la
-            relación y durante los plazos de prescripción legal.
+            <strong>Consultas que no terminan en contrato</strong> (incluido el
+            aviso de la calculadora con tu nombre, email, móvil, estudio y
+            factura): hasta un año desde el último contacto, salvo que nos pidas
+            antes la supresión.
           </li>
           <li>
             <strong>Datos de clientes:</strong> mientras dure la relación y,
@@ -331,9 +327,7 @@ export default function PrivacidadPage() {
           Aplicamos medidas técnicas y organizativas razonables para proteger tus
           datos frente a pérdida, acceso no autorizado o uso indebido. Ningún
           sistema es infalible, pero tratamos tu documentación —que incluye
-          facturas y datos de suministro— con el cuidado que merece. El almacén
-          donde guardamos tus documentos es privado (no se puede acceder a ellos
-          sin autorización).
+          facturas y datos de suministro— con el cuidado que merece.
         </p>
         <p>
           Nuestros servicios se dirigen a mayores de edad. No recabamos

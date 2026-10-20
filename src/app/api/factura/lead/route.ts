@@ -4,34 +4,24 @@ import { crearRateLimiter, origenPermitido, ipDe, senueloDelata } from "@/lib/ap
 import { CUOTAS, antiabusoDisponible, comprobarCuota, comprobarTurnstile } from "@/lib/antiabuso";
 import { comprobarEmail, dominioDe } from "@/lib/email-desechable";
 import { calcularEstudio, validarDatosFactura, type Estudio } from "@/lib/estudio-ahorro";
-import { nuevaCarpeta, rutaDeDocumento, subirObjeto } from "@/lib/expediente/almacen";
 import { tipoDeFacturaBase64, type TipoArchivo } from "@/lib/expediente/archivo";
 import { enviarAvisoLead } from "@/lib/expediente/aviso";
 import { normalizarEmailContacto, normalizarMovil, normalizarNombre, textoLimpio } from "@/lib/expediente/datos";
-import {
-  crearExpediente,
-  marcarAviso,
-  marcarDocumentoSubido,
-  referenciaCorta,
-  type ExpedienteCreado,
-} from "@/lib/expediente/expediente";
 import { descripcionSegura } from "@/lib/expediente/log";
 import { estudioConOferta } from "@/lib/expediente/publico";
 import { huellaEmail, huellaIp } from "@/lib/expediente/secreto";
 
-// Paso 3 de la calculadora: «Quiero empezar a ahorrar». La persona deja nombre, email y móvil y, en ESE momento, se
-// guarda su factura (la que el navegador tenía en memoria desde que la subió). Aquí se crea el expediente, sale el aviso a
-// hola@vitergy.es con la factura adjunta y se le devuelve la oferta CON su marca (la marca no se nombraba hasta ahora).
+// Paso 3 de la calculadora: «Quiero empezar a ahorrar». La persona deja nombre, email y móvil; sale el aviso a
+// hola@vitergy.es con su factura ADJUNTA (la que el navegador tenía en memoria desde que la subió) y se le devuelve la
+// oferta CON su marca (la marca no se nombraba hasta ahora).
 //
 // Principios:
 // - El servidor RECALCULA el estudio a partir de los datos de la factura: jamás se acepta una cifra ni una oferta que
 //   venga del navegador. El aviso que lee Víctor lleva siempre lo calculado aquí.
-// - UN LEAD NUNCA SE PIERDE. Orden: validar → cuotas → recalcular → crear expediente (BD) → subir la factura (almacén) →
-//   avisar (Altavoz). Cada paso que falla se registra (sin datos personales) y se sigue con el siguiente:
-//     · BD caída → no hay expediente, pero el aviso sale igualmente con la factura adjunta (es el único registro).
-//     · Aviso caído → el expediente queda con `aviso_lead_en` vacío (la limpieza diaria, T4, lo reintenta) y la persona ve su oferta.
-//     · Solo si fallan a la vez la BD y el aviso se le dice la verdad (502) y se le da la salida por WhatsApp.
-//   (Esto invierte la regla anterior de /api/factura/estudio: «sin aviso no hay estudio». Ahora el estudio ya lo ha visto.)
+// - NO SE GUARDA NADA de la persona (decisión de Victor, 20-oct-2026: «opción 2», las facturas no van a la base de datos
+//   de DPC ni a ningún otro sitio). El aviso a hola@ es el ÚNICO registro: si Altavoz no lo acepta, se le dice la verdad
+//   (502) y se le da la salida por WhatsApp. Un lead nunca se pierde en silencio.
+// - En la base de datos solo quedan las CUOTAS antiabuso (huellas HMAC de la IP y del email, se borran a los 2 días).
 // - No se manda ningún correo a la persona (el aviso es SOLO para hola@vitergy.es: decisión 6 de Victor) y la casilla de
 //   consejos ha desaparecido: ya no hay alta en Brevo desde aquí.
 
@@ -67,7 +57,7 @@ export async function POST(request: Request) {
   } | null;
 
   if (senueloDelata(body?.web)) {
-    // Bot (señuelo relleno o ausente): respuesta plausible sin tocar la base de datos, el almacén ni el correo.
+    // Bot (señuelo relleno o ausente): respuesta plausible sin tocar la base de datos ni el correo.
     console.warn("[lead] Robot por el señuelo");
     return NextResponse.json({ tipo: "sin_calculo" });
   }
@@ -170,7 +160,7 @@ export async function POST(request: Request) {
       );
     }
   } else {
-    console.error("[lead] Falta EXPEDIENTE_SECRET o la BD: modo degradado (solo aviso por email, sin expediente ni cuotas)");
+    console.error("[lead] Falta EXPEDIENTE_SECRET o la BD: sin cuotas (el aviso sale igualmente)");
   }
 
   // ── 3) Recalcular el estudio en el servidor ──
@@ -182,43 +172,7 @@ export async function POST(request: Request) {
   }
   const comercializadora = textoLimpio(body?.extra?.comercializadora, 80);
 
-  // ── 4) Crear el expediente (ficha + fila de la factura en «pendiente») ──
-  let expediente: ExpedienteCreado | null = null;
-  let rutaFactura: string | null = null;
-  if (bdLista) {
-    const carpeta = nuevaCarpeta();
-    rutaFactura = factura ? rutaDeDocumento(carpeta, "factura", factura.tipo) : null;
-    try {
-      expediente = await crearExpediente({
-        nombre,
-        email,
-        movil,
-        datosFactura: { ...datos, comercializadoraActual: comercializadora || null },
-        estudio,
-        sinCalculo: estudio === null,
-        ipHash: ip === "desconocida" ? null : huellaIp(ip),
-        carpeta,
-        factura: factura && rutaFactura ? { ruta: rutaFactura, mime: factura.tipo, bytes: factura.bytes.length } : null,
-      });
-    } catch (error) {
-      console.error("[lead] No se pudo crear el expediente:", descripcionSegura(error));
-    }
-  }
-
-  // ── 5) Subir la factura al almacén privado ──
-  let facturaGuardada = false;
-  if (expediente && factura && rutaFactura) {
-    facturaGuardada = await subirObjeto(rutaFactura, factura.bytes, factura.tipo);
-    if (facturaGuardada) {
-      try {
-        await marcarDocumentoSubido(expediente.id, "factura", factura.bytes.length);
-      } catch (error) {
-        console.error("[lead] No se pudo marcar la factura como subida:", descripcionSegura(error));
-      }
-    }
-  }
-
-  // ── 6) Aviso a hola@vitergy.es (con la factura adjunta si cabe) ──
+  // ── 4) Aviso a hola@vitergy.es (con la factura adjunta si cabe) ──
   // Si venía un desglose por periodos pero no superó la validación, el estudio fino debe saberlo.
   const desgloseCrudo = Array.isArray((body?.datos as Record<string, unknown> | undefined)?.consumosKwh)
     ? ((body!.datos as Record<string, unknown>).consumosKwh as unknown[]).length
@@ -226,7 +180,6 @@ export async function POST(request: Request) {
   let avisoSalio = false;
   try {
     avisoSalio = await enviarAvisoLead({
-      referencia: expediente ? referenciaCorta(expediente.id) : null,
       nombre,
       email,
       movil,
@@ -235,28 +188,18 @@ export async function POST(request: Request) {
       desgloseDescartado: desgloseCrudo > 0 && datos.consumosKwh === null,
       estudio,
       factura: factura ? { base64: factura.base64, bytes: factura.bytes.length, tipo: factura.tipo } : null,
-      facturaGuardada,
     });
   } catch (error) {
     console.error("[lead] Error enviando el aviso:", descripcionSegura(error));
   }
-  if (expediente) {
-    try {
-      await marcarAviso(expediente.id, avisoSalio);
-    } catch (error) {
-      console.error("[lead] No se pudo apuntar el estado del aviso:", descripcionSegura(error));
-    }
-  }
-
-  // ── 7) Respuesta ──
-  // Sin expediente y sin aviso no hay rastro de la persona en ningún sitio: se le dice la verdad.
-  if (!expediente && !avisoSalio) {
+  // ── 5) Respuesta ──
+  // Sin aviso no hay rastro de la persona en ningún sitio: se le dice la verdad.
+  if (!avisoSalio) {
     return NextResponse.json({ error: ERROR_ENVIO }, { status: 502 });
   }
-  const ref = expediente ? referenciaCorta(expediente.id) : null;
   if (estudio) {
     // Aquí SÍ va la oferta con su marca (D1): la persona ya ha dejado sus datos.
-    return NextResponse.json({ tipo: "ok", estudio: estudioConOferta(estudio), ref });
+    return NextResponse.json({ tipo: "ok", estudio: estudioConOferta(estudio) });
   }
-  return NextResponse.json({ tipo: "sin_calculo", ref });
+  return NextResponse.json({ tipo: "sin_calculo" });
 }

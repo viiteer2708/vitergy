@@ -98,7 +98,6 @@ interface RespuestaEstudio {
 interface RespuestaLead {
   tipo: "ok" | "sin_calculo";
   estudio?: EstudioConOferta;
-  ref?: string | null;
 }
 
 const eur0 = (n: number) => n.toLocaleString("es-ES", { maximumFractionDigits: 0 });
@@ -567,8 +566,7 @@ export default function CalculadoraAhorro() {
           Tu factura se lee al momento con Google Gemini y solo usamos los datos
           técnicos (consumo, potencia, importe) para calcular tu ahorro. Si
           después de ver tu ahorro decides dejarnos tus datos para que Víctor te
-          lo gestione, guardamos tu factura en un almacén privado; si no, se
-          descarta. Si lo prefieres, puedes tapar tus datos personales en la foto
+          lo gestione, nos llega adjunta a nuestro correo; si no, se descarta. Si lo prefieres, puedes tapar tus datos personales en la foto
           — no los necesitamos.
         </p>
       </div>
@@ -978,8 +976,8 @@ export default function CalculadoraAhorro() {
 
         <p className="text-xs leading-5 text-gray-500">
           Responsable: Por encima del techo del cielo, S.L. Finalidad: atender tu
-          solicitud y elaborar tu estudio energético. {factura ? "Guardamos tu factura en un almacén privado en la Unión Europea (90 días si no hay contrato) y " : "Guardamos "}
-          tus datos de contacto durante un año. No te enviamos publicidad sin tu
+          solicitud y elaborar tu estudio energético. {factura ? "Tu factura nos llega adjunta a nuestro correo y la conservamos, con " : "Conservamos "}
+          tus datos de contacto, durante un año. No te enviamos publicidad sin tu
           consentimiento. Derechos en hola@vitergy.es. Más información en la
           política de privacidad.
         </p>
@@ -989,11 +987,10 @@ export default function CalculadoraAhorro() {
 
   // ─────────────────── Paso final: la oferta con su marca y «Víctor te contacta» ───────────────────
   const est = final?.tipo === "ok" ? final.estudio : undefined;
-  const referencia = final?.ref ? ` Mi referencia: ${final.ref}.` : "";
   const waTexto = encodeURIComponent(
     est?.hayAhorro
-      ? `Hola Víctor, acabo de usar la calculadora de vitergy.es: mi mejor oferta es ${est.oferta.compania} ${est.oferta.nombre} (${est.oferta.tipo}), ahorro estimado de ${eur0(est.ahorroAnualEur)} €/año. Quiero que me gestiones el cambio gratis.${referencia}`
-      : `Hola Víctor, acabo de dejar mis datos en la calculadora de vitergy.es.${referencia}`
+      ? `Hola Víctor, acabo de usar la calculadora de vitergy.es: mi mejor oferta es ${est.oferta.compania} ${est.oferta.nombre} (${est.oferta.tipo}), ahorro estimado de ${eur0(est.ahorroAnualEur)} €/año. Quiero que me gestiones el cambio gratis.`
+      : `Hola Víctor, acabo de dejar mis datos en la calculadora de vitergy.es.`
   );
 
   return (
@@ -1059,7 +1056,6 @@ export default function CalculadoraAhorro() {
 
       <p className="text-xs text-gray-500">
         El análisis es gratis y, si no hay ahorro, no se cobra.
-        {final?.ref ? ` Tu referencia: ${final.ref}.` : ""}
       </p>
     </div>
   );

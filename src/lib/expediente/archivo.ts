@@ -1,7 +1,7 @@
 // Tipo REAL de un fichero, por su cabecera (los «magic bytes»), no por lo que diga el navegador.
 //
 // El navegador declara un tipo (`file.type`) que cualquiera puede falsear. Antes de gastar cuota de Gemini, de
-// guardar nada en el almacén o de adjuntar algo a un correo, se mira que los primeros bytes sean de verdad los de
+// adjuntar algo a un correo, se mira que los primeros bytes sean de verdad los de
 // un PDF o una foto. Es el control de «cabecera real del fichero» del diseño del embudo (§3).
 //
 // MÓDULO HOJA: sin imports locales a propósito, para poder probarlo con `node --test` (expediente.test.mjs).
@@ -14,7 +14,7 @@ export type TipoArchivo =
   | "image/heic"
   | "image/heif";
 
-/** Los únicos tipos que admite la factura y los documentos del expediente (los mismos que el bucket). */
+/** Los únicos tipos que admite la factura. */
 export const TIPOS_ARCHIVO: readonly TipoArchivo[] = [
   "application/pdf",
   "image/jpeg",
