@@ -56,15 +56,9 @@ export default function PrivacidadPage() {
             cuando nos los envías para que hagamos el estudio.
           </li>
           <li>
-            <strong>Documentación para la vía rápida de contratación:</strong> si
-            decides adelantar el cambio, la copia del DNI o NIE del titular (o del
-            administrador, si es una empresa), la del CIF de la empresa y el IBAN
-            de la cuenta donde se domiciliarán las facturas.
-          </li>
-          <li>
             <strong>Datos técnicos de seguridad:</strong> una huella cifrada de tu
             dirección IP (nunca la IP en claro), para contar cuántas veces se usa
-            el lector de facturas y frenar abusos. Se borra a los 2 días; si nos
+            la calculadora de ahorro y frenar abusos. Se borra a los 2 días; si nos
             dejas tus datos, se conserva junto a tu ficha.
           </li>
           <li>
@@ -108,15 +102,12 @@ export default function PrivacidadPage() {
           móvil, <strong>guardamos tu factura</strong> junto con tus datos de
           contacto y con el estudio que hemos calculado, en un almacén privado de
           acceso restringido con servidores en la Unión Europea (Supabase), para
-          que Víctor pueda gestionarte el cambio. Si sigues con la vía rápida,
-          guardamos ahí también tu DNI o NIE, el CIF de tu empresa y tu IBAN (este
-          último, cifrado). Los documentos se borran a los 90 días si no llega a
-          haber contrato, y tu ficha de contacto al cabo de un año.{" "}
-          <strong>Tu DNI, tu CIF y tu IBAN no se envían a ninguna inteligencia
-          artificial</strong>: Google solo recibe la factura, para leerla. Para
-          evitar abusos, el lector de facturas se protege con el servicio
-          antispam Cloudflare Turnstile (Cloudflare, Inc.), que se carga cuando
-          empiezas a subir una factura. El aviso interno con tu solicitud (y tu
+          que Víctor pueda gestionarte el cambio. Tu factura se borra a los 90
+          días si no llega a haber contrato, y tu ficha de contacto al cabo de un
+          año. Para evitar abusos, el lector de facturas y el formulario donde nos
+          dejas tus datos se protegen con el servicio antispam Cloudflare
+          Turnstile (Cloudflare, Inc.), que se carga cuando empiezas a subir una
+          factura o a enviarnos tus datos. El aviso interno con tu solicitud (y tu
           factura adjunta) llega a nuestro buzón hola@vitergy.es por la
           plataforma de envío de Grupo New Energy, Altavoz, que usa Amazon SES.
         </p>
@@ -150,12 +141,6 @@ export default function PrivacidadPage() {
                 "Aplicación de medidas precontractuales a petición tuya (art. 6.1.b RGPD).",
             },
             {
-              label:
-                "Vía rápida de contratación: recoger tu documentación e IBAN y tramitar tu cambio de comercializadora",
-              value:
-                "Aplicación de medidas precontractuales a petición tuya (art. 6.1.b RGPD).",
-            },
-            {
               label: "Enviarte el código del test y guardar y mostrarte tu resultado",
               value: "Tu petición al usar el test (art. 6.1.b RGPD).",
             },
@@ -178,7 +163,7 @@ export default function PrivacidadPage() {
               value: "Obligación legal (art. 6.1.c RGPD).",
             },
             {
-              label: "Proteger la web y el lector de facturas frente a abusos",
+              label: "Proteger la web y la calculadora de ahorro frente a abusos",
               value:
                 "Interés legítimo en la seguridad del servicio (art. 6.1.f RGPD): huella cifrada de la IP y servicio antispam.",
             },
@@ -228,8 +213,8 @@ export default function PrivacidadPage() {
             del tratamiento: alojamiento del sitio web (Vercel Inc.); correo
             electrónico transaccional, que enviamos con la plataforma Altavoz de
             Grupo New Energy sobre Amazon SES (Amazon Web Services); la base de
-            datos y el almacén privado de documentos donde guardamos tu ficha,
-            tu factura y tu documentación, y tu resultado del test (Supabase,
+            datos y el almacén privado de documentos donde guardamos tu ficha y
+            tu factura, y tu resultado del test (Supabase,
             servidores en la Unión Europea); el servicio antispam Cloudflare
             Turnstile (Cloudflare, Inc.); y, solo si marcas la casilla de
             consejos del test, la plataforma de email Brevo.
@@ -240,7 +225,7 @@ export default function PrivacidadPage() {
             mensajes del chat. Usamos el nivel gratuito del servicio, en el que
             Google puede utilizar el contenido enviado para mejorar sus
             productos. Google solo recibe tu factura (para leerla) y lo que
-            escribas en el chat: nunca tu DNI, tu CIF ni tu IBAN. Nosotros no
+            escribas en el chat. Nosotros no
             almacenamos tus conversaciones del chat, y tu factura solo la
             guardamos si decides dejarnos tus datos (ver más arriba). Si lo
             prefieres, oculta tus datos personales en la foto de la factura y no
@@ -266,10 +251,9 @@ export default function PrivacidadPage() {
             año desde el último contacto, salvo que nos pidas antes la supresión.
           </li>
           <li>
-            <strong>Tu factura y la documentación de la vía rápida (DNI o NIE,
-            CIF e IBAN):</strong> 90 días desde que nos las das si no llega a
-            haber contrato. Si lo hay, se conservan mientras dure la relación y
-            durante los plazos de prescripción legal.
+            <strong>Tu factura:</strong> 90 días desde que nos la dejas si no
+            llega a haber contrato. Si lo hay, se conserva mientras dure la
+            relación y durante los plazos de prescripción legal.
           </li>
           <li>
             <strong>Datos de clientes:</strong> mientras dure la relación y,
@@ -349,7 +333,7 @@ export default function PrivacidadPage() {
           sistema es infalible, pero tratamos tu documentación —que incluye
           facturas y datos de suministro— con el cuidado que merece. El almacén
           donde guardamos tus documentos es privado (no se puede acceder a ellos
-          sin autorización) y tu IBAN se guarda cifrado.
+          sin autorización).
         </p>
         <p>
           Nuestros servicios se dirigen a mayores de edad. No recabamos
