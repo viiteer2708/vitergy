@@ -18,6 +18,8 @@ export interface ResenaGoogle {
 }
 
 export interface FichaGoogle {
+  /** Para el botón «Valóranos en Google» (search.google.com/local/writereview?placeid=…). */
+  lugar: string;
   nota: number;
   total: number;
   url: string;
@@ -66,7 +68,7 @@ export async function fichaGoogle(): Promise<FichaGoogle | null> {
         hace: r.relativePublishTimeDescription ?? "",
       }))
       .filter((r) => r.texto.length > 0);
-    return { nota: d.rating, total: d.userRatingCount ?? resenas.length, url: d.googleMapsUri, resenas };
+    return { lugar, nota: d.rating, total: d.userRatingCount ?? resenas.length, url: d.googleMapsUri, resenas };
   } catch (error) {
     console.error("[resenas] No se pudo leer la ficha:", error instanceof Error ? error.message : error);
     return null;
