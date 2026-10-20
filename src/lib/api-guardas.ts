@@ -22,16 +22,37 @@ export function crearRateLimiter(requestsPorMinuto: number) {
   };
 }
 
-/** Un navegador same-origin manda Origin = nuestro host. Ajeno → rechazar. */
+/**
+ * Un navegador manda Origin = nuestro host en TODO POST (también same-origin).
+ * Ajeno → rechazar. Sin Origin solo se tolera en GET/HEAD: un POST sin Origin
+ * es un script, no la web (spam del 20-oct-2026: robots que mandaban el JSON
+ * directo a /api/factura/estudio y llenaban hola@ de leads falsos).
+ */
 export function origenPermitido(request: Request): boolean {
   const origin = request.headers.get("origin");
   const host = request.headers.get("host");
-  if (!origin || !host) return true; // sin Origin (curl, same-origin GET) se tolera
-  try {
-    return new URL(origin).host === host;
-  } catch {
+  const ruta = new URL(request.url).pathname;
+  if (!origin) {
+    if (request.method === "GET" || request.method === "HEAD") return true;
+    console.warn("[guardas] Rechazado: POST sin Origin en", ruta);
     return false;
   }
+  try {
+    if (host && new URL(origin).host === host) return true;
+  } catch {
+    // Origin mal formado: se rechaza abajo.
+  }
+  console.warn("[guardas] Rechazado: Origin ajeno en", ruta, "→", origin.slice(0, 100));
+  return false;
+}
+
+/**
+ * El señuelo (campo `web`, invisible para humanos) delata a un robot si viene
+ * relleno o si NO viene: nuestros formularios lo mandan siempre (vacío), y un
+ * robot que fabrica su propio JSON no lo conoce.
+ */
+export function senueloDelata(web: unknown): boolean {
+  return typeof web !== "string" || web.length > 0;
 }
 
 export function ipDe(request: Request): string {

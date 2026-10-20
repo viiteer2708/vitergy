@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { crearRateLimiter, ipDe, origenPermitido } from "@/lib/api-guardas";
+import { crearRateLimiter, ipDe, origenPermitido, senueloDelata } from "@/lib/api-guardas";
+import { comprobarEmail, dominioDe } from "@/lib/email-desechable";
 import { rpc } from "@/lib/bd";
 import { enviarCodigoPorEmail } from "@/lib/acceso/correo";
 import {
@@ -60,13 +61,22 @@ export async function POST(request: Request) {
     web?: unknown; // honeypot: los humanos no lo ven; los bots lo rellenan
   } | null;
 
-  if (typeof body?.web === "string" && body.web.length > 0) {
+  if (senueloDelata(body?.web)) {
+    console.warn("[acceso] Robot por el señuelo");
     return NextResponse.json({ ok: true }); // bot: respuesta plausible, sin tocar nada
   }
 
   const email = normalizarEmail(body?.email);
   if (!email) {
     return NextResponse.json({ error: "Revisa tu email: parece que le falta algo." }, { status: 422 });
+  }
+  const veredicto = await comprobarEmail(email);
+  if (veredicto !== "ok") {
+    console.warn("[acceso] Email rechazado:", veredicto, dominioDe(email));
+    return NextResponse.json(
+      { error: "Usa un email que leas de verdad: los de usar y tirar no valen." },
+      { status: 422 }
+    );
   }
   if (body?.privacidad !== true) {
     return NextResponse.json(

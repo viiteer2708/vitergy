@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { enviarEmail } from "@/lib/brevo";
-import { crearRateLimiter, origenPermitido, ipDe } from "@/lib/api-guardas";
+import { crearRateLimiter, origenPermitido, ipDe, senueloDelata } from "@/lib/api-guardas";
+import { comprobarEmail, dominioDe } from "@/lib/email-desechable";
 import { calcularEstudio, validarDatosFactura, type Estudio } from "@/lib/estudio-ahorro";
 
 // Paso 2 de la calculadora: con los datos confirmados por el usuario y su
@@ -51,15 +52,25 @@ export async function POST(request: Request) {
     web?: unknown; // honeypot: los humanos no lo ven; los bots lo rellenan
   } | null;
 
-  if (typeof body?.web === "string" && body.web.length > 0) {
-    // Bot: respuesta plausible sin tocar Brevo ni el motor.
+  const email =
+    typeof body?.email === "string" ? body.email.trim().toLowerCase().slice(0, 120) : "";
+
+  if (senueloDelata(body?.web)) {
+    // Bot (señuelo relleno o ausente): respuesta plausible sin tocar Brevo ni el motor.
+    console.warn("[estudio] Robot por el señuelo:", dominioDe(email));
     return NextResponse.json({ tipo: "sin_calculo" });
   }
 
-  const email =
-    typeof body?.email === "string" ? body.email.trim().toLowerCase().slice(0, 120) : "";
   if (!EMAIL_RE.test(email)) {
     return NextResponse.json({ error: "Introduce un email válido." }, { status: 422 });
+  }
+  const veredicto = await comprobarEmail(email);
+  if (veredicto !== "ok") {
+    console.warn("[estudio] Email rechazado:", veredicto, dominioDe(email));
+    return NextResponse.json(
+      { error: "Necesitamos un email que leas de verdad para enviarte el estudio: los de usar y tirar no valen." },
+      { status: 422 }
+    );
   }
   const nombre =
     typeof body?.nombre === "string" ? body.nombre.trim().slice(0, 80) : "";

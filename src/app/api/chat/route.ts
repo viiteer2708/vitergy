@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { origenPermitido } from "@/lib/api-guardas";
 import { SITIO, todosLosArticulos } from "@/lib/blog";
 
 // Única API route del sitio: proxy del chat de soporte hacia la API de Gemini.
@@ -99,19 +100,9 @@ function parseBody(
 }
 
 export async function POST(request: Request) {
-  // Best-effort anti-embed: un navegador same-origin manda Origin = nuestro host
-  const origin = request.headers.get("origin");
-  const host = request.headers.get("host");
-  if (origin && host) {
-    let originHost = "";
-    try {
-      originHost = new URL(origin).host;
-    } catch {
-      // Origin ilegible → se trata como ajeno
-    }
-    if (originHost !== host) {
-      return NextResponse.json({ error: "Origen no permitido." }, { status: 403 });
-    }
+  // Anti-embed y anti-script: el navegador manda Origin = nuestro host en todo POST
+  if (!origenPermitido(request)) {
+    return NextResponse.json({ error: "Origen no permitido." }, { status: 403 });
   }
 
   const apiKey = process.env.GEMINI_API_KEY;
