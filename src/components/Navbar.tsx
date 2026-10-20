@@ -170,7 +170,7 @@ function MobileMenu({
               className="block rounded-xl bg-[#f97316] px-3 py-3 text-center text-base font-semibold text-white shadow-[0_4px_14px_0_rgba(249,115,22,0.39)] hover:bg-orange-600"
               onClick={closeMobile}
             >
-              Analizar mi factura
+              Calcular mi ahorro
             </Link>
           </div>
         </div>
@@ -306,7 +306,7 @@ export default function Navbar() {
                 href="/contacto"
                 className="ml-2 rounded-xl bg-[#f97316] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_4px_14px_0_rgba(249,115,22,0.39)] transition-all hover:-translate-y-0.5 hover:bg-orange-600 hover:shadow-[0_6px_20px_rgba(249,115,22,0.23)]"
               >
-                Analizar mi factura
+                Calcular mi ahorro
               </Link>
             </div>
 

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Asesoría Energética para Grandes Consumidores | Vitergy",
     description:
-      "Optimizamos contratos de luz y gas de empresas con consumos elevados. Analizamos tu curva horaria real y sacamos tu consumo a mercado entre más de 40 comercializadoras.",
+      "Optimizamos contratos de luz y gas de empresas con consumos elevados. Analizamos tu curva horaria real, comparamos más de 40 compañías y sacamos tu consumo a concurso entre las que pueden gestionarlo.",
     url: `${BASE}/grandes-consumos`,
     siteName: "Vitergy",
     locale: "es_ES",
@@ -80,12 +80,12 @@ const faqs = [
   {
     question: "¿Cuánto cuesta el estudio y a qué me compromete?",
     answer:
-      "El estudio no tiene coste y no te compromete a nada. Te entregamos el análisis completo con las medidas ordenadas por impacto y por esfuerzo, y decides tú qué se ejecuta. Solo cobramos si conseguimos ahorrarte dinero; si al terminar el análisis la conclusión es que tu contrato ya está bien, te lo decimos y no hay factura.",
+      "El estudio no tiene coste y no te compromete a nada. Te entregamos el análisis completo con las medidas ordenadas por impacto y por esfuerzo, y decides tú qué se ejecuta. A ti no te cuesta nada: cobramos de la compañía, y solo cuando tú ahorras. Si al terminar el análisis tu contrato ya está bien, te lo decimos y no tocamos nada: ni tú pagas ni nosotros cobramos.",
   },
   {
     question: "¿Vais a recomendarme siempre cambiar de comercializadora?",
     answer:
-      "No. Buena parte del ahorro de un gran consumo está en la potencia, la reactiva, los excesos y en cuándo consumes, y todo eso se corrige con tu compañía actual. Si además el precio de energía está por encima de mercado, lo sacamos a concurso; y si no lo está, no tocamos nada. No pertenecemos a ninguna comercializadora, así que no tenemos ningún interés en moverte.",
+      "No. Buena parte del ahorro de un gran consumo está en la potencia, la reactiva, los excesos y en cuándo consumes, y todo eso se corrige con tu compañía actual. Si además el precio de energía está por encima de mercado, lo sacamos a concurso; y si no lo está, no tocamos nada. No pertenecemos a ninguna comercializadora ni tenemos exclusiva con ninguna. Cobramos de la compañía cuando gestionamos un cambio, y aun así te diremos que no cambies si no te compensa: preferimos un cliente bien aconsejado a un cambio mal hecho.",
   },
 ];
 
@@ -186,8 +186,9 @@ export default function GrandesConsumosPage() {
             una casa: seis términos de potencia, seis de energía, excesos de
             maxímetro, reactiva y un precio que ya no regula nadie. Ahí es donde
             aparecen los errores caros —y donde un comparador de tarifas no llega.
-            Analizamos tu curva de carga real, reconstruimos el contrato y sacamos
-            tu consumo a mercado entre más de cuarenta comercializadoras.
+            Analizamos tu curva de carga real, reconstruimos el contrato,
+            comparamos más de cuarenta compañías y sacamos tu consumo a concurso
+            entre las que pueden gestionarlo.
           </p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">

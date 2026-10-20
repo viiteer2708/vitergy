@@ -27,7 +27,7 @@ const faqs = [
   {
     question: "¿Puedo volver a mi compañía anterior si no me gusta la nueva?",
     answer:
-      "Sí, puedes cambiar de compañía tantas veces como quieras. No hay límite de cambios. Si no estás satisfecho con la nueva comercializadora, puedes volver a la anterior o elegir una tercera. El proceso es siempre el mismo y tarda 15-21 días.",
+      "Sí, puedes cambiar de compañía tantas veces como quieras. No hay límite de cambios. Si no estás satisfecho con la nueva comercializadora, puedes volver a la anterior o elegir una tercera. El proceso es siempre el mismo y, por norma general, no lleva más de 5 días laborables.",
   },
   {
     question: "¿Necesito un contador nuevo o cambiar la instalación?",
@@ -59,7 +59,7 @@ const jsonLd = [
       url: "https://vitergy.es",
     },
     datePublished: "2026-03-08",
-    dateModified: "2026-03-08",
+    dateModified: "2026-10-20",
     mainEntityOfPage: "https://vitergy.es/blog/como-cambiar-compania-luz",
   },
   {
@@ -99,7 +99,7 @@ const jsonLd = [
       {
         "@type": "HowToStep",
         name: "La nueva comercializadora gestiona el cambio",
-        text: "La nueva compañía se encarga de todo el trámite con la distribuidora. El proceso tarda 15-21 días.",
+        text: "La nueva compañía se encarga de todo el trámite con la distribuidora. Por norma general, el proceso no lleva más de 5 días laborables.",
       },
       {
         "@type": "HowToStep",
@@ -145,7 +145,8 @@ export default function ComoCambiarCompaniaLuzPage() {
             comercializadora eléctrica en 2026: qué necesitas, cuánto tarda,
             qué pasa con tu contrato actual y cómo asegurarte de que la nueva
             tarifa es realmente mejor. Todo sin tecnicismos y con la
-            experiencia de más de 12 años gestionando cambios de compañía en Vitergy.
+            experiencia de Víctor Marrón, más de 12 años gestionando cambios de
+            compañía.
           </p>
 
           {/* Paso 1 */}
@@ -188,11 +189,12 @@ export default function ComoCambiarCompaniaLuzPage() {
               </h2>
             </div>
             <p className="mt-4">
-              Con más de 400 comercializadoras en España, comparar todas las
+              Con cientos de comercializadoras en España, comparar todas las
               ofertas manualmente es imposible. Tienes dos opciones: usar un
               comparador online o consultar con un{" "}
               <strong>asesor energético independiente</strong> como Vitergy, que
-              analiza tu factura real y te recomienda la mejor opción.
+              analiza tu factura real y te propone la opción que más te ahorra de
+              las que puede gestionarte.
             </p>
             <p className="mt-3">
               Al comparar, no te fijes solo en el precio del kWh. Mira también
@@ -252,8 +254,8 @@ export default function ComoCambiarCompaniaLuzPage() {
             <p className="mt-4">
               Una vez que la nueva compañía tiene tus datos, tramita el cambio
               con la distribuidora (la empresa dueña de los cables y el
-              contador, que no cambia). El proceso tarda entre{" "}
-              <strong>15 y 21 días naturales</strong>.
+              contador, que no cambia). Por norma general, el proceso no lleva
+              más de <strong>5 días laborables</strong>.
             </p>
             <p className="mt-3">
               Durante ese periodo sigues con tu compañía actual y no sufres
@@ -332,8 +334,8 @@ export default function ComoCambiarCompaniaLuzPage() {
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-gray-600">
               En Vitergy gestionamos todo el proceso por ti: analizamos tu
-              factura, encontramos la mejor tarifa y tramitamos el cambio. Gratis
-              y sin compromiso.
+              factura, te proponemos la que más te ahorra de las que podemos
+              gestionarte y tramitamos el cambio. Gratis y sin compromiso.
             </p>
             <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Link

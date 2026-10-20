@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Consultoría Energética | Análisis Gratuito de tu Factura - Vitergy",
   description:
-    "Consultoría energética independiente en Molins de Rei. Analizamos tu factura de luz y gas gratis y te conseguimos el mejor precio. Sin permanencia.",
+    "Consultoría energética independiente en Molins de Rei. Analizamos gratis tu factura de luz y gas y la comparamos con cientos de ofertas de más de 40 compañías. Si no ahorras, te lo decimos.",
   alternates: {
     canonical: "https://vitergy.es/consultoria-energetica",
   },
@@ -14,17 +14,17 @@ const faqs = [
   {
     question: "¿Realmente el análisis de mi factura es gratuito?",
     answer:
-      "Sí, el análisis inicial de tu factura de luz y gas es completamente gratuito y sin compromiso. Estudiamos tu consumo, tu potencia contratada y tu tarifa actual para detectar cualquier margen de ahorro. Solo si decides seguir adelante con nuestras recomendaciones se aplica algún coste.",
+      "Sí, el análisis inicial de tu factura de luz y gas es completamente gratuito y sin compromiso. Estudiamos tu consumo, tu potencia contratada y tu tarifa actual para detectar cualquier margen de ahorro. A ti no te cuesta nada en ningún caso: cobramos de la compañía, y solo cuando tú ahorras.",
   },
   {
     question: "¿Sois independientes o trabajáis para alguna compañía eléctrica?",
     answer:
-      "Somos 100% independientes. No estamos vinculados a ninguna comercializadora ni cobramos comisiones de ninguna empresa energética. Comparamos más de 40 compañías y te recomendamos la que mejor se adapta a tu perfil de consumo real.",
+      "Somos 100% independientes: no pertenecemos a ninguna comercializadora ni tenemos exclusiva con ninguna, no nos casamos con nadie. Cuando gestionamos tu cambio, la compañía nos paga una comisión; a ti no te cuesta nada. Como comparamos cientos de ofertas de más de 40 compañías, lo único que nos sirve es proponerte la que más te ahorra de las que podemos gestionarte. Y si no ahorras, te lo decimos: ni tú pagas ni nosotros cobramos.",
   },
   {
     question: "¿Cuánto tiempo tarda el proceso de consultoría?",
     answer:
-      "El análisis inicial de tu factura lo realizamos en menos de 24 horas. Si detectamos ahorro y decides proceder, la implementación de los cambios (ajuste de potencia, cambio de tarifa o de compañía) suele completarse en 1-2 semanas sin que sufras ningún corte de suministro.",
+      "Tu ahorro lo ves al momento en la calculadora y Víctor te llama en menos de 24 horas laborables. Si decides seguir, el cambio de compañía, por norma general, no lleva más de 5 días laborables y no sufres ningún corte de suministro; un ajuste de potencia depende de lo que tarde la distribuidora.",
   },
 ];
 
@@ -61,14 +61,14 @@ export default function ConsultoriaEnergeticaPage() {
         {/* Introducción */}
         <section className="mt-8 space-y-4 leading-7 text-gray-700">
           <p className="text-lg">
-            ¿Sabías que la mayoría de hogares y negocios en España pagan entre un
-            15% y un 30% más de lo necesario en sus facturas de luz y gas? Nuestra
-            consultoría energética independiente analiza tu situación real —potencia
-            contratada, tarifa, hábitos de consumo— y te propone cambios concretos
-            para que pagues lo justo. Sin permanencia, sin letra pequeña y con un
-            análisis inicial completamente gratuito. Llevamos más de 12 años
-            ayudando a particulares, autónomos y empresas de toda España a reducir
-            sus costes energéticos.
+            ¿Cuánto de tu factura es potencia que no usas, servicios que no pediste
+            o un precio que nadie ha revisado? Nuestra consultoría energética
+            independiente analiza tu situación real —potencia contratada, tarifa,
+            hábitos de consumo— y te propone cambios concretos para que pagues lo
+            justo. Sin letra pequeña: te avisamos de cualquier permanencia antes de
+            firmar, y el análisis inicial es completamente gratuito. Víctor lleva
+            más de 12 años en el sector ayudando a particulares, autónomos y
+            empresas de toda España a reducir sus costes energéticos.
           </p>
         </section>
 
@@ -105,12 +105,12 @@ export default function ConsultoriaEnergeticaPage() {
                 {
                   step: 1,
                   title: "Envíanos tu factura",
-                  text: "Mándanos una foto o PDF de tu última factura de luz o gas por WhatsApp, email o a través de nuestro formulario de contacto.",
+                  text: "Mándanos una foto o PDF de tu última factura de luz o gas: súbela a nuestra calculadora o mándala por WhatsApp o email.",
                 },
                 {
                   step: 2,
                   title: "Analizamos tu situación",
-                  text: "En menos de 24 horas revisamos cada concepto de tu factura: potencia, consumo, peajes, impuestos y condiciones contractuales.",
+                  text: "La calculadora te da la cifra al momento y, en menos de 24 horas laborables, Víctor revisa contigo cada concepto: potencia, consumo, peajes, impuestos y condiciones contractuales.",
                 },
                 {
                   step: 3,
@@ -164,8 +164,8 @@ export default function ConsultoriaEnergeticaPage() {
             ¿Quieres saber cuánto puedes ahorrar?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-gray-600">
-            Envíanos tu factura y en menos de 24 horas te decimos exactamente
-            cuánto estás pagando de más. Sin compromiso.
+            Sube tu factura y en un minuto ves cuánto estás pagando de más. Sin
+            compromiso y sin dejar tus datos.
           </p>
           <Link
             href="/contacto"

@@ -116,7 +116,7 @@ export async function enviarAvisoLead(d: DatosAviso): Promise<boolean> {
     ? "NO ha visto ninguna cifra (falló el cálculo): estudio a mano cuanto antes."
     : d.estudio.hayAhorro
       ? "Ha visto en pantalla su ahorro estimado, SIN la compañía ni el producto."
-      : "Se le dijo que su tarifa ya está bien optimizada y pide un segundo vistazo gratis.";
+      : "Se le dijo que a día de hoy no le compensa el cambio y pide un segundo vistazo gratis.";
   const html =
     `<h3>Nuevo lead de la calculadora de ahorro (vitergy.es/contacto)</h3>` +
     `<table border="1" cellpadding="6" cellspacing="0">${filas.filter(Boolean).join("")}</table>` +

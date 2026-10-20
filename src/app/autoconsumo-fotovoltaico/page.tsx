@@ -81,7 +81,7 @@ export default function AutoconsumoFotovoltaicoPage() {
                 "Estudio de viabilidad gratuito: orientación, sombras, superficie disponible",
                 "Diseño personalizado de la instalación según tu consumo real",
                 "Tramitación de subvenciones y bonificaciones del IBI",
-                "Instalación por técnicos certificados con garantía",
+                "Instalación por instaladores certificados con los que trabajamos, con garantía",
                 "Legalización completa ante Industria y tu distribuidora",
                 "Monitorización del rendimiento y mantenimiento preventivo",
               ].map((item) => (
@@ -115,12 +115,12 @@ export default function AutoconsumoFotovoltaicoPage() {
                 {
                   step: 3,
                   title: "Instalación y legalización",
-                  text: "Nuestro equipo de instaladores certificados monta los paneles, conecta el inversor y tramita toda la documentación ante Industria y tu distribuidora.",
+                  text: "Los instaladores certificados con los que trabajamos montan los paneles, conectan el inversor y tramitan toda la documentación ante Industria y tu distribuidora.",
                 },
                 {
                   step: 4,
                   title: "Monitorización y seguimiento",
-                  text: "Una vez en marcha, monitorizamos el rendimiento de tu instalación y te aseguramos que produce lo esperado. Mantenimiento preventivo incluido.",
+                  text: "Una vez en marcha, monitorizamos el rendimiento de tu instalación y te aseguramos que produce lo esperado. El mantenimiento preventivo lo coordinamos con los instaladores con los que trabajamos.",
                 },
               ].map((item) => (
                 <div key={item.step} className="flex gap-4">

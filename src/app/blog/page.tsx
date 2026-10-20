@@ -50,7 +50,7 @@ export default async function BlogPage({ searchParams }: Props) {
       </h1>
       <p className="mt-4 text-lg text-gray-600">
         Artículos prácticos sobre el mercado eléctrico español, tarifas, ahorro
-        energético y autoconsumo. Escritos por un asesor energético con más de 10
+        energético y autoconsumo. Escritos por un asesor energético con más de 12
         años de experiencia.
       </p>
 

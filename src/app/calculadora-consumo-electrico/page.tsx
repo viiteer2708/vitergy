@@ -260,15 +260,15 @@ export default function CalculadoraConsumoPage() {
             ¿Tu factura es más alta de lo que debería?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-gray-600">
-            Analizamos tu factura eléctrica de forma gratuita y te ayudamos a
-            encontrar la tarifa más barata para tu perfil de consumo.
+            Sube tu factura y en un minuto ves cuánto podrías ahorrar con las
+            ofertas que podemos gestionarte, de entre más de 40 compañías.
           </p>
           <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Link
-              href="/"
+              href="/contacto"
               className="inline-block rounded-lg bg-[#f97316] px-8 py-3 text-base font-semibold text-white shadow-sm hover:bg-orange-600"
             >
-              Análisis gratuito de tu factura →
+              Calcular mi ahorro →
             </Link>
             <Link
               href="/comparador-tarifas-luz"

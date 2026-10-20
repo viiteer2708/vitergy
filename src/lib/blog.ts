@@ -48,7 +48,7 @@ export const ARTICULOS_TSX: ArticuloResumen[] = [
     description:
       "Todo sobre el PVPC: cómo se calcula, horarios, ventajas e inconvenientes, y cuándo te conviene frente a una tarifa de precio fijo. Comparativa detallada.",
     publishedAt: "2026-03-23",
-    updatedAt: "2026-07-05",
+    updatedAt: "2026-10-20",
     tags: ["Tarifas", "PVPC"],
   },
   {
@@ -57,7 +57,7 @@ export const ARTICULOS_TSX: ArticuloResumen[] = [
     description:
       "Desglosamos cada concepto de tu factura eléctrica: término de potencia, consumo, peajes, impuestos y cargos. Con ejemplo real de factura analizada.",
     publishedAt: "2026-03-23",
-    updatedAt: "2026-07-05",
+    updatedAt: "2026-10-20",
     tags: ["Factura"],
   },
   {
@@ -66,7 +66,7 @@ export const ARTICULOS_TSX: ArticuloResumen[] = [
     description:
       "Ranking actualizado de las mejores compañías eléctricas en España. Comparamos precios, atención al cliente, energía verde y condiciones de contrato.",
     publishedAt: "2026-03-23",
-    updatedAt: "2026-07-05",
+    updatedAt: "2026-10-20",
     tags: ["Comercializadoras", "Tarifas"],
   },
   {
@@ -84,7 +84,7 @@ export const ARTICULOS_TSX: ArticuloResumen[] = [
     description:
       "Descubre si estás pagando de más por tu potencia contratada. Te enseñamos a calcular la potencia ideal y cómo cambiarla paso a paso.",
     publishedAt: "2026-03-23",
-    updatedAt: "2026-07-05",
+    updatedAt: "2026-10-20",
     tags: ["Potencia", "Factura"],
   },
   {
@@ -102,7 +102,7 @@ export const ARTICULOS_TSX: ArticuloResumen[] = [
     description:
       "Comparamos PVPC vs precio fijo, con y sin discriminación horaria. Descubre qué tarifa se adapta mejor a tu perfil de consumo y cuánto puedes ahorrar.",
     publishedAt: "2026-03-10",
-    updatedAt: "2026-07-05",
+    updatedAt: "2026-10-20",
     tags: ["Tarifas"],
   },
   {
@@ -111,7 +111,7 @@ export const ARTICULOS_TSX: ArticuloResumen[] = [
     description:
       "Todo lo que necesitas saber para cambiar de compañía eléctrica sin cortes, sin papeleo y sin coste. Plazos, documentos y qué hacer si tienes permanencia.",
     publishedAt: "2026-03-08",
-    updatedAt: "2026-07-05",
+    updatedAt: "2026-10-20",
     tags: ["Cambio de compañía"],
   },
   {

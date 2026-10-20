@@ -67,7 +67,8 @@ export default function InstalacionBateriasPage() {
             consumo, multiplicando tu independencia energética y tu ahorro. En
             Vitergy analizamos tu producción solar actual, tu patrón de consumo
             horario y las subvenciones disponibles para recomendarte la batería
-            ideal. Instalamos las principales marcas del mercado con garantía y te
+            ideal. Con instaladores certificados con los que trabajamos, te
+            ofrecemos las principales marcas del mercado con garantía y te
             acompañamos desde el estudio inicial hasta la puesta en marcha.
           </p>
         </section>
@@ -81,7 +82,7 @@ export default function InstalacionBateriasPage() {
                 "Estudio de viabilidad: análisis de producción solar y consumo horario",
                 "Recomendación de capacidad óptima de batería para tu caso",
                 "Presupuesto detallado con subvenciones aplicables",
-                "Instalación por técnicos certificados y compatibilidad con tu inversor",
+                "Instalación por instaladores certificados con los que trabajamos y compatibilidad con tu inversor",
                 "Configuración del sistema de gestión energética inteligente",
                 "Garantía del fabricante y soporte postventa",
               ].map((item) => (
@@ -114,8 +115,8 @@ export default function InstalacionBateriasPage() {
                 },
                 {
                   step: 3,
-                  title: "Instalamos y configuramos",
-                  text: "Nuestros técnicos instalan la batería, la integran con tu sistema fotovoltaico y configuran la gestión energética para maximizar el autoconsumo.",
+                  title: "Instalación y configuración",
+                  text: "Los instaladores certificados con los que trabajamos instalan la batería, la integran con tu sistema fotovoltaico y configuran la gestión energética para maximizar el autoconsumo.",
                 },
               ].map((item) => (
                 <div key={item.step} className="flex gap-4">

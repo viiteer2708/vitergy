@@ -20,6 +20,7 @@ const empresasLinks = [
 ];
 
 const herramientasLinks = [
+  { label: "Calculadora de ahorro", href: "/contacto" },
   { label: "Test de la Factura", href: "/test-factura-luz" },
   { label: "Precio Luz Hoy", href: "/precio-luz-hoy" },
   { label: "Precio Luz Mañana", href: "/precio-luz-manana" },

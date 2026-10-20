@@ -17,7 +17,7 @@ const faqs = [
   {
     question: "¿Qué es más barato en 2026, el PVPC o una tarifa de precio fijo?",
     answer:
-      "Depende de tu perfil de consumo y del momento del mercado. El PVPC puede ser más barato si concentras tu consumo en horas valle (noches y fines de semana), pero conlleva volatilidad. Una tarifa fija te da estabilidad y es más predecible. En Vitergy analizamos tu consumo horario real para recomendarte la opción más económica.",
+      "Depende de tu perfil de consumo y del momento del mercado. El PVPC puede ser más barato si concentras tu consumo en horas valle (noches y fines de semana), pero conlleva volatilidad. Una tarifa fija te da estabilidad y es más predecible. En Vitergy analizamos tu consumo horario real para proponerte la que más te ahorra de las que podemos gestionarte.",
   },
   {
     question: "¿Merece la pena la discriminación horaria?",
@@ -50,7 +50,7 @@ const jsonLd = [
       url: "https://vitergy.es",
     },
     datePublished: "2026-03-10",
-    dateModified: "2026-03-10",
+    dateModified: "2026-10-20",
     mainEntityOfPage: "https://vitergy.es/blog/comparativa-tarifas-luz",
   },
   {
@@ -91,8 +91,8 @@ export default function ComparativaTarifasLuzPage() {
         <div className="mt-8 space-y-8 leading-7 text-gray-700">
           {/* Introducción */}
           <p className="text-lg">
-            El mercado eléctrico español cuenta con más de 400 comercializadoras
-            activas y cientos de ofertas de tarifas diferentes. Para un consumidor
+            El mercado eléctrico español cuenta con cientos de comercializadoras
+            activas, cada una con sus propias ofertas de tarifas. Para un consumidor
             normal, comparar todas estas opciones es prácticamente imposible. Y sin
             embargo, elegir bien tu tarifa de luz puede suponer un ahorro de entre
             100 € y 300 € al año, dependiendo de tu consumo.
@@ -343,9 +343,9 @@ export default function ComparativaTarifasLuzPage() {
             </p>
             <p className="mt-3">
               Si no quieres hacerlo solo, en Vitergy analizamos tu factura gratis,
-              comparamos más de 40 comercializadoras y te decimos exactamente cuál
-              es la tarifa más barata para ti. Sin compromiso y sin vinculación con
-              ninguna compañía.
+              comparamos cientos de ofertas de más de 40 compañías y te proponemos
+              la que más te ahorra de las que podemos gestionarte. Sin compromiso y
+              sin vinculación con ninguna compañía.
             </p>
           </section>
 
@@ -369,11 +369,11 @@ export default function ComparativaTarifasLuzPage() {
           {/* CTA */}
           <section className="rounded-2xl border border-orange-100 bg-white p-8 text-center sm:p-10">
             <h2 className="text-2xl font-bold text-gray-900">
-              ¿Quieres saber qué tarifa es la mejor para ti?
+              ¿Quieres saber cuánto podrías ahorrar?
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-gray-600">
-              Envíanos tu factura y te decimos en 24 horas cuál es la tarifa más
-              barata para tu perfil. Gratis y sin compromiso.
+              Sube tu factura y en un minuto ves cuánto podrías ahorrar. Gratis y
+              sin compromiso.
             </p>
             <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Link

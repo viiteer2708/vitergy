@@ -77,7 +77,7 @@ const jsonLd = [
       url: "https://vitergy.es",
     },
     datePublished: "2026-03-23",
-    dateModified: "2026-03-23",
+    dateModified: "2026-10-20",
     mainEntityOfPage:
       "https://vitergy.es/blog/optimizar-potencia-contratada",
   },
@@ -1109,8 +1109,7 @@ export default function OptimizarPotenciaContratadaPage() {
           <p className="text-xs text-gray-400">
             Artículo actualizado en marzo de 2026. Información correcta a esa
             fecha. Los términos de potencia varían por distribuidora. Vitergy:
-            especialistas en optimización energética, más de 10.000 viviendas
-            analizadas.
+            asesoría energética independiente, +400 clientes en cartera.
           </p>
         </div>
       </article>

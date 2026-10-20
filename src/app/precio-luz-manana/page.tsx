@@ -162,17 +162,17 @@ export default function PrecioLuzMananaPage() {
         {/* CTA */}
         <section className="mt-14 rounded-2xl bg-[#fff5f0] p-8 text-center sm:p-10">
           <h2 className="text-2xl font-bold text-gray-900">
-            ¿Quieres pagar siempre el mejor precio?
+            ¿Cuánto te ahorrarías con otra tarifa?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-gray-600">
-            Analizamos tu factura eléctrica de forma gratuita y te recomendamos
-            la tarifa que mejor se adapta a tu consumo real.
+            Analizamos tu factura eléctrica de forma gratuita y te decimos cuánto
+            ahorras con las ofertas que podemos gestionarte.
           </p>
           <Link
-            href="/"
+            href="/contacto"
             className="mt-6 inline-block rounded-lg bg-[#f97316] px-8 py-3 text-base font-semibold text-white shadow-sm hover:bg-orange-600"
           >
-            Análisis gratuito de tu factura →
+            Calcular mi ahorro →
           </Link>
         </section>
 
@@ -215,7 +215,7 @@ export default function PrecioLuzMananaPage() {
                 Comparador de Tarifas
               </h3>
               <p className="mt-1 text-sm text-gray-500">
-                Encuentra la tarifa más barata para tu hogar.
+                Compara tu tarifa con más de 40 compañías.
               </p>
             </Link>
           </div>

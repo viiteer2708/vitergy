@@ -68,8 +68,8 @@ export default function MantenimientoElectricoPage() {
             revisa tu instalación a fondo para detectar problemas antes de que se
             conviertan en averías costosas o peligrosas. Trabajamos con hogares,
             comunidades de propietarios, locales comerciales y empresas en Molins de
-            Rei y toda la comarca del Baix Llobregat. Técnicos certificados, precios
-            transparentes y presupuesto sin compromiso.
+            Rei y toda la comarca del Baix Llobregat. Técnicos certificados de nuestra
+            red, precios transparentes y presupuesto sin compromiso.
           </p>
         </section>
 
@@ -111,7 +111,7 @@ export default function MantenimientoElectricoPage() {
                 {
                   step: 2,
                   title: "Visita de inspección",
-                  text: "Un técnico certificado acude a tu domicilio o local, revisa toda la instalación con equipos de medición profesionales y documenta el estado de cada elemento.",
+                  text: "Un técnico certificado de nuestra red acude a tu domicilio o local, revisa toda la instalación con equipos de medición profesionales y documenta el estado de cada elemento.",
                 },
                 {
                   step: 3,

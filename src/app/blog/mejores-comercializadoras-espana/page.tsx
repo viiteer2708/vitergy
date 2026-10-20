@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title:
     "Mejores Comercializadoras de Luz en España [Ranking 2026] - Vitergy",
   description:
-    "Ranking 2026 de mejores compañías de luz en España. Análisis de cada comercializadora, tabla comparativa y cómo elegir. ¡Encuentra la mejor!",
+    "Ranking 2026 de mejores compañías de luz en España. Análisis de cada comercializadora, tabla comparativa y cómo elegir la que encaja contigo.",
   alternates: {
     canonical: "https://vitergy.es/blog/mejores-comercializadoras-espana",
   },
@@ -17,7 +17,7 @@ const faqs = [
   {
     question: "¿Cuál es la mejor comercializadora de luz en España?",
     answer:
-      "No existe una mejor universal, depende del perfil del consumidor. El consenso general es: mejor precio Holaluz, mejores valores éticos Podo, mejor seguridad Endesa, y mejor opción 100% renovable Som Energía.",
+      "No existe una mejor universal: depende del perfil del consumidor. Hay compañías que destacan por precio, otras por atención al cliente, por su origen renovable o por su solidez, y la que te conviene depende de tu consumo, tus horarios y de lo que valores más. Lo más fiable es comparar las ofertas vigentes con tu factura en la mano.",
   },
   {
     question: "¿Debo cambiar de comercializadora si no estoy contento?",
@@ -42,7 +42,7 @@ const faqs = [
   {
     question: "¿Qué compañía de luz tiene mejor app?",
     answer:
-      "El ranking de mejores apps es: 1. Holaluz (intuitiva, datos en tiempo real), 2. Podo (funcional, comunidad integrada), 3. Endesa (buena, muchas funciones), 4. Iberdrola (similar a Endesa).",
+      "Depende de lo que busques. Las apps de las comercializadoras digitales suelen destacar por ser intuitivas y mostrar los datos de consumo en tiempo real; las de las grandes, por la cantidad de gestiones que permiten. Antes de contratar, mira las valoraciones de la app en las tiendas de aplicaciones y comprueba que te deja ver tu consumo y descargar tus facturas.",
   },
   {
     question: "¿Puedo negociar directamente con mi compañía de luz?",
@@ -70,7 +70,7 @@ const jsonLd = [
       url: "https://vitergy.es",
     },
     datePublished: "2026-03-23",
-    dateModified: "2026-03-23",
+    dateModified: "2026-10-20",
     mainEntityOfPage:
       "https://vitergy.es/blog/mejores-comercializadoras-espana",
   },
@@ -112,9 +112,9 @@ export default function MejoresComercializadorasEspanaPage() {
         <div className="mt-8 space-y-8 leading-7 text-gray-700">
           {/* Introducción */}
           <p className="text-lg">
-            Con más de 400 comercializadoras de electricidad operando en España,
-            elegir la mejor compañía de luz puede resultar abrumador. En este
-            ranking 2026 analizamos las principales comercializadoras según
+            Con cientos de comercializadoras de electricidad operando en España,
+            elegir la mejor compañía de luz puede resultar abrumador. En esta
+            guía 2026 analizamos las principales comercializadoras según
             precio, servicio al cliente, transparencia y productos ofrecidos
             para ayudarte a tomar la mejor decisión.
           </p>
@@ -284,14 +284,14 @@ export default function MejoresComercializadorasEspanaPage() {
           {/* Ranking 2026 */}
           <section>
             <h2 className="text-2xl font-bold text-gray-900">
-              Ranking de Comercializadoras 2026
+              Las Principales Comercializadoras en 2026
             </h2>
 
             {/* Holaluz */}
             <div className="mt-6 rounded-lg border border-orange-100 bg-white p-6">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-bold text-gray-900">
-                  <span className="text-[#f97316]">#1</span> Holaluz
+                  Holaluz
                 </h3>
                 <span className="rounded-full bg-orange-100 px-3 py-1 text-sm font-bold text-[#f97316]">
                   9,2/10
@@ -355,7 +355,7 @@ export default function MejoresComercializadorasEspanaPage() {
               <p className="mt-4 text-sm text-gray-600">
                 <strong>Precio orientativo:</strong> 0,22-0,26 €/kWh |{" "}
                 <strong>Recomendada para:</strong> Jóvenes y perfiles digitales
-                que buscan el mejor precio con transparencia.
+                que buscan un precio competitivo con transparencia.
               </p>
             </div>
 
@@ -363,7 +363,7 @@ export default function MejoresComercializadorasEspanaPage() {
             <div className="mt-4 rounded-lg border border-orange-100 bg-white p-6">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-bold text-gray-900">
-                  <span className="text-[#f97316]">#2</span> Podo
+                  Podo
                 </h3>
                 <span className="rounded-full bg-orange-100 px-3 py-1 text-sm font-bold text-[#f97316]">
                   9,0/10
@@ -431,7 +431,7 @@ export default function MejoresComercializadorasEspanaPage() {
             <div className="mt-4 rounded-lg border border-orange-100 bg-white p-6">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-bold text-gray-900">
-                  <span className="text-[#f97316]">#3</span> Endesa
+                  Endesa
                 </h3>
                 <span className="rounded-full bg-orange-100 px-3 py-1 text-sm font-bold text-[#f97316]">
                   7,5/10
@@ -504,7 +504,7 @@ export default function MejoresComercializadorasEspanaPage() {
             <div className="mt-4 rounded-lg border border-orange-100 bg-white p-6">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-bold text-gray-900">
-                  <span className="text-[#f97316]">#4</span> Iberdrola
+                  Iberdrola
                 </h3>
                 <span className="rounded-full bg-orange-100 px-3 py-1 text-sm font-bold text-[#f97316]">
                   7,4/10
@@ -564,75 +564,11 @@ export default function MejoresComercializadorasEspanaPage() {
               </p>
             </div>
 
-            {/* Naturgy */}
-            <div className="mt-4 rounded-lg border border-orange-100 bg-white p-6">
-              <div className="flex items-center justify-between">
-                <h3 className="text-xl font-bold text-gray-900">
-                  <span className="text-[#f97316]">#5</span> Naturgy
-                </h3>
-                <span className="rounded-full bg-orange-100 px-3 py-1 text-sm font-bold text-[#f97316]">
-                  7,2/10
-                </span>
-              </div>
-              <p className="mt-1 text-sm text-gray-500">
-                Comercializadora grande (gas + electricidad) — Fundada en 1843
-              </p>
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                <div>
-                  <p className="text-sm font-semibold text-green-700">
-                    Fortalezas
-                  </p>
-                  <ul className="mt-1 space-y-1 text-sm text-gray-600">
-                    <li className="flex items-start gap-2">
-                      <span className="mt-1 text-green-500">•</span>
-                      <span>Oferta combinada gas + luz con ahorro</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="mt-1 text-green-500">•</span>
-                      <span>Servicio 24/7</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="mt-1 text-green-500">•</span>
-                      <span>Estabilidad probada</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="mt-1 text-green-500">•</span>
-                      <span>Cobertura total en España</span>
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-red-700">
-                    Debilidades
-                  </p>
-                  <ul className="mt-1 space-y-1 text-sm text-gray-600">
-                    <li className="flex items-start gap-2">
-                      <span className="mt-1 text-red-400">•</span>
-                      <span>Precio medio, no es el más barato</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="mt-1 text-red-400">•</span>
-                      <span>Permanencia de 24-36 meses</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="mt-1 text-red-400">•</span>
-                      <span>Más reclamaciones ante CNMC que la competencia</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <p className="mt-4 text-sm text-gray-600">
-                <strong>Precio orientativo:</strong> 0,26-0,30 €/kWh |{" "}
-                <strong>Recomendada para:</strong> Quien necesita combinar gas +
-                luz. Mejor negociar condiciones.
-              </p>
-            </div>
-
             {/* EDP */}
             <div className="mt-4 rounded-lg border border-orange-100 bg-white p-6">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-bold text-gray-900">
-                  <span className="text-[#f97316]">#6</span> EDP
+                  EDP
                 </h3>
                 <span className="rounded-full bg-orange-100 px-3 py-1 text-sm font-bold text-[#f97316]">
                   7,0/10
@@ -696,7 +632,7 @@ export default function MejoresComercializadorasEspanaPage() {
             {/* Otras menciones */}
             <div className="mt-4 rounded-lg border border-orange-100 bg-white p-6">
               <h3 className="text-xl font-bold text-gray-900">
-                <span className="text-[#f97316]">#7-10</span> Otras menciones
+                Otras menciones
               </h3>
               <div className="mt-4 space-y-4">
                 <div>
@@ -767,7 +703,7 @@ export default function MejoresComercializadorasEspanaPage() {
                   <strong>Datos generales:</strong> Aproximadamente 300.000
                   clientes, presencia principalmente online, fundada en 2013
                   con sede en Madrid. Especializada en perfiles digitales que
-                  buscan el mejor precio.
+                  buscan un precio competitivo.
                 </p>
                 <p>
                   <strong>Tarifa típica:</strong> Variable indexada al mercado
@@ -790,7 +726,7 @@ export default function MejoresComercializadorasEspanaPage() {
                   prácticas y respuesta rápida ante problemas.
                 </p>
                 <p className="font-medium">
-                  Veredicto: Mejor opción para jóvenes y perfiles digitales.
+                  Veredicto: opción muy válida para jóvenes y perfiles digitales.
                   Excelente relación precio-servicio.
                 </p>
               </div>
@@ -809,7 +745,7 @@ export default function MejoresComercializadorasEspanaPage() {
                 </p>
                 <p>
                   <strong>Tarifa típica:</strong> Indexada al índice mayorista
-                  con un margen del 10-15%, uno de los mejores del mercado.
+                  con un margen del 10-15%.
                   Sin permanencia.
                 </p>
                 <p>
@@ -871,7 +807,7 @@ export default function MejoresComercializadorasEspanaPage() {
             {/* Otras grandes */}
             <div className="mt-8">
               <h3 className="text-xl font-bold text-gray-900">
-                Otras Grandes: Iberdrola, Naturgy y EDP
+                Otras Grandes: Iberdrola y EDP
               </h3>
               <div className="mt-3 space-y-3">
                 <p>
@@ -889,13 +825,6 @@ export default function MejoresComercializadorasEspanaPage() {
                     <span>
                       <strong>Iberdrola:</strong> Segunda en cuota de mercado,
                       buena estabilidad
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1 text-[#f97316]">•</span>
-                    <span>
-                      <strong>Naturgy:</strong> Especializada en gas + luz,
-                      precio más alto
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
@@ -978,16 +907,6 @@ export default function MejoresComercializadorasEspanaPage() {
                     <td className="px-3 py-2">0,25-0,29</td>
                     <td className="px-3 py-2">60-100 €</td>
                     <td className="px-3 py-2">24m</td>
-                    <td className="px-3 py-2">Mixta</td>
-                  </tr>
-                  <tr className="border-b border-gray-100">
-                    <td className="px-3 py-2 font-medium text-gray-900">
-                      Naturgy
-                    </td>
-                    <td className="px-3 py-2 text-[#f97316]">7,2/10</td>
-                    <td className="px-3 py-2">0,26-0,30</td>
-                    <td className="px-3 py-2">50-80 €</td>
-                    <td className="px-3 py-2">24-36m</td>
                     <td className="px-3 py-2">Mixta</td>
                   </tr>
                   <tr className="border-b border-gray-100">
@@ -1099,11 +1018,11 @@ export default function MejoresComercializadorasEspanaPage() {
                   <p className="font-semibold text-gray-900">
                     Perfil A:{" "}
                     <span className="text-[#f97316]">
-                      &quot;Quiero el MEJOR PRECIO&quot;
+                      &quot;Quiero PAGAR LO MENOS POSIBLE&quot;
                     </span>
                   </p>
                   <p className="mt-1 text-sm text-gray-600">
-                    Holaluz → Podo → EDP → Endesa
+                    Para mirar: EDP, Endesa, Holaluz, Podo
                   </p>
                 </div>
                 <div className="rounded-lg border border-orange-100 bg-white p-4">
@@ -1114,7 +1033,7 @@ export default function MejoresComercializadorasEspanaPage() {
                     </span>
                   </p>
                   <p className="mt-1 text-sm text-gray-600">
-                    Podo → Holaluz → Som Energía
+                    Para mirar: Holaluz, Podo, Som Energía
                   </p>
                 </div>
                 <div className="rounded-lg border border-orange-100 bg-white p-4">
@@ -1125,7 +1044,7 @@ export default function MejoresComercializadorasEspanaPage() {
                     </span>
                   </p>
                   <p className="mt-1 text-sm text-gray-600">
-                    Endesa → Iberdrola → Naturgy
+                    Para mirar: Endesa, Iberdrola
                   </p>
                 </div>
                 <div className="rounded-lg border border-orange-100 bg-white p-4">
@@ -1136,7 +1055,7 @@ export default function MejoresComercializadorasEspanaPage() {
                     </span>
                   </p>
                   <p className="mt-1 text-sm text-gray-600">
-                    Endesa → Naturgy → Iberdrola
+                    Para mirar: Endesa, Iberdrola
                   </p>
                 </div>
                 <div className="rounded-lg border border-orange-100 bg-white p-4">
@@ -1147,7 +1066,7 @@ export default function MejoresComercializadorasEspanaPage() {
                     </span>
                   </p>
                   <p className="mt-1 text-sm text-gray-600">
-                    Holaluz → Podo → EDP
+                    Para mirar: EDP, Holaluz, Podo
                   </p>
                 </div>
               </div>
@@ -1166,7 +1085,7 @@ export default function MejoresComercializadorasEspanaPage() {
                 >
                   comparador de tarifas de luz
                 </Link>{" "}
-                para encontrar la mejor oferta personalizada. Introduce tu CUPS
+                para ver la oferta que más te ahorra de las que podemos gestionarte. Introduce tu CUPS
                 y consumo para obtener un presupuesto real.
               </p>
               <p className="mt-3">
@@ -1234,7 +1153,7 @@ export default function MejoresComercializadorasEspanaPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="mt-1 text-[#f97316]">5.</span>
-                  <span>Cambio efectivo (5-15 días)</span>
+                  <span>Cambio efectivo (por norma general, no más de 5 días laborables)</span>
                 </li>
               </ul>
               <p className="mt-3">
@@ -1284,13 +1203,6 @@ export default function MejoresComercializadorasEspanaPage() {
                 </p>
               </div>
               <div className="rounded-lg border border-orange-100 bg-white p-4">
-                <p className="font-semibold text-gray-900">Naturgy</p>
-                <p className="mt-1 text-sm text-gray-600 italic">
-                  &quot;Combo gas+luz bien. Pero caros. Negociar
-                  siempre.&quot;
-                </p>
-              </div>
-              <div className="rounded-lg border border-orange-100 bg-white p-4">
                 <p className="font-semibold text-gray-900">EDP</p>
                 <p className="mt-1 text-sm text-gray-600 italic">
                   &quot;Sorpresas agradables en precio. Servicio
@@ -1320,31 +1232,31 @@ export default function MejoresComercializadorasEspanaPage() {
               <li className="flex items-start gap-2">
                 <span className="mt-1 text-[#f97316]">•</span>
                 <span>
-                  <strong>Buscas precio:</strong> Holaluz
+                  <strong>Buscas precio:</strong> compara el precio final anual, no solo el €/kWh, y revisa la permanencia
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-1 text-[#f97316]">•</span>
                 <span>
-                  <strong>Buscas valores:</strong> Podo
+                  <strong>Buscas valores:</strong> fíjate en las cooperativas y en la claridad del contrato
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-1 text-[#f97316]">•</span>
                 <span>
-                  <strong>Buscas seguridad:</strong> Endesa
+                  <strong>Buscas seguridad:</strong> las grandes comercializadoras suman solvencia y atención 24/7
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-1 text-[#f97316]">•</span>
                 <span>
-                  <strong>Buscas renovable:</strong> Som Energía
+                  <strong>Buscas renovable:</strong> pide el certificado de origen de la energía
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-1 text-[#f97316]">•</span>
                 <span>
-                  <strong>Buscas el mejor mix:</strong> Podo
+                  <strong>Buscas equilibrio:</strong> pesa precio, servicio y condiciones, y compara las ofertas vigentes
                 </span>
               </li>
             </ul>
@@ -1377,12 +1289,12 @@ export default function MejoresComercializadorasEspanaPage() {
           {/* CTA */}
           <section className="rounded-2xl border border-orange-100 bg-white p-8 text-center sm:p-10">
             <h2 className="text-2xl font-bold text-gray-900">
-              ¿Necesitas ayuda para elegir la mejor comercializadora?
+              ¿Necesitas ayuda para elegir comercializadora?
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-gray-600">
-              En Vitergy analizamos tu factura, comparamos las mejores opciones
-              del mercado y te recomendamos la comercializadora ideal para tu
-              perfil. Gratis y sin compromiso.
+              En Vitergy analizamos tu factura, comparamos cientos de ofertas de
+              más de 40 compañías y te proponemos la que más te ahorra de las que
+              podemos gestionarte. Gratis y sin compromiso.
             </p>
             <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Link
@@ -1402,9 +1314,9 @@ export default function MejoresComercializadorasEspanaPage() {
 
           {/* Nota final */}
           <p className="text-sm text-gray-500 italic">
-            Ranking marzo 2026. Las posiciones cambian con el mercado. Consulta
-            ofertas actuales. Vitergy: Especialistas en optimización de tarifas.
-            Hemos asesorado a más de 10.000 clientes.
+            Datos de marzo 2026. Los precios y las condiciones cambian con el
+            mercado. Consulta ofertas actuales. Vitergy: asesoría energética
+            independiente, +400 clientes en cartera.
           </p>
 
           {/* Links internos */}

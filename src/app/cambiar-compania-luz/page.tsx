@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Cambiar de Compañía de Luz | Sin Cortes y Sin Papeleo - Vitergy",
   description:
-    "Te ayudamos a cambiar de compañía eléctrica sin cortes de suministro y sin papeleo. Gestionamos todo el proceso gratis. Sin permanencia ni penalizaciones ocultas.",
+    "Te ayudamos a cambiar de compañía eléctrica sin cortes de suministro y sin papeleo. Gestionamos todo el proceso gratis y te avisamos de cualquier permanencia antes de firmar.",
   alternates: {
     canonical: "https://vitergy.es/cambiar-compania-luz",
   },
@@ -24,7 +24,7 @@ const faqs = [
   {
     question: "¿Cuánto tarda el proceso de cambio?",
     answer:
-      "El cambio efectivo de compañía suele tardar entre 15 y 21 días naturales desde que se tramita la solicitud. Durante ese tiempo sigues con tu compañía actual sin ninguna interrupción. Nosotros gestionamos todo el papeleo por ti.",
+      "Por norma general, el cambio de compañía no tarda más de 5 días laborables desde que se tramita la solicitud. Durante ese tiempo sigues con tu compañía actual sin ninguna interrupción. Nosotros gestionamos todo el papeleo por ti.",
   },
 ];
 
@@ -66,8 +66,9 @@ export default function CambiarCompaniaLuzPage() {
             las penalizaciones o simplemente al papeleo. La realidad es que el
             proceso es sencillo, no tiene coste y en ningún momento se interrumpe tu
             suministro. En Vitergy nos encargamos de todo: analizamos tu situación,
-            encontramos la mejor alternativa y gestionamos el cambio completo para
-            que tú no tengas que hacer absolutamente nada.
+            te proponemos la alternativa que más te ahorra de las que podemos
+            gestionarte y gestionamos el cambio completo para que tú no tengas que
+            hacer absolutamente nada.
           </p>
         </section>
 
@@ -78,7 +79,7 @@ export default function CambiarCompaniaLuzPage() {
             <ul className="mt-6 space-y-4">
               {[
                 "Análisis de tu contrato actual y detección de penalizaciones",
-                "Búsqueda de la mejor compañía y tarifa para tu perfil",
+                "Comparativa de cientos de ofertas de más de 40 compañías para tu perfil",
                 "Gestión completa del cambio de comercializadora",
                 "Verificación de que la primera factura con la nueva compañía es correcta",
                 "Asesoramiento post-cambio para resolver cualquier incidencia",
@@ -107,8 +108,8 @@ export default function CambiarCompaniaLuzPage() {
                 },
                 {
                   step: 2,
-                  title: "Te proponemos la mejor alternativa",
-                  text: "Comparamos más de 40 compañías y te presentamos la opción que más te conviene, con cifras claras de ahorro estimado.",
+                  title: "Te proponemos una alternativa",
+                  text: "Comparamos cientos de ofertas de más de 40 compañías y te proponemos la que más te ahorra de las que podemos gestionarte, con la cifra calculada sobre tu factura.",
                 },
                 {
                   step: 3,

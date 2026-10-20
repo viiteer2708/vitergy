@@ -613,8 +613,8 @@ export default function CalculadoraAhorro() {
               </>
             ) : (
               <>
-                ✅ Factura leída{extraido.comercializadora ? ` (${extraido.comercializadora})` : ""}.
-                Comprueba que los datos coinciden con tu factura — puedes corregirlos.
+                ✅ Factura leída. Comprueba que los datos coinciden con tu factura —
+                puedes corregirlos.
               </>
             )}
           </p>
@@ -805,7 +805,7 @@ export default function CalculadoraAhorro() {
               </div>
             </dl>
             <p className="mt-3 text-xs text-gray-600">
-              Mejor oferta encontrada:{" "}
+              La oferta que más te ahorra de las que podemos gestionarte:{" "}
               <span className="rounded-full bg-[#fff7ed] px-2 py-0.5 font-semibold text-[#f97316]">
                 {est.ofertaTipo === "indexada" ? "indexada" : "precio fijo"}
               </span>
@@ -813,19 +813,19 @@ export default function CalculadoraAhorro() {
           </div>
           <div className="rounded-xl bg-[#fff7ed] p-4 text-left text-xs leading-5 text-gray-600">
             <p>
-              Estimación calculada el {ddmm(est.fechaPrecios)} comparando{" "}
-              {est.ofertasComparadas} ofertas reales del mercado con la fiscalidad
-              vigente, sobre tu última factura («habrías pagado»). No es una promesa
-              de tu próxima factura: Víctor la verifica gratis, factura a factura, y
-              te gestiona el cambio sin cortes de luz. Si no hay ahorro real, no se
-              cobra.
+              Estimación del {ddmm(est.fechaPrecios)} con las ofertas vigentes que
+              podemos gestionarte y los impuestos de hoy, sobre tu última factura
+              («habrías pagado»). No es una promesa de tu próxima factura: Víctor la
+              revisa gratis, factura a factura, y te gestiona el cambio sin cortes de
+              luz. Si no ahorras, ni tú pagas ni nosotros cobramos.
             </p>
           </div>
           <button type="button" onClick={() => setPaso("datos")} className={botonPrincipal}>
             Quiero empezar a ahorrar
           </button>
           <p className="text-xs text-gray-500">
-            Déjanos tus datos: Víctor te explica la oferta y se encarga del cambio.
+            Déjanos tus datos y Víctor te llama en menos de 24 horas laborables: te
+            explica la oferta y se encarga del cambio.
           </p>
           {corregir}
         </div>
@@ -837,13 +837,13 @@ export default function CalculadoraAhorro() {
         <div className="space-y-5 text-center">
           <p className="text-4xl">👏</p>
           <p className="text-xl font-bold text-gray-900">
-            Buenas noticias: tu tarifa ya está bien optimizada
+            A día de hoy, no te compensa el cambio
           </p>
           <p className="text-sm text-gray-700">
-            Hemos comparado tu factura con {est.ofertasComparadas} ofertas reales
-            del mercado y el ahorro sería mínimo. Somos independientes: no te
-            haríamos cambiar por cambiar. ¿Quieres que Víctor le eche un segundo
-            vistazo gratis (potencia contratada, permanencias, servicios extra…)?
+            Hemos comparado tu factura con las ofertas que podemos gestionarte y el
+            ahorro sería mínimo. Aun así, puede haber dinero en otra parte de tu
+            factura: ¿quieres que Víctor le eche un segundo vistazo gratis
+            (potencia contratada, permanencias, servicios extra…)?
           </p>
           <button type="button" onClick={() => setPaso("datos")} className={botonPrincipal}>
             Sí, que Víctor le eche un segundo vistazo
@@ -1031,7 +1031,7 @@ export default function CalculadoraAhorro() {
               </span>
             </p>
             <p className="mt-1 text-sm text-gray-700">
-              Con la mejor oferta que hemos encontrado, esta factura te habría costado{" "}
+              Con la oferta que más te ahorra de las que podemos gestionarte, esta factura te habría costado{" "}
               <strong>~{eur2(est.costeMejorOfertaEur)} €</strong> en lugar de{" "}
               <strong>{importeComoDinero(form.importeTotalEur)} €</strong> — un{" "}
               <strong>{Math.round(est.ahorroPct * 100)}% menos</strong>, unos{" "}
@@ -1040,8 +1040,8 @@ export default function CalculadoraAhorro() {
           </div>
           <p className="text-sm text-gray-700">
             <strong>Víctor te contacta en menos de 24 horas laborables</strong>, te
-            explica la oferta y te gestiona el cambio, sin coste y sin cortes de
-            luz. Si no hay ahorro real, no se cobra.
+            explica la oferta y te gestiona el cambio sin cortes de luz. A ti no te
+            cuesta nada: si no ahorras, ni tú pagas ni nosotros cobramos.
           </p>
         </>
       ) : est ? (
@@ -1078,7 +1078,8 @@ export default function CalculadoraAhorro() {
       </a>
 
       <p className="text-xs text-gray-500">
-        El análisis es gratis y, si no hay ahorro, no se cobra.
+        El análisis es gratis y a ti no te cuesta nada: si no ahorras, ni tú pagas
+        ni nosotros cobramos.
       </p>
     </div>
   );

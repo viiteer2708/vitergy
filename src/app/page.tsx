@@ -39,7 +39,7 @@ const pasos = [
   {
     num: "01",
     title: "Envía tu factura",
-    desc: "Por WhatsApp, email o formulario. Una foto vale.",
+    desc: "En la calculadora, por WhatsApp o por email. Una foto vale.",
     icon: (
       <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
@@ -48,8 +48,8 @@ const pasos = [
   },
   {
     num: "02",
-    title: "Analizamos todo",
-    desc: "En menos de 24h revisamos cada concepto de tu factura.",
+    title: "Ves tu ahorro al momento",
+    desc: "La calculadora cruza tu factura con las ofertas que podemos gestionarte. Víctor la revisa contigo en menos de 24 horas laborables.",
     icon: (
       <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -100,7 +100,7 @@ const faqs = [
   {
     question: "¿Cuánto cuesta la asesoría energética?",
     answer:
-      "El análisis de tu factura es gratis. Solo cobramos si conseguimos ahorrarte dinero. Así de simple: si no ahorras, no pagas.",
+      "A ti, nada. El análisis es gratis y, cuando gestionamos tu cambio, nos paga la compañía: solo cobramos si tú ahorras. Si no ahorras, ni tú pagas ni nosotros cobramos.",
   },
   {
     question: "¿Cuánto puedo ahorrar con un asesor energético?",
@@ -110,12 +110,12 @@ const faqs = [
   {
     question: "¿Trabajáis para alguna compañía eléctrica?",
     answer:
-      "No. Somos independientes de verdad: no pertenecemos a ninguna comercializadora ni tenemos exclusiva con ninguna — no nos casamos con nadie. Cobramos comisión de la compañía cuando gestionamos el cambio, pero como comparamos más de 40, la única recomendación que nos sale a cuenta es la que más te ahorra a ti.",
+      "No. No pertenecemos a ninguna comercializadora ni tenemos exclusiva con ninguna: no nos casamos con nadie. Cuando gestionamos tu cambio, la compañía nos paga una comisión; a ti no te cuesta nada. Como comparamos cientos de ofertas de más de 40 compañías, lo único que nos sirve es proponerte la que más te ahorra de las que podemos gestionarte. Y si no ahorras, te lo decimos: ni tú pagas ni nosotros cobramos.",
   },
   {
     question: "¿Cuánto tarda el proceso?",
     answer:
-      "El análisis de tu factura lo hacemos en menos de 24 horas. Si decides cambiar de compañía, el proceso tarda entre 2 y 4 semanas. Nosotros nos encargamos de todo el papeleo.",
+      "Tu ahorro lo ves al momento en la calculadora, y Víctor te llama en menos de 24 horas laborables para revisarlo. Si decides cambiar de compañía, por norma general el cambio no lleva más de 5 días laborables, y nos encargamos de todo el papeleo.",
   },
   {
     question: "¿Me quedaré sin luz durante el cambio?",
@@ -125,7 +125,7 @@ const faqs = [
   {
     question: "¿Qué necesito para empezar?",
     answer:
-      "Una foto de tu última factura. Nada más. Con eso ya podemos analizar tu situación y decirte exactamente cuánto puedes ahorrar.",
+      "Una foto de tu última factura. Nada más. Con eso ya podemos analizar tu situación y decirte cuánto puedes ahorrar, con números de tu factura.",
   },
 ];
 
@@ -148,7 +148,7 @@ export default function Home() {
           </p>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#6b7280]">
-            Y la pobre nunca se enteraba... Por eso abrí este negocio.
+            Y la pobre nunca se enteraba. Por eso abrí Vitergy: pongo tu factura frente a cientos de ofertas de más de 40 compañías y te digo, con números, cuánto ahorras. Sin casarme con ninguna.
           </p>
 
           {/* CTA */}
@@ -282,10 +282,10 @@ export default function Home() {
           {/* Header */}
           <div className="mb-12 text-center">
             <p className="mb-4 text-sm font-semibold tracking-wide text-[#f97316]">
-              Más eficiencia, menos preocupaciones
+              Cómo trabajamos
             </p>
             <h2 className="text-3xl font-bold tracking-tight text-white md:text-5xl">
-              Más allá de asesores tradicionales
+              Un asesor que no trabaja para ninguna compañía
             </h2>
           </div>
 
@@ -331,7 +331,7 @@ export default function Home() {
                       <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f97316]/20 text-[#f97316]">
                         <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
                       </div>
-                      <span className="text-sm text-white/80">Analizamos cada línea de tu factura en menos de 24h</span>
+                      <span className="text-sm text-white/80">Revisamos cada línea de tu factura: potencia, energía, peajes e impuestos</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f97316]/20 text-[#f97316]">
@@ -347,7 +347,7 @@ export default function Home() {
                     </li>
                   </ul>
                   <Link href="/contacto" className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-[#1f2942] transition hover:-translate-y-0.5 hover:shadow-lg">
-                    Solicita información
+                    Calcular mi ahorro
                   </Link>
                 </div>
                 <div className="flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-10 min-h-[320px]">
@@ -381,9 +381,9 @@ export default function Home() {
               <div className="tab-pane tab-pane-compara grid items-center gap-10 md:grid-cols-2">
                 <div>
                   <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#f97316]">Comparador de mercado | Vitergy</p>
-                  <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">+40 comercializadoras, la mejor para ti</h3>
+                  <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">Comparamos +40 compañías y te decimos cuánto ahorras</h3>
                   <p className="mb-6 leading-relaxed text-white/70">
-                    Accedemos a las ofertas de más de 40 compañías del mercado español. No trabajamos para ninguna de ellas: te recomendamos la que realmente te conviene.
+                    Comparamos cientos de ofertas de más de 40 compañías del mercado español. No trabajamos para ninguna: te proponemos la que más te ahorra de las que podemos gestionarte.
                   </p>
                   <ul className="mb-8 space-y-4">
                     <li className="flex items-start gap-3">
@@ -396,17 +396,17 @@ export default function Home() {
                       <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f97316]/20 text-[#f97316]">
                         <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
                       </div>
-                      <span className="text-sm text-white/80">Sin permanencias ni letra pequeña</span>
+                      <span className="text-sm text-white/80">Te avisamos de cualquier permanencia antes de firmar</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#f97316]/20 text-[#f97316]">
                         <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
                       </div>
-                      <span className="text-sm text-white/80">Te mostramos cifras reales, no estimaciones</span>
+                      <span className="text-sm text-white/80">Cifras calculadas con tu factura, no con medias</span>
                     </li>
                   </ul>
                   <Link href="/contacto" className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-[#1f2942] transition hover:-translate-y-0.5 hover:shadow-lg">
-                    Solicita información
+                    Calcular mi ahorro
                   </Link>
                 </div>
                 <div className="flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-10 min-h-[320px]">
@@ -462,7 +462,7 @@ export default function Home() {
                     </li>
                   </ul>
                   <Link href="/contacto" className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-[#1f2942] transition hover:-translate-y-0.5 hover:shadow-lg">
-                    Solicita información
+                    Calcular mi ahorro
                   </Link>
                 </div>
                 <div className="flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-10 min-h-[320px]">
@@ -515,7 +515,7 @@ export default function Home() {
                     </li>
                   </ul>
                   <Link href="/contacto" className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-[#1f2942] transition hover:-translate-y-0.5 hover:shadow-lg">
-                    Solicita información
+                    Calcular mi ahorro
                   </Link>
                 </div>
                 <div className="flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-10 min-h-[320px]">
@@ -546,7 +546,7 @@ export default function Home() {
           {/* Embedded testimonial */}
           <div className="mt-16 border-t border-white/10 pt-12 text-center">
             <p className="mx-auto max-w-2xl text-lg italic leading-relaxed text-white/70">
-              &ldquo;Todo lo que cobro de comisiones lo reinvierto en mis clientes. Mi único incentivo es que tú pagues menos.&rdquo;
+              &ldquo;Si no vas a ahorrar, te lo digo y no te cambio. Así de simple.&rdquo;
             </p>
             <p className="mt-4 text-sm font-semibold text-white">Víctor Marrón</p>
             <p className="text-xs text-white/50">Fundador de Vitergy</p>
@@ -563,9 +563,9 @@ export default function Home() {
               Trabajamos para ti, no para las eléctricas
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/60">
-              Todo lo que cobramos de comisiones lo reinvertimos en dar un mejor servicio a nuestros clientes. Nuestro
-              único objetivo es reducir tus costes. Analizamos el mercado de forma transparente y te
-              presentamos las mejores opciones.
+              A ti no te cobramos nada: cuando gestionamos tu cambio, nos paga la compañía. Y como no tenemos
+              exclusiva con ninguna, la única propuesta que nos sirve es la que te ahorra dinero. Si no la hay,
+              te lo decimos.
             </p>
             <Link href="/sobre-mi" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[#f97316] transition hover:underline">
               Nuestro valor
@@ -645,7 +645,7 @@ export default function Home() {
               Proceso
             </p>
             <h2 className="text-3xl font-bold tracking-tight text-[#1f2942] md:text-5xl">
-              En 10 minutos sabrás cuánto puedes ahorrar
+              En un minuto sabes cuánto puedes ahorrar
             </h2>
           </div>
 
@@ -843,8 +843,8 @@ export default function Home() {
             Deja de pagar de más hoy mismo
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-[#6b7280]">
-            Envíanos tu factura. En menos de 24 horas te decimos exactamente
-            cuánto puedes ahorrar. Sin compromiso.
+            Sube tu factura y en un minuto ves cuánto puedes ahorrar, sin dejar
+            tus datos. Si quieres, Víctor te llama en menos de 24 horas laborables.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
@@ -886,7 +886,7 @@ export default function Home() {
             "@type": "LocalBusiness",
             name: "Vitergy - Asesoría Energética",
             description:
-              "Asesoría energética independiente en Molins de Rei. Analizamos tu factura de luz y gas para conseguirte el mejor precio. +400 clientes en cartera.",
+              "Asesoría energética independiente en Molins de Rei. Comparamos tu factura de luz y gas con cientos de ofertas de más de 40 compañías. +400 clientes en cartera.",
             url: "https://vitergy.es",
             image: "https://vitergy.es/og.png",
             telephone: "+34633151083",

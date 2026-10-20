@@ -49,7 +49,7 @@ const faqs = [
   {
     question: "¿Cuánto cuesta la asesoría energética en Barcelona?",
     answer:
-      "El análisis inicial de tu factura de luz y gas es completamente gratuito y sin compromiso. Estudiamos tu caso, te decimos cuánto puedes ahorrar y solo si decides seguir adelante con nuestras recomendaciones se aplica algún coste. Trabajamos a éxito: si no ahorras, no pagas.",
+      "El análisis inicial de tu factura de luz y gas es completamente gratuito y sin compromiso: estudiamos tu caso y te decimos cuánto puedes ahorrar. A ti no te cuesta nada: cobramos de la compañía, y solo cuando tú ahorras. Si no ahorras, ni tú pagas ni nosotros cobramos.",
   },
   {
     question: "¿Atendéis a empresas o solo a particulares?",
@@ -95,10 +95,11 @@ export default function AsesoriaEnergeticaBarcelonaPage() {
             tanto por el volumen de hogares como por la densidad de comercios,
             restaurantes y pequeñas empresas. Y sin embargo, la mayoría de
             barceloneses sigue pagando más de lo necesario en sus facturas de luz y
-            gas. En Vitergy llevamos más de 12 años asesorando a particulares y
+            gas. Víctor lleva más de 12 años asesorando a particulares y
             empresas de Barcelona y su área metropolitana, hoy 100%
-            online. Analizamos tu factura gratis, comparamos más de 40
-            compañías y te conseguimos el mejor precio sin que tengas que hacer nada.
+            online. Analizamos tu factura gratis, comparamos cientos de ofertas de
+            más de 40 compañías y te proponemos la que más te ahorra de las que
+            podemos gestionarte, sin que tengas que mover un papel.
           </p>
         </section>
 
@@ -111,7 +112,7 @@ export default function AsesoriaEnergeticaBarcelonaPage() {
             <ul className="mt-6 space-y-4">
               {[
                 "100% online: no tienes que desplazarte a ninguna oficina",
-                "Más de 400 clientes en cartera, la mayoría en Barcelona y su área metropolitana",
+                "Más de 400 clientes en cartera",
                 "100% independientes: no pertenecemos a ninguna comercializadora — no nos casamos con nadie",
                 "Análisis gratuito y sin compromiso de tu factura de luz y gas",
                 "Atención por teléfono, WhatsApp, videollamada o email, según tu preferencia",
@@ -191,8 +192,8 @@ export default function AsesoriaEnergeticaBarcelonaPage() {
             ¿Vives o trabajas en Barcelona? Te ayudamos a ahorrar
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-gray-600">
-            Envíanos tu factura y en menos de 24 horas te decimos exactamente cuánto
-            puedes ahorrar. Sin compromiso.
+            Sube tu factura y en un minuto ves cuánto puedes ahorrar; Víctor te
+            llama en menos de 24 horas laborables. Sin compromiso.
           </p>
           <Link
             href="/contacto"

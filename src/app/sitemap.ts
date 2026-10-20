@@ -9,13 +9,13 @@ export const revalidate = 3600
 // recién modificadas, y eso le resta credibilidad al sitemap ante Google.
 // Actualiza la fecha del grupo cuando toques su contenido.
 const F = {
-  base: new Date('2026-07-05'),            // creación del sitio actual
-  home: new Date('2026-09-27'),            // enlace al test de la factura en la cabecera
-  contacto: new Date('2026-09-26'),        // 100% online (sin dirección ni mapa), hola@ y horario
-  grandesConsumos: new Date('2026-09-26'), // 100% online + hola@
+  base: new Date('2026-10-20'),            // textos de venta unificados (auditoría 20-oct; el sitio se creó el 05-jul)
+  home: new Date('2026-10-20'),            // textos de venta unificados (auditoría 20-oct)
+  contacto: new Date('2026-10-20'),        // textos de venta y calculadora (auditoría 20-oct)
+  grandesConsumos: new Date('2026-10-20'), // textos de venta unificados (auditoría 20-oct)
   legales: new Date('2026-09-27'),         // test de la factura: datos, cookie de sesión y Supabase
-  oficina: new Date('2026-09-26'),         // páginas que citaban la oficina (hoy 100% online)
-  blog: new Date('2026-09-26'),            // listado nuevo: temas y paginación
+  oficina: new Date('2026-10-20'),         // páginas que citaban la oficina (hoy 100% online) + textos de venta (auditoría 20-oct)
+  blog: new Date('2026-10-20'),            // listado: temas y paginación + años de experiencia (auditoría 20-oct)
   test: new Date('2026-09-27'),            // /test-factura-luz (lanzamiento)
 }
 // Los artículos NO van aquí: cada uno trae su fecha (updatedAt o publishedAt) de src/lib/blog.ts.

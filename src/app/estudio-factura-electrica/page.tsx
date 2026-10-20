@@ -65,8 +65,8 @@ export default function EstudioFacturaElectricaPage() {
             se ajusta a tus hábitos o servicios adicionales que nunca contrataste
             conscientemente. Nuestro estudio de factura eléctrica revisa cada línea
             de tu recibo para detectar ineficiencias y cobros incorrectos. Es
-            gratuito, sin compromiso, y te damos cifras exactas de cuánto puedes
-            recuperar.
+            gratuito, sin compromiso, y te damos la cifra de lo que puedes
+            ahorrar, calculada con tu factura.
           </p>
         </section>
 
@@ -103,7 +103,7 @@ export default function EstudioFacturaElectricaPage() {
                 {
                   step: 1,
                   title: "Envíanos tu factura",
-                  text: "Haznos llegar tu última factura por WhatsApp, email o formulario. Aceptamos fotos, capturas de pantalla o PDF.",
+                  text: "Haznos llegar tu última factura: súbela a la calculadora o mándala por WhatsApp o email. Aceptamos fotos, capturas de pantalla o PDF.",
                 },
                 {
                   step: 2,
@@ -157,8 +157,9 @@ export default function EstudioFacturaElectricaPage() {
             Descubre si tu factura esconde sorpresas
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-gray-600">
-            Mándanos tu factura y en menos de 24 horas sabrás exactamente qué estás
-            pagando de más y cómo solucionarlo.
+            Sube tu factura y en un minuto ves cuánto estás pagando de más. Víctor
+            te llama en menos de 24 horas laborables para explicarte cómo
+            solucionarlo.
           </p>
           <Link
             href="/contacto"

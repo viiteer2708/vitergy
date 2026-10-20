@@ -43,7 +43,7 @@ const tiposCliente = [
 const stats = [
   { value: "+400", label: "Clientes en cartera" },
   { value: "20.000 €", label: "Récord de ahorro anual" },
-  { value: "+10", label: "Años de experiencia" },
+  { value: "+12", label: "Años de experiencia" },
   { value: "40+", label: "Compañías analizadas" },
 ];
 
@@ -56,12 +56,12 @@ const faqs = [
   {
     question: "¿El servicio es diferente para empresas y particulares?",
     answer:
-      "El enfoque es el mismo —analizar tu factura y encontrar la mejor opción—, pero las particularidades varían. Las empresas suelen tener contratos con condiciones especiales, tarifas con discriminación horaria avanzada y consumos más elevados. Adaptamos nuestro análisis al perfil de cada cliente.",
+      "El enfoque es el mismo —analizar tu factura y proponerte la opción que más te ahorra de las que podemos gestionarte—, pero las particularidades varían. Las empresas suelen tener contratos con condiciones especiales, tarifas con discriminación horaria avanzada y consumos más elevados. Adaptamos nuestro análisis al perfil de cada cliente.",
   },
   {
     question: "¿Trabajáis con todas las comercializadoras de España?",
     answer:
-      "Comparamos las tarifas de más de 40 comercializadoras que operan a nivel nacional, incluyendo las grandes (Endesa, Iberdrola, Naturgy, Repsol, TotalEnergies) y las independientes (Holaluz, Lucera, Octopus Energy, etc.). No estamos vinculados a ninguna y te recomendamos la que mejor te conviene.",
+      "Comparamos cientos de ofertas de más de 40 comercializadoras que operan en toda España, grandes y pequeñas. No pertenecemos a ninguna ni tenemos exclusiva con ninguna, y te proponemos la que más te ahorra de las que podemos gestionarte.",
   },
 ];
 
@@ -91,18 +91,17 @@ export default function AsesoriaEnergeticaEspanaPage() {
         <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Asesoría Energética en España:{" "}
           <span className="text-[#f97316]">
-            Más de 10 Años Ayudando a Ahorrar
+            Más de 12 Años Ayudando a Ahorrar
           </span>
         </h1>
 
         {/* Introducción */}
         <section className="mt-8 space-y-4 leading-7 text-gray-700">
           <p className="text-lg">
-            El mercado energético español es complejo: más de 600 comercializadoras,
-            decenas de tipos de tarifa y una regulación que cambia cada año. La
-            mayoría de consumidores —particulares y empresas— pagan entre un 15% y
-            un 30% más de lo necesario simplemente por no tener la tarifa adecuada o
-            la potencia mal ajustada. En Vitergy ofrecemos asesoría energética
+            El mercado energético español es complejo: cientos de comercializadoras,
+            decenas de tipos de tarifa y una regulación que cambia cada año. Muchos
+            consumidores —particulares y empresas— pagan de más por una tarifa que
+            no encaja o una potencia mal ajustada, y no lo saben. En Vitergy ofrecemos asesoría energética
             independiente a clientes de toda España. Analizamos tu factura, comparamos
             más de 40 compañías y te proponemos cambios concretos para que pagues
             lo justo. Sin vinculación con ninguna comercializadora —no nos casamos
@@ -218,8 +217,9 @@ export default function AsesoriaEnergeticaEspanaPage() {
             ¿Quieres saber cuánto puedes ahorrar?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-gray-600">
-            Da igual dónde estés en España. Envíanos tu factura y te decimos en 24
-            horas exactamente cuánto estás pagando de más. Gratis y sin compromiso.
+            Da igual dónde estés en España. Sube tu factura y en un minuto ves
+            cuánto estás pagando de más, y Víctor te llama en menos de 24 horas
+            laborables. Gratis y sin compromiso.
           </p>
           <Link
             href="/contacto"

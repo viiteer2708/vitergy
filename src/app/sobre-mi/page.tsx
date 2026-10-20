@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Sobre Mí | Víctor Marrón - Asesor Energético en Molins de Rei - Vitergy",
   description:
-    "Soy Víctor Marrón, asesor energético independiente en Molins de Rei desde 2015. Más de 10 años ayudando a familias y empresas a ahorrar en sus facturas de luz y gas.",
+    "Soy Víctor Marrón, asesor energético independiente en Molins de Rei: más de 12 años en el sector, +200 GWh gestionados y +400 clientes en cartera.",
   alternates: {
     canonical: "https://vitergy.es/sobre-mi",
   },
@@ -18,8 +18,8 @@ const timeline = [
   },
   {
     year: "2018",
-    title: "Más de 1.000 clientes ahorrando",
-    text: "El boca a boca hizo crecer el proyecto. En tres años, más de 1.000 familias y pequeños negocios del Baix Llobregat confiaron en mi asesoría para reducir sus facturas.",
+    title: "El boca a boca",
+    text: "Familias y pequeños negocios del Baix Llobregat empiezan a llegar por recomendación.",
   },
   {
     year: "2021",
@@ -89,10 +89,11 @@ export default function SobreMiPage() {
           </p>
           <p>
             Vitergy nació como un servicio de asesoría energética{" "}
-            <strong>100% independiente</strong>: no estoy vinculado a ninguna
-            comercializadora, no cobro comisiones de ninguna empresa eléctrica.
-            Mi único interés es que tú pagues lo justo por la energía que
-            consumes.
+            <strong>100% independiente</strong>: no pertenezco a ninguna
+            comercializadora ni tengo exclusiva con ninguna. Cuando te gestiono
+            un cambio, me paga la compañía, no tú; por eso solo te lo propongo si
+            ahorras. Mi único interés es que tú pagues lo justo por la energía
+            que consumes.
           </p>
         </section>
 
@@ -138,11 +139,12 @@ export default function SobreMiPage() {
                 1
               </div>
               <h3 className="mt-4 font-semibold text-gray-900">
-                Trabajo a éxito
+                Si no ahorras, no pagas
               </h3>
               <p className="mt-2 text-sm text-gray-600">
-                Solo cobro si consigo ahorrarte dinero. Si no encuentro una
-                mejora real en tu factura, mi asesoría es completamente gratuita.
+                A ti no te cobro nada: cobro de la compañía, y solo cuando tú
+                ahorras. Si no encuentro una mejora real en tu factura, te lo
+                digo y ni tú pagas ni yo cobro.
               </p>
             </div>
             <div className="rounded-xl border border-gray-100 bg-[#fff5f0] p-6">
@@ -150,12 +152,12 @@ export default function SobreMiPage() {
                 2
               </div>
               <h3 className="mt-4 font-semibold text-gray-900">
-                Independencia total
+                Sin casarme con nadie
               </h3>
               <p className="mt-2 text-sm text-gray-600">
-                No cobro comisiones de ninguna comercializadora. Analizo más de
-                40 compañías y te recomiendo la que más te conviene a ti, no la
-                que más me paga a mí.
+                Comparo cientos de ofertas de más de 40 compañías y te propongo
+                la que más te ahorra de las que puedo gestionarte. Ninguna
+                compañía me dice qué recomendar.
               </p>
             </div>
             <div className="rounded-xl border border-gray-100 bg-[#fff5f0] p-6">
@@ -195,15 +197,16 @@ export default function SobreMiPage() {
             ¿Hablamos de tu factura?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-gray-600">
-            La primera consulta es gratuita y sin compromiso. Cuéntame tu caso y
-            te digo exactamente cuánto puedes ahorrar.
+            La primera consulta es gratuita y sin compromiso. Sube tu factura y
+            en un minuto ves cuánto puedes ahorrar; si quieres, te llamo en
+            menos de 24 horas laborables.
           </p>
           <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Link
-              href="/"
+              href="/contacto"
               className="inline-block rounded-lg bg-[#f97316] px-8 py-3 text-base font-semibold text-white shadow-sm hover:bg-orange-600"
             >
-              Ver cómo funciona →
+              Calcular mi ahorro →
             </Link>
             <Link
               href="/contacto"

@@ -67,9 +67,10 @@ export default function MonitorizacionConsumoPage() {
             cuánta energía está gastando tu hogar o negocio en cada momento. Podrás
             detectar consumos fantasma, identificar los electrodomésticos que más
             gastan y programar tus hábitos para aprovechar las horas más baratas. En
-            Vitergy instalamos sistemas de monitorización no invasivos compatibles
-            con cualquier instalación, y te enseñamos a sacarles el máximo partido
-            para reducir tu factura de forma permanente.
+            Vitergy, con los instaladores con los que trabajamos, ponemos sistemas
+            de monitorización no invasivos compatibles con cualquier instalación, y
+            te enseñamos a sacarles el máximo partido para reducir tu factura de
+            forma permanente.
           </p>
         </section>
 
@@ -80,7 +81,7 @@ export default function MonitorizacionConsumoPage() {
             <ul className="mt-6 space-y-4">
               {[
                 "Dispositivo de monitorización con conexión WiFi y app móvil",
-                "Instalación profesional no invasiva en tu cuadro eléctrico",
+                "Instalación profesional no invasiva en tu cuadro eléctrico, por instaladores con los que trabajamos",
                 "Configuración de alertas de consumo anómalo",
                 "Formación personalizada para interpretar los datos y optimizar hábitos",
                 "Compatibilidad con instalaciones fotovoltaicas y baterías",
@@ -109,8 +110,8 @@ export default function MonitorizacionConsumoPage() {
                 },
                 {
                   step: 2,
-                  title: "Instalamos el monitor",
-                  text: "Colocamos las pinzas amperimétricas en tu cuadro sin cortar cables ni interrumpir el suministro. El proceso dura menos de una hora.",
+                  title: "Se instala el monitor",
+                  text: "Los instaladores con los que trabajamos colocan las pinzas amperimétricas en tu cuadro sin cortar cables ni interrumpir el suministro. El proceso dura menos de una hora.",
                 },
                 {
                   step: 3,

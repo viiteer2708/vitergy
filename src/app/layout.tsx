@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Vitergy | Asesoría Energética en Molins de Rei",
     description:
-      "Analizo tu factura gratis y te consigo el mejor precio entre +40 compañías. Si no te ahorro, no cobro.",
+      "Comparo tu factura con cientos de ofertas de más de 40 compañías y te digo cuánto ahorras. Si no ahorras, te lo digo y no te cuesta nada.",
     url: "https://vitergy.es",
     siteName: "Vitergy",
     locale: "es_ES",
@@ -61,7 +61,7 @@ const jsonLdSitio = [
     url: "https://vitergy.es",
     inLanguage: "es-ES",
     description:
-      "Asesoría energética independiente: analizamos tu factura de luz y gas gratis y te conseguimos el mejor precio.",
+      "Asesoría energética independiente: analizamos tu factura de luz y gas gratis y la comparamos con cientos de ofertas de más de 40 compañías.",
     publisher: {
       "@type": "Organization",
       name: "Vitergy",

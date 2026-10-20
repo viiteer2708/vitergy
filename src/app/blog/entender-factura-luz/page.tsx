@@ -70,7 +70,7 @@ const jsonLd = [
       url: "https://vitergy.es",
     },
     datePublished: "2026-03-23",
-    dateModified: "2026-03-23",
+    dateModified: "2026-10-20",
     mainEntityOfPage: "https://vitergy.es/blog/entender-factura-luz",
   },
   {
@@ -1046,8 +1046,8 @@ export default function EntenderFacturaLuzPage() {
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-gray-600">
               En Vitergy analizamos tu factura eléctrica, detectamos errores y
-              te recomendamos la mejor tarifa para tu caso. Más de 400 clientes
-              en cartera. Gratis y sin compromiso.
+              te proponemos la que más te ahorra de las que podemos gestionarte.
+              Más de 400 clientes en cartera. Gratis y sin compromiso.
             </p>
             <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Link

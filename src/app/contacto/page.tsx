@@ -4,7 +4,7 @@ import CalculadoraAhorro from "./CalculadoraAhorro";
 export const metadata: Metadata = {
   title: "Contacto | Asesoría Energética Gratuita en Molins de Rei - Vitergy",
   description:
-    "Contacta con Vitergy para tu asesoría energética gratuita. Atención 100% online: teléfono, WhatsApp y formulario. Respuesta en menos de 2 horas.",
+    "Asesoría energética gratuita en Molins de Rei, 100 % online: calcula tu ahorro en un minuto con tu factura y Víctor te llama en menos de 24 horas laborables.",
   alternates: {
     canonical: "https://vitergy.es/contacto",
   },
@@ -60,8 +60,8 @@ export default function ContactoPage() {
           Calcula tu ahorro en 1 minuto
         </h1>
         <p className="mx-auto mt-3 max-w-xl text-center text-lg text-gray-600">
-          Sube tu factura de luz y descubre al momento cuánto podrías ahorrar.
-          Gratis y sin compromiso: si no hay ahorro, no se cobra.
+          Sube tu factura y en un minuto ves cuánto podrías ahorrar, sin dejar ni
+          tu nombre. Gratis: si no hay ahorro, te lo decimos y no te cuesta nada.
         </p>
 
         <div className="mt-8 rounded-2xl border border-gray-100 bg-white p-6 shadow-md sm:p-8">
@@ -71,6 +71,7 @@ export default function ContactoPage() {
         {/* ── ¿Prefieres hablar con una persona? ── */}
         <div className="mt-12 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
           <h2 className="text-lg font-bold text-gray-900">¿Prefieres hablar con una persona?</h2>
+          <p className="mt-1 text-sm text-gray-600">Víctor contesta en menos de 24 horas laborables.</p>
           <div className="mt-5 grid gap-5 sm:grid-cols-2">
             <div className="flex gap-3">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#fff5f0] text-[#f97316]">

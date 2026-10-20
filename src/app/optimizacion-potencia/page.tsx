@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title:
     "Optimización de Potencia Contratada | Ahorra Desde ya en tu Factura - Vitergy",
   description:
-    "Ajustamos la potencia contratada a tu consumo real. Bajar la potencia puede ahorrarte entre 5 y 30€ al mes desde el primer recibo. Gestión gratuita.",
+    "Ajustamos la potencia contratada a tu consumo real. Cada kW que bajas son entre 3 y 5 € al mes menos en el término fijo, desde el primer recibo. Gestión gratuita.",
   alternates: {
     canonical: "https://vitergy.es/optimizacion-potencia",
   },
@@ -20,7 +20,7 @@ const faqs = [
   {
     question: "¿Cuánto puedo ahorrar bajando la potencia contratada?",
     answer:
-      "El ahorro depende de la diferencia entre tu potencia actual y la óptima. Como referencia, cada kW de potencia que reduces te ahorra entre 3 € y 5 € al mes en el término fijo de tu factura. Muchos de nuestros clientes ahorran entre 5 € y 30 € mensuales solo con este ajuste.",
+      "El ahorro depende de la diferencia entre tu potencia actual y la óptima. Como referencia, cada kW de potencia que reduces te ahorra entre 3 € y 5 € al mes en el término fijo de tu factura.",
   },
   {
     question: "¿El cambio de potencia tiene algún coste o penalización?",

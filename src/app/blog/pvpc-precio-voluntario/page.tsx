@@ -70,7 +70,7 @@ const jsonLd = [
       url: "https://vitergy.es",
     },
     datePublished: "2026-03-23",
-    dateModified: "2026-03-23",
+    dateModified: "2026-10-20",
     mainEntityOfPage: "https://vitergy.es/blog/pvpc-precio-voluntario",
   },
   {
@@ -926,7 +926,7 @@ export default function PvpcPrecioVoluntarioPage() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-0.5 font-bold text-[#f97316]">5.</span>
-                <span><strong>Contrata:</strong> el cambio es gratuito y se completa en 15 días</span>
+                <span><strong>Contrata:</strong> el cambio es gratuito y, por norma general, se completa en no más de 5 días laborables</span>
               </li>
             </ol>
           </section>
@@ -955,8 +955,8 @@ export default function PvpcPrecioVoluntarioPage() {
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-gray-600">
               En Vitergy analizamos tu factura y tu perfil de consumo para
-              recomendarte la tarifa que más te conviene. Consulta gratuita y sin
-              compromiso.
+              proponerte la que más te ahorra de las que podemos gestionarte.
+              Consulta gratuita y sin compromiso.
             </p>
             <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Link

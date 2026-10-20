@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title:
     "Asesoría Energética en Cataluña | Vitergy - Consultor Energético Independiente",
   description:
-    "Asesoría energética para particulares y empresas en toda Cataluña. Análisis de factura de luz y gas gratis. Más de 10 años de experiencia ahorrando en Catalunya.",
+    "Asesoría energética para particulares y empresas en toda Cataluña. Análisis de factura de luz y gas gratis. Más de 12 años de experiencia ahorrando en Catalunya.",
   alternates: {
     canonical: "https://vitergy.es/asesoria-energetica-cataluna",
   },
@@ -60,7 +60,7 @@ const faqs = [
   {
     question: "¿Conocéis las particularidades del mercado energético en Cataluña?",
     answer:
-      "Sí. Llevamos más de 12 años operando en Cataluña y conocemos a fondo las distribuidoras que operan aquí (Endesa Distribución, principalmente), las bonificaciones del IBI por autoconsumo en cada municipio y las subvenciones autonómicas vigentes.",
+      "Sí. Víctor lleva más de 12 años operando en Cataluña y conoce a fondo las distribuidoras que operan aquí (Endesa Distribución, principalmente), las bonificaciones del IBI por autoconsumo en cada municipio y las subvenciones autonómicas vigentes.",
   },
 ];
 
@@ -101,7 +101,7 @@ export default function AsesoriaEnergeticaCatalunaPage() {
             industriales de España, y también algunos de los precios energéticos más
             elevados. Ya seas un particular, un autónomo, una comunidad de vecinos o
             una empresa industrial, es muy probable que estés pagando más de lo
-            necesario en tu factura de luz y gas. En Vitergy llevamos más de 12 años
+            necesario en tu factura de luz y gas. Víctor lleva más de 12 años
             asesorando a clientes en las cuatro provincias catalanas con un enfoque
             100% independiente: no pertenecemos a ninguna comercializadora —no nos
             casamos con nadie— y nuestro único objetivo es que pagues lo justo.
@@ -116,7 +116,7 @@ export default function AsesoriaEnergeticaCatalunaPage() {
             </h2>
             <ul className="mt-6 space-y-4">
               {[
-                "Más de 10 años de experiencia en el mercado energético catalán",
+                "Más de 12 años de experiencia en el mercado energético catalán",
                 "Conocimiento de distribuidoras, subvenciones y bonificaciones locales",
                 "Atención 100% online en toda Catalunya",
                 "Independencia total: comparamos más de 40 comercializadoras",
@@ -213,8 +213,8 @@ export default function AsesoriaEnergeticaCatalunaPage() {
             ¿Quieres ahorrar en tu factura en Cataluña?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-gray-600">
-            Da igual en qué provincia estés. Envíanos tu factura y te decimos
-            exactamente cuánto puedes ahorrar. Gratis y sin compromiso.
+            Da igual en qué provincia estés. Sube tu factura y en un minuto ves
+            cuánto puedes ahorrar. Gratis y sin compromiso.
           </p>
           <Link
             href="/contacto"

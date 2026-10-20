@@ -157,8 +157,9 @@ export default function PenalizacionesElectricasPage() {
             ¿Quieres saber si puedes cambiar de compañía sin penalización?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-gray-600">
-            Envíanos tu factura o contrato y te decimos en 24 horas si tienes
-            permanencia y cuál es tu mejor opción. Gratis y sin compromiso.
+            Envíanos tu factura o contrato y te decimos en menos de 24 horas
+            laborables si tienes permanencia y si te compensa cambiar. Gratis y sin
+            compromiso.
           </p>
           <Link
             href="/contacto"

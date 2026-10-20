@@ -22,7 +22,7 @@ const PASOS = [
   {
     num: "04",
     title: "Sacamos tu consumo a mercado",
-    text: "Más de cuarenta comercializadoras compitiendo con la misma curva encima de la mesa y en la misma ventana temporal. Cuando todas ofertan sobre el mismo dato, las ofertas se pueden comparar de verdad.",
+    text: "Comparamos más de cuarenta compañías y sacamos tu consumo a concurso entre las que pueden gestionarlo, todas con la misma curva encima de la mesa y en la misma ventana temporal. Cuando todas ofertan sobre el mismo dato, las ofertas se pueden comparar de verdad.",
   },
   {
     num: "05",
@@ -78,7 +78,7 @@ const CREDENCIALES = [
   },
   {
     title: "Independencia total: no nos casamos con nadie",
-    text: "No pertenecemos a ninguna comercializadora ni tenemos exclusiva con ninguna. Comparamos más de cuarenta compañías y la recomendación es la que más te ahorra a ti, no la que más nos conviene a nosotros. El día que eso deje de ser así, este negocio deja de tener sentido.",
+    text: "No pertenecemos a ninguna comercializadora ni tenemos exclusiva con ninguna. Comparamos más de cuarenta compañías y te proponemos la que más te ahorra de las que podemos gestionarte, no la que más nos paga. El día que eso deje de ser así, este negocio deja de tener sentido.",
   },
   {
     title: "Analizamos la curva, no la portada de la factura",
@@ -86,7 +86,7 @@ const CREDENCIALES = [
   },
   {
     title: "Si no te ahorramos, no cobramos",
-    text: "El estudio no tiene coste ni te obliga a nada. Si al terminar el análisis la conclusión es que tu contrato está bien, te lo decimos y no hay factura.",
+    text: "El estudio no tiene coste ni te obliga a nada: cobramos de la compañía, y solo cuando tú ahorras. Si al terminar el análisis tu contrato está bien, te lo decimos y no tocamos nada.",
   },
 ];
 

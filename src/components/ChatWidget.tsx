@@ -68,7 +68,7 @@ export default function ChatWidget() {
       const data = await res.json().catch(() => null);
       const reply =
         (res.ok ? data?.reply : data?.error) ??
-        "Ahora mismo no puedo responder. Escríbenos por WhatsApp al 633 15 10 83 y te atendemos al momento.";
+        "Ahora mismo no puedo responder. Escríbenos por WhatsApp al 633 15 10 83 y te contestamos en cuanto podamos (lunes a jueves de 9 a 17 h, viernes de 9 a 14 h).";
       setMessages((prev) => [...prev, { role: "model", text: reply }]);
     } catch {
       setMessages((prev) => [
