@@ -509,7 +509,7 @@ export default function TestInteractivo({ test }: { test: DefinicionTest }) {
 
         <div className="mt-8 rounded-3xl bg-[#1f2942] p-6 text-center text-white">
           <p className="text-xl font-bold">{test.resultado.ctaTitulo}</p>
-          <p className="mt-2 text-sm text-white/70">Análisis gratis. Si no te ahorro, no cobro.</p>
+          <p className="mt-2 text-sm text-white/70">Análisis gratis. Si no ahorras, no pagas.</p>
           <Link
             href={test.resultado.ctaHref}
             className="mt-5 block rounded-2xl bg-[#f97316] px-6 py-4 font-semibold text-white shadow-lg transition hover:bg-orange-600"

@@ -293,9 +293,6 @@ export default function MejoresComercializadorasEspanaPage() {
                 <h3 className="text-xl font-bold text-gray-900">
                   Holaluz
                 </h3>
-                <span className="rounded-full bg-orange-100 px-3 py-1 text-sm font-bold text-[#f97316]">
-                  9,2/10
-                </span>
               </div>
               <p className="mt-1 text-sm text-gray-500">
                 Comercializadora digital pura — Fundada en 2013
@@ -365,9 +362,6 @@ export default function MejoresComercializadorasEspanaPage() {
                 <h3 className="text-xl font-bold text-gray-900">
                   Podo
                 </h3>
-                <span className="rounded-full bg-orange-100 px-3 py-1 text-sm font-bold text-[#f97316]">
-                  9,0/10
-                </span>
               </div>
               <p className="mt-1 text-sm text-gray-500">
                 Cooperativa de energía — Fundada en 2016
@@ -433,9 +427,6 @@ export default function MejoresComercializadorasEspanaPage() {
                 <h3 className="text-xl font-bold text-gray-900">
                   Endesa
                 </h3>
-                <span className="rounded-full bg-orange-100 px-3 py-1 text-sm font-bold text-[#f97316]">
-                  7,5/10
-                </span>
               </div>
               <p className="mt-1 text-sm text-gray-500">
                 Comercializadora grande (grupo Enel) — Fundada en 1944
@@ -506,9 +497,6 @@ export default function MejoresComercializadorasEspanaPage() {
                 <h3 className="text-xl font-bold text-gray-900">
                   Iberdrola
                 </h3>
-                <span className="rounded-full bg-orange-100 px-3 py-1 text-sm font-bold text-[#f97316]">
-                  7,4/10
-                </span>
               </div>
               <p className="mt-1 text-sm text-gray-500">
                 Comercializadora grande (grupo Iberdrola) — Fundada en 1992
@@ -570,9 +558,6 @@ export default function MejoresComercializadorasEspanaPage() {
                 <h3 className="text-xl font-bold text-gray-900">
                   EDP
                 </h3>
-                <span className="rounded-full bg-orange-100 px-3 py-1 text-sm font-bold text-[#f97316]">
-                  7,0/10
-                </span>
               </div>
               <p className="mt-1 text-sm text-gray-500">
                 Comercializadora grande (portuguesa, presente en España) —
@@ -637,10 +622,7 @@ export default function MejoresComercializadorasEspanaPage() {
               <div className="mt-4 space-y-4">
                 <div>
                   <p className="font-semibold text-gray-900">
-                    Viesgo{" "}
-                    <span className="text-sm font-normal text-[#f97316]">
-                      7,0/10
-                    </span>
+                    Viesgo
                   </p>
                   <p className="text-sm text-gray-600">
                     Comercializadora regional fuerte con precio competitivo y
@@ -649,10 +631,7 @@ export default function MejoresComercializadorasEspanaPage() {
                 </div>
                 <div>
                   <p className="font-semibold text-gray-900">
-                    Som Energía{" "}
-                    <span className="text-sm font-normal text-[#f97316]">
-                      6,8/10
-                    </span>
+                    Som Energía
                   </p>
                   <p className="text-sm text-gray-600">
                     Cooperativa especializada, 100% renovable con comunidad
@@ -661,10 +640,7 @@ export default function MejoresComercializadorasEspanaPage() {
                 </div>
                 <div>
                   <p className="font-semibold text-gray-900">
-                    Gana Energía{" "}
-                    <span className="text-sm font-normal text-[#f97316]">
-                      6,5/10
-                    </span>
+                    Gana Energía
                   </p>
                   <p className="text-sm text-gray-600">
                     Comercializadora independiente con precio variable y
@@ -852,9 +828,6 @@ export default function MejoresComercializadorasEspanaPage() {
                       Compañía
                     </th>
                     <th className="px-3 py-2 font-semibold text-gray-900">
-                      Nota
-                    </th>
-                    <th className="px-3 py-2 font-semibold text-gray-900">
                       €/kWh
                     </th>
                     <th className="px-3 py-2 font-semibold text-gray-900">
@@ -873,7 +846,6 @@ export default function MejoresComercializadorasEspanaPage() {
                     <td className="px-3 py-2 font-medium text-gray-900">
                       Holaluz
                     </td>
-                    <td className="px-3 py-2 text-[#f97316]">9,2/10</td>
                     <td className="px-3 py-2">0,22-0,26</td>
                     <td className="px-3 py-2">100-150 €</td>
                     <td className="px-3 py-2">No</td>
@@ -883,7 +855,6 @@ export default function MejoresComercializadorasEspanaPage() {
                     <td className="px-3 py-2 font-medium text-gray-900">
                       Podo
                     </td>
-                    <td className="px-3 py-2 text-[#f97316]">9,0/10</td>
                     <td className="px-3 py-2">0,23-0,27</td>
                     <td className="px-3 py-2">80-120 €</td>
                     <td className="px-3 py-2">No</td>
@@ -893,7 +864,6 @@ export default function MejoresComercializadorasEspanaPage() {
                     <td className="px-3 py-2 font-medium text-gray-900">
                       Endesa
                     </td>
-                    <td className="px-3 py-2 text-[#f97316]">7,5/10</td>
                     <td className="px-3 py-2">0,24-0,28</td>
                     <td className="px-3 py-2">60-100 €</td>
                     <td className="px-3 py-2">24m</td>
@@ -903,7 +873,6 @@ export default function MejoresComercializadorasEspanaPage() {
                     <td className="px-3 py-2 font-medium text-gray-900">
                       Iberdrola
                     </td>
-                    <td className="px-3 py-2 text-[#f97316]">7,4/10</td>
                     <td className="px-3 py-2">0,25-0,29</td>
                     <td className="px-3 py-2">60-100 €</td>
                     <td className="px-3 py-2">24m</td>
@@ -913,7 +882,6 @@ export default function MejoresComercializadorasEspanaPage() {
                     <td className="px-3 py-2 font-medium text-gray-900">
                       EDP
                     </td>
-                    <td className="px-3 py-2 text-[#f97316]">7,0/10</td>
                     <td className="px-3 py-2">0,24-0,28</td>
                     <td className="px-3 py-2">60-100 €</td>
                     <td className="px-3 py-2">24m</td>
@@ -923,7 +891,6 @@ export default function MejoresComercializadorasEspanaPage() {
                     <td className="px-3 py-2 font-medium text-gray-900">
                       Viesgo
                     </td>
-                    <td className="px-3 py-2 text-[#f97316]">7,0/10</td>
                     <td className="px-3 py-2">0,24-0,28</td>
                     <td className="px-3 py-2">60-100 €</td>
                     <td className="px-3 py-2">12-24m</td>
@@ -933,7 +900,6 @@ export default function MejoresComercializadorasEspanaPage() {
                     <td className="px-3 py-2 font-medium text-gray-900">
                       Som Energía
                     </td>
-                    <td className="px-3 py-2 text-[#f97316]">6,8/10</td>
                     <td className="px-3 py-2">0,27-0,31</td>
                     <td className="px-3 py-2">Bajo</td>
                     <td className="px-3 py-2">No</td>
@@ -943,7 +909,6 @@ export default function MejoresComercializadorasEspanaPage() {
                     <td className="px-3 py-2 font-medium text-gray-900">
                       Gana Energía
                     </td>
-                    <td className="px-3 py-2 text-[#f97316]">6,5/10</td>
                     <td className="px-3 py-2">Variable</td>
                     <td className="px-3 py-2">Variable</td>
                     <td className="px-3 py-2">Variable</td>

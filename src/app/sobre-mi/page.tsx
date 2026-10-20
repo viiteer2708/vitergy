@@ -92,7 +92,7 @@ export default function SobreMiPage() {
             <strong>100% independiente</strong>: no pertenezco a ninguna
             comercializadora ni tengo exclusiva con ninguna. Cuando te gestiono
             un cambio, me paga la compañía, no tú; por eso solo te lo propongo si
-            ahorras. Mi único interés es que tú pagues lo justo por la energía
+            ahorras. Mi interés es el mismo que el tuyo: que pagues lo justo por la energía
             que consumes.
           </p>
         </section>

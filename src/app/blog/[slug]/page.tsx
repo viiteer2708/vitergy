@@ -110,7 +110,7 @@ export default async function ArticuloPage({ params }: Props) {
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-gray-600">
             Sube tu factura a la calculadora de ahorro y en un minuto ves cuánto podrías
-            ahorrar. Gratis y sin compromiso: si no hay ahorro, no se cobra.
+            ahorrar. Gratis y sin compromiso: si no ahorras, no pagas.
           </p>
           <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Link

@@ -24,12 +24,9 @@
 //             SSAA aparte para requires_ssaa (MEGA, ACCIONA) y top-up parcial
 //             para ssaa_in_price con ajuste incluido < SSAA del mes (NET).
 //             Cuotas: DELUXE 5 €/mes · PRIORITY 3,75 · sufijo "+" 4.
-// - INDEXADO: energía_p = base_mes_p + (margen_p + extra)/1000, donde la base
-//             YA lleva ATR+SSAA. Si la oferta tiene base-por-línea
-//             (product_line con filas en indexed_base_prices_by_line, hoy
-//             MEGA BASE/DELUXE/CLEAR) se usa ESA base y el margen se ignora.
-//             Sin base para un periodo con consumo → la oferta se descarta.
-//             Cuotas: DELUXE y "+" (sin PRIORITY — divergencia real de DPC).
+// - INDEXADO: ya no se calcula (20-oct-2026: NET FIJO y GANA son solo fijas).
+//             La réplica de DPC para indexadas está en el historial de git
+//             (p. ej. commit bff8e8a) por si alguna campaña la vuelve a necesitar.
 // - Impuestos vigentes (1-ago-2026, fuera de la ventana RDL 7/2026):
 //   IE 5,11269632% (toda España) · IVA Pen/Bal 21% · IGIC Canarias 0%/3%
 //   (alquiler y cuotas de servicio al 7%). Si hay prórroga del RDL, cotejar
@@ -90,13 +87,13 @@ const ALQUILER_ESTIMADO_DIA = 0.027;
 // SSAA por defecto si no se puede leer ssaa_monthly (€/kWh).
 const SSAA_FALLBACK = 0.0163;
 
-// Umbral de honestidad: por debajo, decimos que su tarifa ya está bien
-// optimizada (coherente con "si no hay ahorro, no se cobra").
+// Umbral de honestidad: por debajo, le decimos «A día de hoy, no te compensa
+// el cambio» (coherente con «si no ahorras, no pagas»).
 const UMBRAL_AHORRO_PCT = 0.03;
 const UMBRAL_AHORRO_ANUAL_EUR = 30;
 
-// Las ofertas de las campañas de Vitergy (Victor, 20-oct-2026): NET FIJO y GANA.
-// Las indexadas de NET se llaman «INDEX …», así que el prefijo «FIJO» las deja fuera.
+// Las ofertas de las campañas de Vitergy (Victor, 20-oct-2026): NET FIJO y GANA,
+// solo fijas (las indexadas de NET se llaman «INDEX …» y ya ni se piden).
 function esOfertaVitergy(compania: string, nombre: string): boolean {
   const c = compania.toUpperCase().trim();
   const n = nombre.toUpperCase().trim();
@@ -128,14 +125,6 @@ interface FilaFija {
   price_potency: number[]; // p1..p6 €/kW/día
   price_energy: number[]; // p1..p6 €/kWh (base)
   extra: number; // €/MWh
-  offers: { name: string; companies: Compania };
-}
-
-interface FilaIndexada {
-  product_line: string | null;
-  extra: number; // €/MWh
-  price_potency: number[]; // p1..p6 €/kW/día
-  internal_margin: number[]; // p1..p6 €/MWh
   offers: { name: string; companies: Compania };
 }
 
@@ -199,28 +188,6 @@ async function fetchFijas(zona: Zona, peaje: Peaje): Promise<FilaFija[]> {
   });
 }
 
-async function fetchIndexadas(zona: Zona, peaje: Peaje): Promise<FilaIndexada[]> {
-  return cacheado(`indexadas:${zona}:${peaje}`, async () => {
-    type Raw = Record<string, number> & {
-      product_line: string | null;
-      offers: { name: string; companies: Compania };
-    };
-    const rows = await getJson<Raw[]>(
-      `indexed_offers?select=product_line,extra,price_potency_p1,price_potency_p2,price_potency_p3,price_potency_p4,price_potency_p5,price_potency_p6,internal_margin_p1,internal_margin_p2,internal_margin_p3,internal_margin_p4,internal_margin_p5,internal_margin_p6,offers!inner(name,active,type,energy_type,${SELECT_COMPANIA})` +
-        `&zone_id=eq.${zona}&access_fee=eq.${peaje}&offers.active=eq.true&offers.type=eq.indexed&offers.energy_type=eq.electricity`
-    );
-    return rows
-      .filter((r) => !r.offers.companies.hidden)
-      .map((r) => ({
-        product_line: r.product_line,
-        extra: r.extra ?? 0,
-        price_potency: [1, 2, 3, 4, 5, 6].map((i) => r[`price_potency_p${i}`] ?? 0),
-        internal_margin: [1, 2, 3, 4, 5, 6].map((i) => r[`internal_margin_p${i}`] ?? 0),
-        offers: r.offers,
-      }));
-  });
-}
-
 /**
  * Meses de facturación con su peso en días (convención inclusiva de DPC:
  * splitBillingPeriod pondera días-en-mes-inicial : días-en-mes-final e ignora
@@ -246,86 +213,6 @@ function mesesFacturacion(
     { mes: mesDe(a), peso: diasEnA / suma },
     { mes: mesDe(b), peso: diasEnB / suma },
   ];
-}
-
-interface BaseIndexada {
-  comun: number[]; // €/kWh por periodo p1..p6 (ya con ATR+SSAA)
-  porLinea: Map<string, number[]>;
-  mesUsado: string;
-}
-
-async function fetchBaseIndexada(
-  zona: Zona,
-  peaje: Peaje,
-  fi?: string | null,
-  ff?: string | null
-): Promise<BaseIndexada | null> {
-  let meses = mesesFacturacion(fi, ff);
-  const claveMeses = meses ? meses.map((m) => m.mes).join("+") : "reciente";
-
-  return cacheado(`base:${zona}:${peaje}:${claveMeses}`, async () => {
-    type FilaBase = { year_month: string; period: string; base_price: number };
-    type FilaLinea = FilaBase & { product_line: string };
-
-    const filtro = `zone_id=eq.${zona}&access_fee=eq.${peaje}`;
-
-    let comunRows: FilaBase[] = [];
-    if (meses) {
-      const inMeses = meses.map((m) => `"${m.mes}"`).join(",");
-      comunRows = await getJson<FilaBase[]>(
-        `indexed_base_prices?select=year_month,period,base_price&${filtro}&year_month=in.(${inMeses})`
-      );
-    }
-    if (comunRows.length === 0) {
-      // Sin base para esos meses (o sin fechas): mes más reciente disponible.
-      const ult = await getJson<Array<{ year_month: string }>>(
-        `indexed_base_prices?select=year_month&${filtro}&order=year_month.desc&limit=1`
-      );
-      if (ult.length === 0) return null; // este peaje/zona no tiene indexado
-      meses = [{ mes: ult[0].year_month, peso: 1 }];
-      comunRows = await getJson<FilaBase[]>(
-        `indexed_base_prices?select=year_month,period,base_price&${filtro}&year_month=eq.${ult[0].year_month}`
-      );
-      if (comunRows.length === 0) return null;
-    }
-
-    const inMeses = meses!.map((m) => `"${m.mes}"`).join(",");
-    const lineaRows = await getJson<FilaLinea[]>(
-      `indexed_base_prices_by_line?select=product_line,year_month,period,base_price&${filtro}&year_month=in.(${inMeses})`
-    );
-
-    // Media ponderada por días entre los meses CON precio (regla de DPC:
-    // si solo un mes tiene precio para un periodo, se usa ese).
-    const pondera = (rows: FilaBase[]): number[] => {
-      const out = [0, 0, 0, 0, 0, 0];
-      for (let p = 0; p < 6; p++) {
-        const clave = `p${p + 1}`;
-        let suma = 0;
-        let pesoTotal = 0;
-        for (const { mes, peso } of meses!) {
-          const fila = rows.find((r) => r.period === clave && r.year_month === mes);
-          if (fila && fila.base_price > 0) {
-            suma += fila.base_price * peso;
-            pesoTotal += peso;
-          }
-        }
-        out[p] = pesoTotal > 0 ? suma / pesoTotal : 0;
-      }
-      return out;
-    };
-
-    const porLinea = new Map<string, number[]>();
-    for (const linea of new Set(lineaRows.map((r) => r.product_line))) {
-      const base = pondera(lineaRows.filter((r) => r.product_line === linea));
-      if (base.some((b) => b > 0)) porLinea.set(linea, base);
-    }
-
-    return {
-      comun: pondera(comunRows),
-      porLinea,
-      mesUsado: meses!.map((m) => m.mes).join(" y "),
-    };
-  });
 }
 
 async function fetchSsaaMes(
@@ -492,77 +379,20 @@ function costeFija(
   return aplicarImpuestos(costPotencia + costEnergia + costSsaa, servicio, alquiler, datos.zona, potMax);
 }
 
-function costeIndexada(
-  fila: FilaIndexada,
-  datos: DatosFactura,
-  potencias: number[],
-  consumos: number[],
-  desgloseReal: boolean,
-  base: BaseIndexada,
-  alquiler: number
-): number | null {
-  // Base por línea (MEGA BASE/DELUXE/CLEAR): se usa ESA base y el margen se
-  // ignora. Si no, base común + margen por periodo.
-  const porLinea = fila.product_line ? base.porLinea.get(fila.product_line) : undefined;
-  const usaLinea = porLinea !== undefined;
-  const basePeriodos = usaLinea ? porLinea : base.comun;
-
-  // Consumo sintético (sin desglose real): la base mensual solo existe para
-  // los periodos ACTIVOS del calendario ATR de ese mes (p. ej. 3.0TD junio =
-  // p3/p4/p6). Repartir sobre los 6 fijos descartaría TODO el indexado, así
-  // que el reparto se hace sobre los periodos CON base, renormalizado.
-  let consumosUsados = consumos;
-  if (!desgloseReal) {
-    const pesos =
-      datos.peaje === "2.0TD"
-        ? [REPARTO_20TD[0], REPARTO_20TD[1], REPARTO_20TD[2], 0, 0, 0]
-        : [1, 1, 1, 1, 1, 1];
-    let sumaPesos = 0;
-    const activos = [0, 0, 0, 0, 0, 0];
-    for (let p = 0; p < 6; p++) {
-      if (basePeriodos[p] > 0) {
-        activos[p] = pesos[p];
-        sumaPesos += pesos[p];
-      }
-    }
-    if (sumaPesos <= 0) return null; // sin ningún periodo con base
-    consumosUsados = activos.map((w) => (datos.consumoKwh * w) / sumaPesos);
-  }
-
-  let costPotencia = 0;
-  let costEnergia = 0;
-  for (let p = 0; p < 6; p++) {
-    costPotencia += potencias[p] * fila.price_potency[p] * datos.dias;
-    if (consumosUsados[p] > 0) {
-      const b = basePeriodos[p];
-      if (b <= 0) return null; // desglose REAL sin base para su periodo → fuera del ranking (regla DPC)
-      const margen = usaLinea ? 0 : fila.internal_margin[p];
-      costEnergia += consumosUsados[p] * (b + (margen + fila.extra) / 1000);
-    }
-  }
-
-  // La base indexada YA lleva SSAA — no se suma nada más.
-  const servicio = cuotaServicio(fila.offers.name, datos.dias, true);
-  const potMax = Math.max(...potencias);
-  return aplicarImpuestos(costPotencia + costEnergia, servicio, alquiler, datos.zona, potMax);
-}
-
 /**
  * Calcula el estudio: la oferta de NET FIJO o GANA con MAYOR AHORRO frente a la
  * factura real.
  * Lanza si no hay credenciales, si DPC no responde o si no hay ofertas.
  */
 export async function calcularEstudio(datos: DatosFactura): Promise<Estudio> {
-  const [fijas, indexadas, baseIdx, ssaaMes] = await Promise.all([
+  // Solo fijas: las campañas de Vitergy (NET FIJO y GANA) no tienen indexadas.
+  const [fijas, ssaaMes] = await Promise.all([
     fetchFijas(datos.zona, datos.peaje),
-    fetchIndexadas(datos.zona, datos.peaje),
-    fetchBaseIndexada(datos.zona, datos.peaje, datos.fechaInicio, datos.fechaFin),
     fetchSsaaMes(datos.peaje, datos.fechaInicio, datos.fechaFin),
   ]);
 
   const potencias = potenciasPorPeriodo(datos.peaje, datos.potenciasKw);
   const consumos = consumosPorPeriodo(datos);
-  const desgloseReal = datos.consumosKwh !== null && datos.consumosKwh.length > 0;
   const alquiler =
     datos.alquilerContadorEur && datos.alquilerContadorEur > 0
       ? datos.alquilerContadorEur
@@ -582,23 +412,6 @@ export async function calcularEstudio(datos: DatosFactura): Promise<Estudio> {
           tipo: "fija",
         },
       });
-    }
-  }
-
-  if (baseIdx) {
-    for (const fila of indexadas) {
-      if (!esOfertaVitergy(fila.offers.companies.name, fila.offers.name)) continue;
-      const total = costeIndexada(fila, datos, potencias, consumos, desgloseReal, baseIdx, alquiler);
-      if (total !== null && total > 0) {
-        candidatas.push({
-          total,
-          oferta: {
-            compania: fila.offers.companies.name,
-            nombre: fila.offers.name,
-            tipo: "indexada",
-          },
-        });
-      }
     }
   }
 

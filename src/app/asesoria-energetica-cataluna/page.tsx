@@ -104,7 +104,7 @@ export default function AsesoriaEnergeticaCatalunaPage() {
             necesario en tu factura de luz y gas. Víctor lleva más de 12 años
             asesorando a clientes en las cuatro provincias catalanas con un enfoque
             100% independiente: no pertenecemos a ninguna comercializadora —no nos
-            casamos con nadie— y nuestro único objetivo es que pagues lo justo.
+            casamos con nadie— y lo que buscamos es que pagues lo justo.
           </p>
         </section>
 

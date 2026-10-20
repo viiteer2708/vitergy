@@ -113,7 +113,7 @@ export default function OptimizacionPotenciaPage() {
                 {
                   step: 3,
                   title: "Te presentamos el ahorro",
-                  text: "Te mostramos exactamente cuánto vas a ahorrar cada mes y cada año, y el coste puntual del trámite de cambio de potencia.",
+                  text: "Te mostramos, con los números de tu factura, cuánto puedes ahorrar cada mes y cada año, y el coste puntual del trámite de cambio de potencia.",
                 },
                 {
                   step: 4,

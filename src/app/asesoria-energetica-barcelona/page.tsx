@@ -93,8 +93,8 @@ export default function AsesoriaEnergeticaBarcelonaPage() {
           <p className="text-lg">
             Barcelona es una de las ciudades con mayor gasto energético de España,
             tanto por el volumen de hogares como por la densidad de comercios,
-            restaurantes y pequeñas empresas. Y sin embargo, la mayoría de
-            barceloneses sigue pagando más de lo necesario en sus facturas de luz y
+            restaurantes y pequeñas empresas. Y sin embargo, muchos hogares y
+            negocios siguen pagando más de lo necesario en sus facturas de luz y
             gas. Víctor lleva más de 12 años asesorando a particulares y
             empresas de Barcelona y su área metropolitana, hoy 100%
             online. Analizamos tu factura gratis, comparamos cientos de ofertas de

@@ -64,7 +64,7 @@ export const ARTICULOS_TSX: ArticuloResumen[] = [
     slug: "mejores-comercializadoras-espana",
     title: "Las Mejores Comercializadoras de Luz en España [Ranking 2026]",
     description:
-      "Ranking actualizado de las mejores compañías eléctricas en España. Comparamos precios, atención al cliente, energía verde y condiciones de contrato.",
+      "Guía 2026 de las comercializadoras de luz en España: precios, atención al cliente, energía verde y condiciones de contrato, para elegir según tu consumo.",
     publishedAt: "2026-03-23",
     updatedAt: "2026-10-20",
     tags: ["Comercializadoras", "Tarifas"],

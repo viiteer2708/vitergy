@@ -32,7 +32,7 @@ export const maxDuration = 60;
 const MODELO = process.env.GEMINI_MODEL_FACTURA ?? "gemini-3.5-flash";
 const MODELO_FALLBACK = "gemini-3.5-flash-lite";
 
-const PROMPT_EXTRACCION = `Analiza este documento. Debería ser una factura de electricidad española (de una comercializadora como Iberdrola, Endesa, Naturgy, Repsol, etc.), de un hogar (tarifa 2.0TD, 1-2 potencias y hasta 3 periodos de consumo) o de una empresa (3.0TD/6.1TD/6.2TD, hasta 6 potencias y 6 periodos).
+const PROMPT_EXTRACCION = `Analiza este documento. Debería ser una factura de electricidad española (de una comercializadora como Iberdrola, Endesa, Repsol, etc.), de un hogar (tarifa 2.0TD, 1-2 potencias y hasta 3 periodos de consumo) o de una empresa (3.0TD/6.1TD/6.2TD, hasta 6 potencias y 6 periodos).
 
 Extrae ÚNICAMENTE datos técnicos del suministro. PROHIBIDO extraer o devolver datos personales: ni nombre del titular, ni dirección, ni CUPS, ni DNI/NIF, ni IBAN.
 

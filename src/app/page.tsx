@@ -226,8 +226,8 @@ export default function Home() {
                       <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                     </div>
                     <div>
-                      <p className="text-xs text-[#6b7280]">Mejor Tarifa</p>
-                      <p className="text-sm font-semibold text-[#1f2942]">Indexada</p>
+                      <p className="text-xs text-[#6b7280]">Tipo de tarifa</p>
+                      <p className="text-sm font-semibold text-[#1f2942]">Precio fijo</p>
                     </div>
                   </div>
                 </div>
