@@ -68,7 +68,12 @@ export async function POST(request: Request) {
   if (veredicto !== "ok") {
     console.warn("[estudio] Email rechazado:", veredicto, dominioDe(email));
     return NextResponse.json(
-      { error: "Necesitamos un email que leas de verdad para enviarte el estudio: los de usar y tirar no valen." },
+      {
+        error:
+          veredicto === "sin_correo"
+            ? "Revisa tu email: ese dominio no recibe correo. ¿Puede que haya una letra cambiada?"
+            : "Necesitamos un email que leas de verdad para enviarte el estudio: los de usar y tirar no valen.",
+      },
       { status: 422 }
     );
   }
