@@ -10,7 +10,7 @@ Dominio en producción: `https://vitergy.es` · Desplegado en **Vercel** · `www
 
 ## Stack
 
-- **Next.js 16.1.6** (App Router) · **React 19.2.3** · **TypeScript 5**
+- **Next.js 16.4.2** (App Router) · **React 19.2.3** · **TypeScript 5**
 - **Tailwind CSS v4** — configurado en CSS, no en JS. Los tokens viven en `@theme` dentro de [src/app/globals.css](src/app/globals.css). **No existe `tailwind.config.js`**; no lo crees.
 - Fuentes: **Geist** / Geist Mono vía `next/font`.
 - Alias de imports: `@/*` → `src/*` (ver [tsconfig.json](tsconfig.json)).

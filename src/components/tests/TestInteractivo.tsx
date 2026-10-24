@@ -55,14 +55,12 @@ export default function TestInteractivo({ test }: { test: DefinicionTest }) {
     () => test.bloques.flatMap((b, bloque) => b.preguntas.map((p, k) => ({ ...p, bloque, k }))),
     [test]
   );
-  const inicioBloque = useMemo(() => {
-    let acc = 0;
-    return test.bloques.map((b) => {
-      const inicio = acc;
-      acc += b.preguntas.length;
-      return inicio;
-    });
-  }, [test]);
+  // Índice de la primera pregunta de cada bloque = preguntas de los bloques anteriores. Sin variable
+  // acumulada: eslint-plugin-react-hooks 7.1 da por error reasignarla dentro del map (24-oct-2026).
+  const inicioBloque = useMemo(
+    () => test.bloques.map((_, i) => test.bloques.slice(0, i).reduce((n, b) => n + b.preguntas.length, 0)),
+    [test]
+  );
   const total = preguntas.length;
   const clave = `vitergy_test_${test.slug}`;
   const ultimoBloque = test.bloques.length - 1;
