@@ -5,6 +5,9 @@ import ResenasCarrusel, { Estrellas, LogoGoogle } from "./ResenasCarrusel";
 // Sección de reseñas de la portada con los datos REALES de la ficha de Google (src/lib/resenas-google.ts): cabecera
 // con la nota, el total y el botón para valorar, y el carrusel con las reseñas que da Google. Sin datos, no se pinta.
 
+// El total de reseñas («Basado en N reseñas») no se enseña hasta llegar a esta cifra (decisión de Victor, 6-nov-2026).
+const MINIMO_PARA_ENSENAR_TOTAL = 30;
+
 export default async function ResenasGoogle() {
   const ficha = await fichaGoogle();
   if (!ficha || ficha.resenas.length === 0) return null;
@@ -32,9 +35,12 @@ export default async function ResenasGoogle() {
             >
               <span className="text-xl font-bold text-[#f97316]">{nota}</span>
               <Estrellas valor={ficha.nota} />
-              <span className="text-sm text-[#6b7280]">
-                Basado en {ficha.total} {ficha.total === 1 ? "reseña" : "reseñas"}
-              </span>
+              {/* Victor, 6-nov-2026: con pocas reseñas el número resta más que suma. Sale solo a partir de 30. */}
+              {ficha.total >= MINIMO_PARA_ENSENAR_TOTAL && (
+                <span className="text-sm text-[#6b7280]">
+                  Basado en {ficha.total} reseñas
+                </span>
+              )}
             </a>
           </div>
           <a
