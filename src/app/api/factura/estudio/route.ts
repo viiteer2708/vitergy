@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { crearRateLimiter, origenPermitido, ipDe, senueloDelata } from "@/lib/api-guardas";
 import { CUOTAS, comprobarCuota } from "@/lib/antiabuso";
-import { calcularEstudio, validarDatosFactura } from "@/lib/estudio-ahorro";
+import { calcularEstudio, peajeConCalculo, validarDatosFactura } from "@/lib/estudio-ahorro";
 import { estudioPublico } from "@/lib/expediente/publico";
 import { huellaIp, secreto } from "@/lib/expediente/secreto";
 
@@ -14,7 +14,7 @@ import { huellaIp, secreto } from "@/lib/expediente/secreto";
 //
 // La respuesta va RECORTADA: solo las cifras y el tipo de oferta (fija/indexada). La compañía y el producto de la oferta
 // ganadora NUNCA salen hacia el navegador (regla de Victor, 20-oct-2026): solo van en el aviso a hola@. La selección
-// (NET FIJO y GANA, gana el mayor ahorro) está en src/lib/estudio-ahorro.ts.
+// (GANA y ELEIA BALANCE OF ENERGY, solo hogar; gana el mayor ahorro) está en src/lib/estudio-ahorro.ts.
 //
 // Aquí no se guarda nada ni se manda ningún correo: es un cálculo sin datos personales. Frenos: señuelo, freno en memoria
 // por IP y 10 por hora por IP en la base de datos (si la BD no responde, esta cuota se salta: el cálculo no cuesta nada y
@@ -65,8 +65,14 @@ export async function POST(request: Request) {
     }
   }
 
-  // Estudio (hogar Y empresa). Si DPC no responde o el peaje no tiene catálogo, degradamos con elegancia: la persona
-  // puede dejar sus datos igualmente y el estudio se lo envía Víctor a mano.
+  // Empresa (3.0TD/6.1TD/6.2TD): sin cifra, por decisión de Victor (6-nov-2026). La pantalla le ofrece WhatsApp o
+  // dejar sus datos para que Víctor le haga el estudio. No es un error: no se registra como tal.
+  if (!peajeConCalculo(datos.peaje)) {
+    return NextResponse.json({ tipo: "empresa" });
+  }
+
+  // Estudio (hogar). Si DPC no responde, degradamos con elegancia: la persona puede dejar sus datos igualmente y el
+  // estudio se lo envía Víctor a mano.
   try {
     const estudio = await calcularEstudio(datos);
     return NextResponse.json({ tipo: "ok", estudio: estudioPublico(estudio) });

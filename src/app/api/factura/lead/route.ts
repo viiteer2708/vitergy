@@ -3,7 +3,7 @@ import { Buffer } from "node:buffer";
 import { crearRateLimiter, origenPermitido, ipDe, senueloDelata } from "@/lib/api-guardas";
 import { CUOTAS, antiabusoDisponible, comprobarCuota, comprobarTurnstile } from "@/lib/antiabuso";
 import { comprobarEmail, dominioDe } from "@/lib/email-desechable";
-import { calcularEstudio, validarDatosFactura, type Estudio } from "@/lib/estudio-ahorro";
+import { calcularEstudio, peajeConCalculo, validarDatosFactura, type Estudio } from "@/lib/estudio-ahorro";
 import { tipoDeFacturaBase64, type TipoArchivo } from "@/lib/expediente/archivo";
 import { enviarAvisoLead } from "@/lib/expediente/aviso";
 import { normalizarEmailContacto, normalizarMovil, normalizarNombre, textoLimpio } from "@/lib/expediente/datos";
@@ -164,11 +164,14 @@ export async function POST(request: Request) {
   }
 
   // ── 3) Recalcular el estudio en el servidor ──
+  // (Empresa = sin cálculo por decisión de Victor, 6-nov-2026: el aviso sale «sin estudio» y Víctor lo hace a mano.)
   let estudio: Estudio | null = null;
-  try {
-    estudio = await calcularEstudio(datos);
-  } catch (error) {
-    console.error("[lead] No se pudo calcular el estudio:", error instanceof Error ? error.message : error);
+  if (peajeConCalculo(datos.peaje)) {
+    try {
+      estudio = await calcularEstudio(datos);
+    } catch (error) {
+      console.error("[lead] No se pudo calcular el estudio:", error instanceof Error ? error.message : error);
+    }
   }
   const comercializadora = textoLimpio(body?.extra?.comercializadora, 80);
 

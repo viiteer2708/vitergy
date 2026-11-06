@@ -12,10 +12,11 @@
 // (dpc-comparador/src/lib/calculations/). El resultado SIEMPRE se presenta
 // como estimación retrospectiva ("habrías pagado"), nunca como promesa.
 //
-// REGLA DE NEGOCIO (Victor, 20-oct-2026; sustituye al dictamen del 2-ago):
-// solo se compara con las ofertas de las campañas de Vitergy — NET FIJO (las
-// 9 fijas «FIJO …») y GANA (ONLINE y TRAMOS, solo 2.0TD), con los precios
-// cargados en DPC (GANA = su API) — y gana SIEMPRE la de mayor ahorro. La
+// REGLA DE NEGOCIO (Victor, 6-nov-2026; sustituye a la del 20-oct, que era
+// NET FIJO + GANA): solo se compara con GANA (ONLINE y TRAMOS, solo península)
+// y ELEIA BALANCE OF ENERGY (la versión más barata; península e islas), las
+// dos solo 2.0TD, con los precios cargados en DPC — y gana SIEMPRE la de mayor
+// ahorro. Empresas (3.0TD/6.1TD/6.2TD): sin cifra (ver peajeConCalculo). La
 // compañía y el producto NUNCA llegan al navegador (se le dicen al cliente
 // cuando firma); solo van en el aviso interno a hola@ (ver expediente/publico.ts).
 //
@@ -92,12 +93,23 @@ const SSAA_FALLBACK = 0.0163;
 const UMBRAL_AHORRO_PCT = 0.03;
 const UMBRAL_AHORRO_ANUAL_EUR = 30;
 
-// Las ofertas de las campañas de Vitergy (Victor, 20-oct-2026): NET FIJO y GANA,
-// solo fijas (las indexadas de NET se llaman «INDEX …» y ya ni se piden).
+// Las ofertas de las campañas de Vitergy (Victor, 6-nov-2026; sustituye a «NET FIJO + GANA» del 20-oct):
+// GANA (ONLINE y TRAMOS) y ELEIA BALANCE OF ENERGY. De Balance of Energy entran las 4 versiones (0-3): tienen la
+// misma potencia y solo cambia la energía, así que el «mayor ahorro» siempre elige la más barata, que es la que
+// pidió Victor (hoy BALANCE OF ENERGY 3, 0,169 €/kWh), aunque ELEIA reordene precios. Las dos son SOLO 2.0TD.
 function esOfertaVitergy(compania: string, nombre: string): boolean {
   const c = compania.toUpperCase().trim();
   const n = nombre.toUpperCase().trim();
-  return (c === "NET" && n.startsWith("FIJO")) || c === "GANA";
+  return c === "GANA" || (c === "ELEIA" && n.startsWith("BALANCE OF ENERGY"));
+}
+
+/**
+ * ¿Se le enseña una cifra de ahorro a este peaje? Solo a los HOGARES (2.0TD): las ofertas de Vitergy son solo 2.0TD
+ * y, para empresa (3.0TD/6.1TD/6.2TD), Victor decidió el 6-nov-2026 que no se calcula nada: «Víctor te hace el
+ * estudio» + WhatsApp (o dejar sus datos).
+ */
+export function peajeConCalculo(peaje: Peaje): boolean {
+  return peaje === "2.0TD";
 }
 
 // Reparto del consumo cuando la factura solo trae el total: hogar 2.0TD con
@@ -380,12 +392,12 @@ function costeFija(
 }
 
 /**
- * Calcula el estudio: la oferta de NET FIJO o GANA con MAYOR AHORRO frente a la
+ * Calcula el estudio: la oferta de GANA o ELEIA BALANCE OF ENERGY con MAYOR AHORRO frente a la
  * factura real.
  * Lanza si no hay credenciales, si DPC no responde o si no hay ofertas.
  */
 export async function calcularEstudio(datos: DatosFactura): Promise<Estudio> {
-  // Solo fijas: las campañas de Vitergy (NET FIJO y GANA) no tienen indexadas.
+  // Solo fijas: las campañas de Vitergy (GANA y ELEIA BALANCE OF ENERGY) no tienen indexadas.
   const [fijas, ssaaMes] = await Promise.all([
     fetchFijas(datos.zona, datos.peaje),
     fetchSsaaMes(datos.peaje, datos.fechaInicio, datos.fechaFin),

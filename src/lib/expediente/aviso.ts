@@ -8,7 +8,7 @@
 //
 // Todo lo que escribió la persona se escapa antes de pegarlo en el HTML, y el asunto va en una sola línea.
 import { enviarEmail, type Adjunto } from "@/lib/brevo";
-import type { DatosFactura, Estudio } from "@/lib/estudio-ahorro";
+import { peajeConCalculo, type DatosFactura, type Estudio } from "@/lib/estudio-ahorro";
 import { EXTENSION_DE_TIPO, MAX_BYTES_ADJUNTO_AVISO, type TipoArchivo } from "./archivo";
 import { textoLimpio } from "./datos";
 
@@ -55,6 +55,7 @@ const tamano = (bytes: number): string =>
 
 function asuntoDe(d: DatosAviso): string {
   const peaje = d.datos.peaje;
+  if (!peajeConCalculo(peaje)) return `🏢 Lead calculadora EMPRESA (${peaje}, estudio a mano): ${d.email}`;
   if (!d.estudio) return `⚠️ Lead calculadora SIN cálculo (${peaje}, estudio a mano): ${d.email}`;
   if (!d.estudio.hayAhorro) {
     return `🔎 Lead calculadora (${peaje}) SIN ahorro, pide segundo vistazo: ${d.email}`;
@@ -103,7 +104,7 @@ export async function enviarAvisoLead(d: DatosAviso): Promise<boolean> {
     filas.push(
       fila(
         "OFERTA GANADORA",
-        `${escapeHtml(e.oferta.compania)} · ${escapeHtml(e.oferta.nombre)} (${e.oferta.tipo}) — la de mayor ahorro de NET FIJO y GANA. El cliente NO sabe la compañía: díselo al firmar`
+        `${escapeHtml(e.oferta.compania)} · ${escapeHtml(e.oferta.nombre)} (${e.oferta.tipo}) — la de mayor ahorro de GANA y ELEIA BALANCE OF ENERGY. El cliente NO sabe la compañía: díselo al firmar`
       ),
       fila("Coste estimado", `${eur(e.costeMejorOfertaEur)} € el periodo`),
       fila("Ahorro estimado", `${eur(e.ahorroAnualEur)} €/año (${Math.round(e.ahorroPct * 100)}%)`),
@@ -112,7 +113,9 @@ export async function enviarAvisoLead(d: DatosAviso): Promise<boolean> {
   }
   filas.push(filaFactura(d, cabe));
 
-  const estado = !d.estudio
+  const estado = !peajeConCalculo(d.datos.peaje)
+    ? "Factura de EMPRESA: a las empresas no se les enseña cifra (regla del 6-nov-2026). Estudio a mano."
+    : !d.estudio
     ? "NO ha visto ninguna cifra (falló el cálculo): estudio a mano cuanto antes."
     : d.estudio.hayAhorro
       ? "Ha visto en pantalla su ahorro estimado, SIN la compañía ni el producto."
