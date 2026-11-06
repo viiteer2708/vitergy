@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import ResenasGoogle from "@/components/ResenasGoogle";
+import { Estrellas } from "@/components/ResenasCarrusel";
+import { fichaGoogle } from "@/lib/resenas-google";
 import { fechaLarga, todosLosArticulos } from "@/lib/blog";
 import { FECHA_PORTADA } from "@/lib/fechas-contenido";
 
@@ -91,10 +93,22 @@ const faqs = [
     answer:
       "Depende del punto de partida. En un hogar, entre tarifa y potencia, el ahorro suele ser de cientos de euros al año. En negocios y grandes consumos la cifra escala: nuestro récord son 20.000 € de ahorro en un año a un solo cliente. Como el análisis es gratis, la cifra exacta de tu caso la sabes antes de decidir nada.",
   },
+  // Explicación NEUTRA a propósito: no dice qué tipo de tarifa compara o recomienda Vitergy (hoy la calculadora
+  // solo compara precio fijo). Si cambia eso, revisa también la pestaña «Compara».
+  {
+    question: "¿Qué diferencia hay entre una tarifa de precio fijo y una indexada?",
+    answer:
+      "En una tarifa de precio fijo, el precio de cada kWh está pactado de antemano y no cambia durante el periodo que marca el contrato, suba o baje el mercado. En una indexada, el precio de la energía sigue al mercado mayorista: baja cuando el mercado baja y sube cuando sube. La fija te da previsibilidad; la indexada puede salir más barata o más cara según el momento.",
+  },
   {
     question: "¿Trabajáis para alguna compañía eléctrica?",
     answer:
       "No. No pertenecemos a ninguna comercializadora ni tenemos exclusiva con ninguna: no nos casamos con nadie. Cuando gestionamos tu cambio, la compañía nos paga una comisión; a ti no te cuesta nada. Como comparamos cientos de ofertas de más de 40 compañías, lo único que nos sirve es proponerte la que más te ahorra de las que podemos gestionarte. Y si no ahorras, te lo decimos: ni tú pagas ni nosotros cobramos.",
+  },
+  {
+    question: "¿Atendéis solo en Molins de Rei?",
+    answer:
+      "No. Vitergy trabaja 100% online: por teléfono, WhatsApp, videollamada o email, con hogares y empresas de toda España. No tienes que ir a ninguna oficina: con una foto de tu factura es suficiente.",
   },
   {
     question: "¿Cuánto tarda el proceso?",
@@ -107,14 +121,24 @@ const faqs = [
       "No. Nunca. El cambio de comercializadora es invisible: no se corta la luz, no cambia el contador, no viene nadie a tu casa. Solo cambia quién te cobra y cuánto.",
   },
   {
+    question: "¿Y si tengo permanencia con mi compañía actual?",
+    answer:
+      "Te avisamos de cualquier permanencia antes de firmar. Si tu contrato tiene penalización por irte antes de tiempo, la ves sobre la mesa y decides tú si te compensa cambiar ya o esperar. Y si no te compensa, te lo decimos.",
+  },
+  {
     question: "¿Qué necesito para empezar?",
     answer:
       "Una foto de tu última factura. Nada más. Con eso ya podemos analizar tu situación y decirte cuánto puedes ahorrar, con números de tu factura.",
   },
 ];
 
-export default function Home() {
+export default async function Home() {
   const ultimosArticulos = todosLosArticulos().slice(0, 3);
+  // Misma petición que la sección de reseñas (fetch cacheado un día): una sola llamada a Google.
+  const ficha = await fichaGoogle();
+  const notaGoogle = ficha?.nota
+    ? ficha.nota.toLocaleString("es-ES", { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+    : null;
 
   return (
     <>
@@ -143,6 +167,26 @@ export default function Home() {
             >
               Analizar mi factura gratis
             </Link>
+            {/* Qué pasa al pulsar (auditoría 6-nov): las mismas promesas que el CTA final y la FAQ */}
+            <p className="max-w-md text-sm leading-relaxed text-[#6b7280]">
+              Subes una foto de tu factura y ves el resultado al momento, sin dejar tus datos. Si quieres
+              cambiar, Víctor te llama en menos de 24 horas laborables.
+            </p>
+            {/* Prueba social junto al botón: nota EN VIVO de la ficha de Google (sin datos, no sale) + cifras ancladas */}
+            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm text-[#6b7280]">
+              {notaGoogle && (
+                <a href="#resenas" className="inline-flex items-center gap-1.5 hover:text-[#1f2942]">
+                  <Estrellas valor={ficha!.nota} tam="h-4 w-4" />
+                  <span>
+                    <span className="font-semibold text-[#1f2942]">{notaGoogle}</span> en Google
+                  </span>
+                </a>
+              )}
+              {notaGoogle && <span aria-hidden="true" className="hidden sm:inline">·</span>}
+              <span>+400 clientes en cartera</span>
+              <span aria-hidden="true" className="hidden sm:inline">·</span>
+              <span>100% online en toda España</span>
+            </div>
             {/* Para quien no tiene la factura a mano: el test (docs/tests-interactivos.md) */}
             <Link
               href="/test-factura-luz"
@@ -263,14 +307,14 @@ export default function Home() {
       <section className="bg-[#1f2942] px-6 py-24 md:py-32">
         <div className="mx-auto max-w-7xl">
 
-          {/* Header */}
+          {/* Header. Patrón del H1: el H2 es la pregunta real (antetítulo) y la frase de marca va grande debajo */}
           <div className="mb-12 text-center">
-            <p className="mb-4 text-sm font-semibold tracking-wide text-[#f97316]">
-              Cómo trabajamos
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight text-white md:text-5xl">
-              Un asesor que no trabaja para ninguna compañía
+            <h2 className="mb-4 text-sm font-semibold tracking-wide text-[#f97316]">
+              ¿Qué hace un asesor energético independiente?
             </h2>
+            <p className="text-3xl font-bold tracking-tight text-white md:text-5xl">
+              Un asesor que no trabaja para ninguna compañía
+            </p>
           </div>
 
           {/* CSS-only Tabs */}
@@ -308,7 +352,7 @@ export default function Home() {
                   <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#f97316]">Análisis de factura | Vitergy</p>
                   <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">Cada concepto de tu factura, bajo la lupa</h3>
                   <p className="mb-6 leading-relaxed text-white/70">
-                    No nos limitamos a mirar el total. Revisamos término de potencia, energía consumida, peajes, impuestos y penalizaciones para detectar cada euro que puedes ahorrarte.
+                    Al analizar tu factura de la luz no nos limitamos a mirar el total: revisamos término de potencia, energía consumida, peajes, impuestos y penalizaciones para detectar cada euro que puedes ahorrarte.
                   </p>
                   <ul className="mb-8 space-y-4">
                     <li className="flex items-start gap-3">
@@ -423,7 +467,7 @@ export default function Home() {
                   <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#f97316]">Optimización integral | Vitergy</p>
                   <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">Ajustamos potencia, tarifa y consumo</h3>
                   <p className="mb-6 leading-relaxed text-white/70">
-                    No basta con cambiar de compañía. Revisamos tu potencia contratada, los tramos horarios y tus hábitos de consumo para exprimir cada euro.
+                    Para pagar menos en la factura de la luz no basta con cambiar de compañía: revisamos tu potencia contratada, los tramos horarios y tus hábitos de consumo para exprimir cada euro.
                   </p>
                   <ul className="mb-8 space-y-4">
                     <li className="flex items-start gap-3">
@@ -476,7 +520,7 @@ export default function Home() {
                   <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#f97316]">Gestión completa | Vitergy</p>
                   <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">Nos encargamos de todo el papeleo</h3>
                   <p className="mb-6 leading-relaxed text-white/70">
-                    Una vez aprobado el plan, gestionamos el cambio de principio a fin. Sin cortes de luz, sin llamadas, sin sorpresas. Tú solo notas la diferencia en la factura.
+                    Si aceptas el plan de ahorro, gestionamos el cambio de compañía de principio a fin. Sin cortes de luz, sin llamadas, sin sorpresas. Tú solo notas la diferencia en la factura.
                   </p>
                   <ul className="mb-8 space-y-4">
                     <li className="flex items-start gap-3">
@@ -543,9 +587,12 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
             </div>
-            <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
-              Trabajamos para ti, no para las eléctricas
+            <h2 className="mb-4 text-sm font-semibold tracking-wide text-[#f97316]">
+              ¿Quién paga al asesor energético?
             </h2>
+            <p className="text-3xl font-bold tracking-tight text-white md:text-4xl">
+              Trabajamos para ti, no para las eléctricas
+            </p>
             <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/60">
               A ti no te cobramos nada: cuando gestionamos tu cambio, nos paga la compañía. Y como no tenemos
               exclusiva con ninguna, la única propuesta que nos sirve es la que te ahorra dinero. Si no la hay,
@@ -561,9 +608,9 @@ export default function Home() {
 
           {/* Impulsado por personas — 2 cards */}
           <div className="mt-24">
-            <p className="mb-8 text-center text-sm font-semibold tracking-wide text-[#f97316]">
-              Impulsado por personas
-            </p>
+            <h2 className="mb-8 text-center text-sm font-semibold tracking-wide text-[#f97316]">
+              ¿Quién está detrás de Vitergy?
+            </h2>
             <div className="grid gap-6 md:grid-cols-2">
               {/* Card 1: Víctor */}
               <div className="flex items-center gap-6 rounded-2xl border border-white/10 bg-white/5 p-6 md:gap-8 md:p-8">
@@ -625,12 +672,12 @@ export default function Home() {
       <section id="como-funciona" className="bg-[#fefefe] px-6 py-24 md:py-32">
         <div className="mx-auto max-w-6xl">
           <div className="mb-16 text-center">
-            <p className="mb-4 text-sm font-semibold tracking-wide text-[#f97316]">
-              Proceso
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight text-[#1f2942] md:text-5xl">
-              En un minuto sabes cuánto puedes ahorrar
+            <h2 className="mb-4 text-sm font-semibold tracking-wide text-[#f97316]">
+              ¿Cómo funciona la asesoría energética de Vitergy?
             </h2>
+            <p className="text-3xl font-bold tracking-tight text-[#1f2942] md:text-5xl">
+              En un minuto sabes cuánto puedes ahorrar
+            </p>
           </div>
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -652,12 +699,16 @@ export default function Home() {
       <section id="casos-reales" className="bg-white px-6 py-24">
         <div className="mx-auto max-w-6xl">
           <div className="mb-16 text-center">
-            <p className="mb-4 text-sm font-semibold tracking-wide text-[#f97316]">
-              Ejemplos típicos
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight text-[#1f2942] md:text-5xl">
-              Así se nota en una factura.
+            <h2 className="mb-4 text-sm font-semibold tracking-wide text-[#f97316]">
+              ¿Cuánto se puede ahorrar en la factura de la luz?
             </h2>
+            <p className="text-3xl font-bold tracking-tight text-[#1f2942] md:text-5xl">
+              Así se nota en una factura.
+            </p>
+            {/* «Ejemplos típicos» es obligatorio aquí (20-oct): estas cifras NO son casos documentados de clientes */}
+            <p className="mx-auto mt-4 max-w-xl text-base text-[#6b7280]">
+              Ejemplos típicos. La cifra de tu caso sale de tu propia factura, y la ves gratis en la calculadora.
+            </p>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-3">
@@ -700,19 +751,20 @@ export default function Home() {
       <section className="bg-white px-6 py-24 md:py-32">
         <div className="mx-auto max-w-3xl">
           <div className="mb-16 text-center">
-            <p className="mb-4 text-sm font-semibold tracking-wide text-[#f97316]">
-              Preguntas frecuentes
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight text-[#1f2942] md:text-5xl">
-              Todo lo que necesitas saber
+            <h2 className="mb-4 text-sm font-semibold tracking-wide text-[#f97316]">
+              Preguntas frecuentes sobre la asesoría energética
             </h2>
+            <p className="text-3xl font-bold tracking-tight text-[#1f2942] md:text-5xl">
+              Todo lo que necesitas saber
+            </p>
           </div>
 
           <div className="space-y-0 divide-y divide-gray-100">
             {faqs.map((faq) => (
               <details key={faq.question} className="group py-6">
                 <summary className="flex cursor-pointer list-none items-center justify-between text-lg font-semibold text-[#1f2942] transition hover:text-[#f97316]">
-                  {faq.question}
+                  {/* Cada pregunta es un H3 (las IA y Google leen las preguntas como encabezados) */}
+                  <h3>{faq.question}</h3>
                   <svg
                     className="h-5 w-5 shrink-0 text-[#6b7280] transition-transform duration-300 group-open:rotate-180"
                     fill="none"
@@ -774,7 +826,11 @@ export default function Home() {
           <h2 className="text-3xl font-bold tracking-tight text-[#1f2942] md:text-5xl">
             Deja de pagar de más hoy mismo
           </h2>
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-[#6b7280]">
+          {/* Motivo honesto para actuar ya (auditoría 6-nov): nada de plazas limitadas ni contadores */}
+          <p className="mx-auto mt-6 max-w-xl text-lg font-medium leading-relaxed text-[#1f2942]">
+            Cada mes con una tarifa o una potencia que no encajan con tu consumo es dinero que no recuperas.
+          </p>
+          <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-[#6b7280]">
             Sube tu factura y en un minuto ves cuánto puedes ahorrar, sin dejar
             tus datos. Si quieres, Víctor te llama en menos de 24 horas laborables.
           </p>
@@ -835,6 +891,14 @@ export default function Home() {
                 sameAs: [
                   "https://es.wikipedia.org/wiki/Comercializaci%C3%B3n_de_energ%C3%ADa_el%C3%A9ctrica",
                   "https://www.wikidata.org/wiki/Q2356921",
+                ],
+              },
+              {
+                "@type": "Thing",
+                name: "Mercado eléctrico de España",
+                sameAs: [
+                  "https://es.wikipedia.org/wiki/Mercado_el%C3%A9ctrico_de_Espa%C3%B1a",
+                  "https://www.wikidata.org/wiki/Q5489120",
                 ],
               },
               {
