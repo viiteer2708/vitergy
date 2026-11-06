@@ -136,9 +136,11 @@ export default async function Home() {
   const ultimosArticulos = todosLosArticulos().slice(0, 3);
   // Misma petición que la sección de reseñas (fetch cacheado un día): una sola llamada a Google.
   const ficha = await fichaGoogle();
-  const notaGoogle = ficha?.nota
-    ? ficha.nota.toLocaleString("es-ES", { minimumFractionDigits: 1, maximumFractionDigits: 1 })
-    : null;
+  // Misma condición que ResenasGoogle: si la sección #resenas no se pinta, la nota del hero tampoco (enlace muerto).
+  const notaGoogle =
+    ficha?.nota && ficha.resenas.length > 0
+      ? ficha.nota.toLocaleString("es-ES", { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+      : null;
 
   return (
     <>

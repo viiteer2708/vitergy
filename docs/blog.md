@@ -96,6 +96,17 @@ Conexiones propuestas por el arquitecto y montadas el 26-sep-2026 (ver `mejoras.
 | Fichas invisibles (JSON-LD) | layout: `WebSite` + `Person` (`@id` `https://vitergy.es/sobre-mi#victor-marron`) | Home (`LocalBusiness.founder`), `/sobre-mi` y los artículos apuntan al mismo `@id`. |
 | Idioma | `<html lang="es">` | — |
 | Imagen de tarjeta | `public/og.png` (1200×630) | Ya existía; no hace falta `opengraph-image.tsx`. |
+| Ficha `WebPage` de la portada | [src/app/page.tsx](../src/app/page.tsx) | Autor (`@id` de Víctor), `dateModified` y temas (`about`/`mentions`). **Cada entidad se comprueba antes** en la API de Wikipedia (`https://es.wikipedia.org/api/rest_v1/page/summary/<título>` devuelve la URL canónica y el Q de Wikidata); nunca de memoria. |
+| Fecha de la portada | [src/lib/fechas-contenido.ts](../src/lib/fechas-contenido.ts) | `FECHA_PORTADA` la leen el sitemap y la ficha `WebPage`. **Súbela cuando cambien los textos de la portada** (no por tocar código o estilos). |
+| Resumen para IA (`llms.txt`) | [public/llms.txt](../public/llms.txt) | Resumen de la web + páginas clave con una frase cada una, solo con frases ya publicadas. **Añade ahí cada página clave nueva**, igual que en el sitemap. |
+| Cabeceras de seguridad | [next.config.ts](../next.config.ts) → `headers()` | nosniff, `X-Frame-Options`, `Referrer-Policy` y una CSP **mínima a propósito** (`frame-ancestors`, `object-src`, `base-uri`). No añadas `script-src` sin leer el aviso de Vercel sobre la CSP y el nonce: en producción rompería la web. HSTS lo pone Vercel. |
+
+### Encabezados de la portada (auditoría SEO del 6-nov-2026)
+
+- Un solo H1 y sin saltos de nivel (nada de H4 para dar estilo: usa `<p>`).
+- **Los H2 son preguntas reales** («¿Qué hace un asesor energético independiente?»). Truco para no tocar el diseño, el mismo que el H1: la pregunta va como antetítulo pequeño en `<h2>` y la frase de marca sigue grande como `<p>`.
+- Las preguntas del FAQ son `<h3>` dentro del `<summary>`; el array `faqs` alimenta a la vez la sección y la ficha `FAQPage`.
+- Falsos positivos de esa auditoría que no hay que «arreglar»: «imagen principal con lazy» (el hero no tiene imagen; la foto de Víctor está muy abajo), «nombres de imagen genéricos» (avatares de Google), faltas en reseñas (son reales, no se editan) y «fechas futuras» (el auditor creía que 2026 era futuro).
 
 ## Piezas compartidas
 
