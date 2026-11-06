@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TITULAR } from "@/components/LegalDoc";
 
 const serviciosLinks = [
   { label: "Consultoría Energética", href: "/consultoria-energetica" },
@@ -143,7 +144,8 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="mt-14 border-t border-gray-200 pt-8 text-center text-xs">
-          © 2026 Vitergy — Por encima del techo del cielo SL. Todos los derechos reservados.
+          {/* Solo razón social y NIF (ya publicados en /legal). La calle NO: la web es 100% online (CLAUDE.md, trampa 5). */}
+          © 2026 Vitergy — {TITULAR.razonSocial} · NIF {TITULAR.nif}. Todos los derechos reservados.
         </div>
       </div>
     </footer>

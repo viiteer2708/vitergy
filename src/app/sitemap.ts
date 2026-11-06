@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { todosLosArticulos } from '@/lib/blog'
+import { FECHA_PORTADA } from '@/lib/fechas-contenido'
 
 // Se regenera cada hora: los artículos programados entran solos el día de su fecha.
 export const revalidate = 3600
@@ -10,7 +11,7 @@ export const revalidate = 3600
 // Actualiza la fecha del grupo cuando toques su contenido.
 const F = {
   base: new Date('2026-10-20'),            // textos de venta unificados (auditoría 20-oct; el sitio se creó el 05-jul)
-  home: new Date('2026-10-20'),            // textos de venta unificados (auditoría 20-oct)
+  home: new Date(FECHA_PORTADA),           // src/lib/fechas-contenido.ts (la comparte con la ficha WebPage de la portada)
   contacto: new Date('2026-10-20'),        // textos de venta y calculadora (auditoría 20-oct)
   grandesConsumos: new Date('2026-10-20'), // textos de venta unificados (auditoría 20-oct)
   legales: new Date('2026-09-27'),         // test de la factura: datos, cookie de sesión y Supabase

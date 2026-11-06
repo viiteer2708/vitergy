@@ -203,7 +203,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 border-b border-gray-100 bg-white">
+      <header className="sticky top-0 z-50 border-b border-gray-100 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between md:h-24">
             {/* Logo */}
@@ -226,7 +226,7 @@ export default function Navbar() {
             </Link>
 
             {/* Desktop menu */}
-            <div className="hidden items-center gap-1 md:flex">
+            <nav aria-label="Menú principal" className="hidden items-center gap-1 md:flex">
               {/* Servicios dropdown */}
               <div className="group relative">
                 <button className="rounded-lg px-4 py-2 text-sm font-normal text-gray-600 hover:text-gray-900">
@@ -308,7 +308,7 @@ export default function Navbar() {
               >
                 Calcular mi ahorro
               </Link>
-            </div>
+            </nav>
 
             {/* Hamburger button */}
             <button
@@ -328,7 +328,7 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-      </nav>
+      </header>
 
       {/* Mobile menu portaled to body to escape backdrop-filter stacking context */}
       {mobileOpen && (

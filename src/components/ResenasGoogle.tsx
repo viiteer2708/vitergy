@@ -1,3 +1,4 @@
+import { prefetchDNS } from "react-dom";
 import { fichaGoogle } from "@/lib/resenas-google";
 import ResenasCarrusel, { Estrellas, LogoGoogle } from "./ResenasCarrusel";
 
@@ -7,6 +8,8 @@ import ResenasCarrusel, { Estrellas, LogoGoogle } from "./ResenasCarrusel";
 export default async function ResenasGoogle() {
   const ficha = await fichaGoogle();
   if (!ficha || ficha.resenas.length === 0) return null;
+  // Las fotos de quien reseña vienen de lh3.googleusercontent.com: React pone el aviso DNS en el <head>.
+  prefetchDNS("https://lh3.googleusercontent.com");
   const nota = ficha.nota.toLocaleString("es-ES", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
   const valorar = `https://search.google.com/local/writereview?placeid=${encodeURIComponent(ficha.lugar)}`;
 

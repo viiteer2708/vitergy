@@ -18,7 +18,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://vitergy.es"),
-  title: "Vitergy | Asesoría Energética en Molins de Rei · Ahorra en tu Factura",
+  // Lo hereda solo la portada (el resto de páginas declara el suyo). ≤60 caracteres: Google corta los largos.
+  title: "Asesoría Energética Independiente en Molins de Rei | Vitergy",
   description:
     "Asesor energético independiente en Molins de Rei. Analizamos tu factura de luz gratis. Hasta 20.000 €/año ahorrados a un solo cliente. +400 clientes en cartera.",
   icons: {
@@ -93,6 +94,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* Para quien navega con teclado: salta el menú. Invisible hasta que recibe el foco. */}
+        <a
+          href="#contenido"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-[#1f2942] focus:shadow-lg"
+        >
+          Saltar al contenido
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSitio) }}
@@ -101,7 +109,7 @@ export default function RootLayout({
         <MarcoWeb>
           <Navbar />
         </MarcoWeb>
-        <main>{children}</main>
+        <main id="contenido">{children}</main>
         <MarcoWeb>
           <Footer />
 

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ResenasGoogle from "@/components/ResenasGoogle";
 import { fechaLarga, todosLosArticulos } from "@/lib/blog";
+import { FECHA_PORTADA } from "@/lib/fechas-contenido";
 
 // Título, descripción y tarjeta al compartir vienen del layout; aquí solo la dirección oficial.
 export const metadata: Metadata = {
@@ -179,7 +180,7 @@ export default function Home() {
             <div className="grid grid-cols-1 gap-4 p-4 md:grid-cols-3 lg:gap-6">
               {/* Left: current bill */}
               <div className="rounded-xl border border-gray-100 bg-gray-50 p-5">
-                <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-[#6b7280]">Tu factura actual</h4>
+                <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-[#6b7280]">Tu factura actual</p>
                 <div className="mb-6 flex items-end gap-2">
                   <span className="text-4xl font-bold text-[#1f2942]">€342</span>
                   <span className="mb-1 text-sm text-[#6b7280]">/mes</span>
@@ -199,7 +200,7 @@ export default function Home() {
                 <div className="relative flex h-40 flex-col justify-between overflow-hidden rounded-xl border border-orange-100 bg-orange-50 p-5">
                   <div className="relative z-10 flex items-start justify-between">
                     <div>
-                      <h4 className="mb-1 text-sm font-semibold text-[#f97316]">Proyección Optimizada</h4>
+                      <p className="mb-1 text-sm font-semibold text-[#f97316]">Proyección Optimizada</p>
                       <span className="text-2xl font-bold text-[#1f2942]">€198<span className="text-sm font-normal text-[#6b7280]">/mes</span></span>
                     </div>
                     <div className="flex items-center gap-1 rounded-full bg-white px-3 py-1 text-xs font-bold text-green-600 shadow-sm">
@@ -792,6 +793,62 @@ export default function Home() {
       </section>
 
       {/* ─── Schema Markup ─── */}
+      {/* La página en sí: de quién es, cuándo cambió y de qué habla. Las entidades de about/mentions están
+          comprobadas en Wikipedia/Wikidata (6-nov-2026): no añadas ninguna sin comprobar que existe. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": "https://vitergy.es/#webpage",
+            url: "https://vitergy.es",
+            name: "Asesoría Energética Independiente en Molins de Rei | Vitergy",
+            description:
+              "Asesoría energética independiente: comparamos tu factura de la luz con cientos de ofertas de más de 40 compañías y te decimos cuánto ahorras. Atención 100% online en toda España.",
+            inLanguage: "es-ES",
+            isPartOf: { "@id": "https://vitergy.es/#web" },
+            author: { "@id": "https://vitergy.es/sobre-mi#victor-marron" },
+            dateModified: FECHA_PORTADA,
+            about: [
+              {
+                "@type": "Thing",
+                name: "Precios de la electricidad",
+                sameAs: [
+                  "https://es.wikipedia.org/wiki/Precios_de_la_electricidad",
+                  "https://www.wikidata.org/wiki/Q870344",
+                ],
+              },
+              {
+                "@type": "Thing",
+                name: "Eficiencia energética",
+                sameAs: [
+                  "https://es.wikipedia.org/wiki/Eficiencia_energ%C3%A9tica",
+                  "https://www.wikidata.org/wiki/Q924713",
+                ],
+              },
+            ],
+            mentions: [
+              {
+                "@type": "Thing",
+                name: "Comercialización de energía eléctrica",
+                sameAs: [
+                  "https://es.wikipedia.org/wiki/Comercializaci%C3%B3n_de_energ%C3%ADa_el%C3%A9ctrica",
+                  "https://www.wikidata.org/wiki/Q2356921",
+                ],
+              },
+              {
+                "@type": "Thing",
+                name: "Potencia eléctrica",
+                sameAs: [
+                  "https://es.wikipedia.org/wiki/Potencia_el%C3%A9ctrica",
+                  "https://www.wikidata.org/wiki/Q27137",
+                ],
+              },
+            ],
+          }),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
