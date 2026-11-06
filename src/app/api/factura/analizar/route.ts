@@ -132,7 +132,11 @@ async function llamarGemini(
         ],
         generationConfig: {
           temperature: 0,
-          maxOutputTokens: 2048,
+          // OJO (6-nov-2026): en los Gemini «que piensan» el pensamiento sale del MISMO cupo que la respuesta.
+          // Con 2048 de cupo, una factura real se comía ~1.200-2.000 pensando y el JSON salía cortado
+          // (finishReason MAX_TOKENS) → «No hemos podido leer tu factura». Cupo holgado + pensamiento acotado.
+          maxOutputTokens: 8192,
+          thinkingConfig: { thinkingBudget: 2048 },
           responseMimeType: "application/json",
           responseSchema: RESPONSE_SCHEMA,
         },
@@ -140,6 +144,39 @@ async function llamarGemini(
       signal: AbortSignal.timeout(45_000),
     }
   );
+}
+
+interface Leido {
+  texto: string;
+  finishReason: string | null;
+  uso: unknown;
+}
+
+async function leerRespuesta(res: Response): Promise<Leido> {
+  const data = await res.json().catch(() => null);
+  const c = data?.candidates?.[0];
+  return {
+    texto:
+      c?.content?.parts?.map((p: { text?: string }) => p.text ?? "").join("") ?? "",
+    finishReason: typeof c?.finishReason === "string" ? c.finishReason : null,
+    uso: data?.usageMetadata ?? null,
+  };
+}
+
+function jsonDe(texto: string): Record<string, unknown> | null {
+  try {
+    const v = JSON.parse(texto);
+    return v && typeof v === "object" && !Array.isArray(v) ? (v as Record<string, unknown>) : null;
+  } catch {
+    return null;
+  }
+}
+
+// Para el registro: el MOTIVO del fallo (finishReason + tokens) y el final del texto, que es donde se corta.
+function resumenFallo(l: Leido): string {
+  return `finishReason=${l.finishReason ?? "?"} uso=${JSON.stringify(l.uso)} final=${JSON.stringify(
+    l.texto.slice(-150)
+  )}`;
 }
 
 function normalizarPeaje(raw: unknown): string | null {
@@ -291,18 +328,22 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: ERROR_GENERICO }, { status: 502 });
     }
 
-    const data = await res.json();
-    const texto: string =
-      data?.candidates?.[0]?.content?.parts
-        ?.map((p: { text?: string }) => p.text ?? "")
-        .join("") ?? "";
-
-    let extraido: Record<string, unknown>;
-    try {
-      extraido = JSON.parse(texto);
-    } catch {
-      console.error("[factura] Gemini no devolvió JSON válido:", texto.slice(0, 300));
-      return NextResponse.json({ error: ERROR_GENERICO }, { status: 502 });
+    let leido = await leerRespuesta(res);
+    let extraido = jsonDe(leido.texto);
+    if (!extraido) {
+      // Respuesta 200 pero inservible (p. ej. cortada por MAX_TOKENS): un reintento con el de reserva.
+      console.error(`[factura] Respuesta no válida (1.er intento): ${resumenFallo(leido)}`);
+      const res2 = await llamarGemini(apiKey, MODELO_FALLBACK, mimeType, base64);
+      if (res2.ok) {
+        leido = await leerRespuesta(res2);
+        extraido = jsonDe(leido.texto);
+      }
+      if (!extraido) {
+        console.error(
+          `[factura] Respuesta no válida (reintento ${MODELO_FALLBACK}, HTTP ${res2.status}): ${resumenFallo(leido)}`
+        );
+        return NextResponse.json({ error: ERROR_GENERICO }, { status: 502 });
+      }
     }
 
     const num = (v: unknown): number | null =>
